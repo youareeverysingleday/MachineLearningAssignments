@@ -4,7 +4,7 @@
 /checkpoint/
 /tf_logs/
 /test/
-/refer/
+/otherRefer/
 ##只包含哪些结尾的文件
 !*.ipynb
 !*.csv
