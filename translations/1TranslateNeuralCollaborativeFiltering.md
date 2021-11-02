@@ -80,6 +80,8 @@
 
 ### 2.1 从隐性数据学习
 
+**github上无法正常显示LaTex的公式，使用Chrome的GitHub Math Display即可正常显示。另外说明一点MathJax Plugin for Github插件并不好用，不能正确显示下文中的多行公式。**  
+
 设$M$和$N$分别表示用户们和物品的数量。我们从用户的隐性反馈中定义user-item交互矩阵为$Y\in R^{M\times N}$。如（这个Y我理解上就是数据的标签。）
 $$y_{ui}=\begin{cases}
 1 &\text{if interaction(user u, item i)is  observed;}\\
