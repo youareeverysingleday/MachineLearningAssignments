@@ -71,11 +71,6 @@
 
 ## 2. 准备工作（preliminaries）
 
-|编号|英语|中文|理解|
-|---|---|---|---|
-|||||
-|||||
-
 我们首先将问题进行了形式化处理，并且讨论现有隐性反馈的协同过滤解决方案。然后我们简要的概述了广泛使用的MF模型，凸显（highlighting）了他因为使用内积而造成的局限性（limitation）。
 
 ### 2.1 从隐性数据学习
@@ -88,3 +83,34 @@ $$y_{ui}=\begin{cases}
 0 &\text{otherwise.}
 \end{cases} \tag{1}
 $$
+
+这里的$y_{ui}$值为1的时候表示user $u$和item $i$之间存在一次交互；然而这并不意味着u真的喜欢i。类似的，值为0页并不代表u不喜欢i，值为0可能表示user不知道item的存在。这也导致了从隐性数据进行学习的挑战，因为隐性数据只提供了用户偏好的噪声信号（only noisy signals about users' preference）。虽然观察到来的条目（entries）至少反映了用户对该item感兴趣，但是没有观察到的条目有可能只是数据缺失，并且负面反馈存在天然稀缺性。
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|underlying model|潜在模型或者基础模型|还不太理解|
+|2|pointwise loss|单点损失|pointwise和pairwise都是对物品偏好程度的平方方法。单点主要是对单一物品评分的拟合，注重对评分的拟合程度。|
+|3|pairwise loss|双点损失|而pairwise可能的操作方式是先选择一些没有被购买的item作为负样本，然后将已经购买的作为正样本。这样计算两种样本之间的差值。也就是说pairwise更关注的是pair样本之间的关系。|
+|4|listwise loss|列表损失|本文中目前还没有出现这种loss，这里只是做一点扩展。|
+
+在隐性反馈的推荐系统中存在的问题被描述为估计（estimation）$Y$中未观察到的条目的分值（scores）的问题，这个分数用于对条目进行排序。model-based方法假定数据能够通过一个深层模型（underlying model）来生成（或者被描述）。形式上，他们能被$\hat y_{ui} = f(u,i|\Theta)$，其中$\hat y_{ui}$表示交互$y_{ui}$的预测分数（pridicted score），$\Theta$表示为模型的多个参数（model parameters），$f$表示将模型多个参数映射到预测值的的函数（我们将其称为一个交互函数（an interaction function））。
+
+为了估计参数$\Theta$，现有的方法遵循优化一个目标函数的机器学习范式。文献中常用目标函数有两种：pointwise loss和pairwise loss。作为显性反馈评估的自然延伸，pointwise learning通常按照回归框架，通过求$\hat y_{ui}$和目标值$y_{ui}$之间的平方损失（squared loss）的最小值来实现。为了处理负面评价数据的缺失（absence of negative data），他们要么将所有未观察到的entries视为负反馈，要么从未观察到的entries中进行抽样负面实例（negative instances）作为负反馈（这句话的意思就是如何提取负反馈的方法，二选一：要么将所有的非正反馈都视作负反馈，要么从所有的非正样本中抽样一部分作为负样本）。对于pairwise learning而言，其出发点是观察到的条目的评级应该比未观察到的条目搞。因此，pairwise learning通过求观察到的条目的$\hat y_{ui}$和未观察到条目的$\hat y_{ui}$之间的最大幅值（maximizes the margin）来代替求$\hat y_{ui}$和$y_{ui}$之间的最小化损失。
+
+我们向前进了一步，我们的NCF框架使用神经网络参数化交互函数$f$来估计$\hat y_{ui}$的。因此，NCF框架天然支持pointwise和pairwise learning。
+
+### 2.2 矩阵分解
+
+MF把每个user和item的隐性特征真实值向量相互关联。设$p_u$和$q_i$分别表示user u和item i的隐性向量；MF将预估一个交互$y_{ui}$为$p_u$和$q_i$的内积。
+$$\hat y_{ui}=f(u,i|p_u, q_i) = p_u^T q_i=\sum \limits_{k=1}^K p_{uk}q_{ik}, \tag{2}$$  
+当$K$表示隐性空间的维度（dimension）。如我们所见，MF对user和item之间的双向交互（two-way interaction）进行了建模，假设隐性空间的每个维度之间彼此独立，并且以相同的权重线性组合。因此MF可视为隐性因素的线性模型。
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|ground truth similarity|真实值。一词指的是训练集对监督学习技术的分类的准确性。这在统计模型中被用来证明或否定研究假设。|[参考](https://blog.csdn.net/qq_15150903/article/details/84789591)|
+|2|jaccard coefficient|Jaccard相似系数。用于比较有限样本集之间的相似性与差异性。**Jaccard系数值越大，样本相似度越高**。|[参考](https://baike.baidu.com/item/Jaccard%E7%B3%BB%E6%95%B0/6784913?fr=aladdin)|
+
+图1：说明MF局限性的一个例子。根据数据矩阵（data matrix）(a)$u_1$和$u_4$最相似，其次值$u_3$，最后是$u_2$。然而，在隐性空间b中，将$p_4$放在距离$p_1$最近的位置会使得$p_4$比$p_3$更靠近$p_2$，从而导致巨大的排名损失。
+
+图1说明了内积函数（inner product function）如何限制MF的表达能力的。为了更好的理解示例，有两种设置需要事先明确说明。首先，由于MF将users和items映射到了同一个隐性空间，因此两个用户之间的相关性（similarity）也可以通过内积或者等式(2)来度量，内积是两个用户隐性向量之间夹角的余弦。第二，在不丧失一般性的情况下，我们使用jaccard系数作为衡量MF需要恢复的两个用户之间真实相似程度的评判标准。
+
