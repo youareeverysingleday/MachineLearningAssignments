@@ -109,9 +109,31 @@ $$\hat y_{ui}=f(u,i|p_u, q_i) = p_u^T q_i=\sum \limits_{k=1}^K p_{uk}q_{ik}, \ta
 |---|---|---|---|
 |1|ground truth similarity|真实值。一词指的是训练集对监督学习技术的分类的准确性。这在统计模型中被用来证明或否定研究假设。|[参考](https://blog.csdn.net/qq_15150903/article/details/84789591)|
 |2|jaccard coefficient|Jaccard相似系数。用于比较有限样本集之间的相似性与差异性。**Jaccard系数值越大，样本相似度越高**。|[参考](https://baike.baidu.com/item/Jaccard%E7%B3%BB%E6%95%B0/6784913?fr=aladdin)|
+|3|note|注意到|这里翻译为注意到比较合适。如果翻译为指出，好像和后面有点对不上。|
 
-![avatar](/pictures/1TranslateNeuralCollaborativeFiltering_Figure1.png)
+![avatar](/pictures/1TranslateNeuralCollaborativeFiltering_Figure1.png)  
 图1：说明MF局限性的一个例子。根据数据矩阵（data matrix）(a)$u_1$和$u_4$最相似，其次值$u_3$，最后是$u_2$。然而，在隐性空间b中，将$p_4$放在距离$p_1$最近的位置会使得$p_4$比$p_3$更靠近$p_2$，从而导致巨大的排名损失。
 
-图1说明了内积函数（inner product function）如何限制MF的表达能力的。为了更好的理解示例，有两种设置需要事先明确说明。首先，由于MF将users和items映射到了同一个隐性空间，因此两个用户之间的相关性（similarity）也可以通过内积或者等式(2)来度量，内积是两个用户隐性向量之间夹角的余弦。第二，在不丧失一般性的情况下，我们使用jaccard系数作为衡量MF需要恢复的两个用户之间真实相似程度的评判标准。
+图1说明了内积函数（inner product function）如何限制MF的表达能力的。为了更好的理解示例，有两种设置需要事先明确说明。首先，由于MF将users和items映射到了同一个隐性空间，因此两个用户之间的相关性（similarity）也可以通过内积或者等式(2)来度量，内积是两个用户隐性向量之间夹角的余弦。第二，在不丧失一般性的情况下，我们使用**jaccard系数作为衡量MF需要恢复的两个用户之间真实相似程度的评判标准**。
+
+$$
+\text{Use Jaccard coefficient to calculate similarity} \\
+\text{given two sets A and B, Jaccard coefficient is defined as follows :} \\
+J(A,B) = \frac{A\cap B}{A \cup B} = \frac{A\cap B}{|A| + |B| - |A\cap B|}
+$$
+
+让我们首先聚焦于图1a的前3行。容易得到$s_{23}(0.66)>s_{12}(0.5)>s_{13}(0.4)$。同样的，$p_1$、$p_2$和$p_3$在隐性空间之间的几何关系能被绘制如图1b所示。现在，让我们考虑一个新user $u_4$，其输入如图1a中虚线所示。我们能得到$s_{41}(0.6)>s_{43}(0.4)>s_{42}(0.2)$，这意味着$u_4$和$u_1$最相似，其次和$u_3$，最后是$u_2$。然而，如果一个MF模型将$p_4$放在最靠近$p_1$的位置（如图1b中两个虚线显示了2个选择），这将导致$p_4$将比$p_3$更靠近$p_2$，不幸的是这将导致巨大的ranking loss。
+
+在上面的例子中显示了MF可能的局限性，这种局限性是由于在低维隐性空间（low-dimensional latent space）中使用简单和固定的内积来估计复杂的user-item交互关系导致的。我们注意到（note）一种途径来解决这个问题。这个途径是使用大数据量的隐性特征$K$（这是不是意味着其实并没有从方法上来解决这个问题，而是通过巨大的数据量来冲淡了这个问题的影响？）。尽管这种方法可能会对模型通用性（generalization）产生不利影响（比如：对特定数据过拟合（overfitting the data）），特别是在稀疏设置中（可能是在稀疏的数据的情况下）。在本工作中，**我们通过从数据使用DNNs学习交互函数来应对该局限性**。
+
+## 3. 神经协同过滤
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|binary property|/|/|
+|||||
+|||||
+|||||
+
+我们首先提出通用NCF框架，详细阐述了如何使用概率模型来获得（learn）NCF，其中概率模型强调隐性数据的二进制属性（that emphasizes the binary property of implicit data）。随后我们证明了MF可以用NCF表示和概括（expressed and generalized）。为了研究用于协同过滤的DNN，随之我们列举了一个NCF的实例，使用多层感知器（a multi-layer perceptron）来学习user-item的交互函数。最后，我们提出一个新的神经矩阵分解模型，该模型在NCF框架下集成了MF和MLP；它结合了MF的线性和MLP的非线性的优点来对user-item隐性结构建模。
 
