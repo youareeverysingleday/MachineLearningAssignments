@@ -130,10 +130,28 @@ $$
 
 |编号|英语|中文|理解|
 |---|---|---|---|
-|1|binary property|/|/|
-|||||
-|||||
-|||||
+|1|binary property|二值化属性|还不理解是什么意思。|
+|2|margin-based loss|基于边缘的损失|和后面的ranking loss好像是同一个事物的不同名字或者表现。[参考，这里面说了和ranking loss的关系，说margin loss只是ranking loss的另外一种表现形式](https://zhuanlan.zhihu.com/p/158853633)|
+|3|bayesian personalized ranking|rangking loss，在训练集上使用ranking loss函数是非常灵活的，我们只需要一个可以衡量数据点之间的相似度度量就可以使用这个损失函数了。这个度量可以是二值的（相似/不相似）。比如，在一个人脸验证数据集上，我们可以度量某个两张脸是否属于同一个人（相似）或者不属于同一个人（不相似）。这样就和前面的Jaccard系数联系起来了。注意这里使用的是pairwise loss。|[参考](https://zhuanlan.zhihu.com/p/158853633)|
 
 我们首先提出通用NCF框架，详细阐述了如何使用概率模型来获得（learn）NCF，其中概率模型强调隐性数据的二进制属性（that emphasizes the binary property of implicit data）。随后我们证明了MF可以用NCF表示和概括（expressed and generalized）。为了研究用于协同过滤的DNN，随之我们列举了一个NCF的实例，使用多层感知器（a multi-layer perceptron）来学习user-item的交互函数。最后，我们提出一个新的神经矩阵分解模型，该模型在NCF框架下集成了MF和MLP；它结合了MF的线性和MLP的非线性的优点来对user-item隐性结构建模。
 
+### 3.1 通用框架
+
+![avatar](/pictures/1TranslateNeuralCollaborativeFiltering_Figure2.png)  
+
+为了得到一个全神经化的协同过滤方法，我们采用多层结构（multilayer representation）来对user-item交互$y_ui$进行建模，如图2所示，其中一层的输出作为下一层的输入。底部的输入层由两个特征向量$v_u^U$和$v_i^I$组层，它们分别描述了user $u$和item $i$，为了支持各种各样的users和items类型，可以对user $u$和item $i$进行改造（can be customized）以适应各种应用场景。诸如上下文感知（context-aware）、基于内容的方法（content-based）、基于邻居的方法（neighbor-based）。由于本工作的重点在于单纯的协同过滤环境（collaborative filtering setting），因此我们仅使user和item的标识（identity）作为输出特征，通过一个独热编码（one-hot encoding）将其转换为一个二值化的稀疏向量。需要注意的是，~~使用这种通用特征标识，~~（这句话感觉和后面的重复了）我们的方法通过使用内容特征来表示user和item，能够非常容易的调整以解决冷启动的问题。
+
+在输入层之上是嵌入层（embedding layer），它是一个全连接层，它将稀疏表示的向量映射到一个稠密向量上。所得到的user(item)嵌入向量可以视为在隐性特征模型语境（in the context of latent factor model）中的user(item)隐性向量。然后，user embedding和item embedding将会输入到一个多层神经体系中，以上我们称其为神经协同过滤层。神经协同过滤层的作用就是用隐性向量来预测分数（to map the latent vectors to prediction scores）。神经协同过滤层（神经同过滤层包含有多层）的每一层都可以进行调整，用以发现user-item交互之中确定的隐性结构（certain latent structures of user-item interactions）。最后的隐藏层$X$的维度决定了模型的能力。最终输出层用于预测分数$\hat y_{ui}$，通过计算$\hat y_{ui}$和$y_{ui}$之间的pointwise loss最小化作为目标函数来进行训练。我们注意到有另外的途径使用pairwise learning来训练模型，这种途径诸如bayesian personalized ranking和margin-based loss。由于本文的重点是神经网络建模部分，所以我们将不会展开讨论NCF在pairwise learning上的情况（we leave the extension to pairwise learning of NCF as a future work）。
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|||||
+|||||
+|||||
+|||||
+
+我们将NCF预测模型形式化的定义为：
+$$\hat y_{ui}=f(P^T v_u^U, Q^T v_i^I|P,Q,\Theta_f) \tag{3}$$
+其中$P\in R^{M \times K}$且$Q\in R^{N \times K}$，分别表示了user和item的隐性特征矩阵；$\Theta_f$表示了模型交互函数$f$的模型参数。由于函数$f$被定义为一个多层神经网络，因此$f$可以形式化定义为：
+$$f(P^T v_u^U, Q^T v_i^I)=\phi_{out}(\phi_X(...\phi_2(\phi_1(P^T v_u^U, Q^T v_i^I))...)) \tag{4}$$
