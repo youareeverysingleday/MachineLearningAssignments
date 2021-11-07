@@ -21,10 +21,10 @@
 |6|state of the art|传说中的SOTA|重大改进和显著提高|
 |7|matrix factorization, MF|矩阵分解|把矩阵A分解为矩阵U和V的乘积。[参考](https://blog.csdn.net/u014595019/article/details/80586438)|
 |8|empirical evidence|实验证据表明|有些地方把它翻译为“经验表明”，这里理解为实验表明。|
-
+|9|item|物品|对不同的环境特指的是不同与用户交互的物品。比如在电商领域，这就指的是商品。一般性的翻译为物品。|
 
 在最近几年，深度神经网络已经在语音识别、计算机视觉和自然语言处理领域取得的巨大的成功。然而，深度神经网络在推荐系统的探索较少的受到关注（scrutiny）。在这个工作中，我们努力开发了基于神经网络的技术来处理推荐系统中的关键问题——协同过滤——在隐性反馈（implicit feedback）的基础上。  
-尽管最近有些工作已经在推荐系统中使用了深度学习，他们主要使用它去模拟辅助信息，诸如对象（item）的文字描述和音乐声纹特征。在分析用户和对象特征之间的交互作用时，虽然深度学习已经成为协同过滤模型的关键因素，它们仍然使用（resort）矩阵分解的方法，并对用户和对象的隐藏特征进行内积操作。  
+尽管最近有些工作已经在推荐系统中使用了深度学习，他们主要使用它去模拟辅助信息，诸如物品（item）的文字描述和音乐声纹特征。在分析用户和物品特征之间的交互作用时，虽然深度学习已经成为协同过滤模型的关键因素，它们仍然使用（resort）矩阵分解的方法，并对用户和物品的隐藏特征进行内积操作。  
 通过将内积替换为一个可以从数据中学习任意函数（arbitrary function）的神经结构，我们提出了一个名为：NCF的通用框架，NCF是基于神经网络的协同过滤的简称。NCF是通用的，并且再它的框架下NCF能表达、推广（express and generalize）矩阵分解。为了增强NCF模型在非线性情况下的表现，我们计划借助（leverage）多层感知机来学习用户项(item)交互函数。在两个真实数据集上的大量实验表明，与最先进的方法相比（state of the art）我们提出的NCF框架有了显著的提高（significant improvements）。实验证据表明（empirical evidence）使用更深层的神经网络可以提供更好的推荐性能。  
 
 关键词
@@ -47,7 +47,7 @@
 |11|interaction function|交互函数|通过偏置项这里的说明可以推断这个是交互函数，而不是交互功能。|
 |12|latent|隐性|这里统一一下，应该理解为“隐性”这种翻译，而不是“潜在”这种翻译。|
 
-在信息爆炸的时代，推荐系统在缓解信息过载扮演着关键作用，而且它已经在众多在线服务中广泛使用，比如电子商务、在线新闻和社交网站。个性化的推荐系统关键在于根据用户过去与对象（item）之间的互动（比如评分和点击）而表现出来的偏好进行建模，成为协同过滤。在各种协同过滤技术中，矩阵分解（MF）是最流行的一种，他将用户和对象的映射到一个共享隐性空间中，使用隐性特征向量来代表**一个**用户和**一个**对象。以后，用户和对象（item）的交互被做成它们隐性向量的内积模型。
+在信息爆炸的时代，推荐系统在缓解信息过载扮演着关键作用，而且它已经在众多在线服务中广泛使用，比如电子商务、在线新闻和社交网站。个性化的推荐系统关键在于根据用户过去与物品（item）之间的互动（比如评分和点击）而表现出来的偏好进行建模，成为协同过滤。在各种协同过滤技术中，矩阵分解（MF）是最流行的一种，他将用户和物品的映射到一个共享隐性空间中，使用隐性特征向量来代表**一个**用户和**一个**物品。以后，用户和物品（item）的交互被做成它们隐性向量的内积模型。
 
 通过Netfix奖的推广，矩阵分解已经成为事实上方法，~~这种方法是隐性因素model-based推荐系统的~~。许多研究工作致力于增强矩阵分解，例如将其MF和基于邻居（neighbor-based）的模型集成、将MF与item内容的主题模型（topic models）组合起来，并将MF扩展到分解机（factorization machines），以便于对通用的特征进行建模。尽管对于协同过滤而言MF是有效的，但众所周知，交互函数的内积（interaction function inner product）的简单选择（simple choice）会阻碍MF的性能。例如，对于显示反馈中的评分预测任务，大家都知道，MF模型的性能能通过将用户和item的偏置项包含到交互函数中得到提高。虽然它仅仅似乎只是对内积运算（inner product operator）一个细微的调整，但它指出了（points）对于如何设计更好、更专业的交互函数来模拟用户们和items之间的隐性特征交互达到更好的效果。内积只是简单线性组合隐性特征的乘法，它可能不能够很好的获取（capture，这里应该是获取或者体现的意思）用户交互数据的复杂结构。
 
@@ -144,14 +144,73 @@ $$
 
 在输入层之上是嵌入层（embedding layer），它是一个全连接层，它将稀疏表示的向量映射到一个稠密向量上。所得到的user(item)嵌入向量可以视为在隐性特征模型语境（in the context of latent factor model）中的user(item)隐性向量。然后，user embedding和item embedding将会输入到一个多层神经体系中，以上我们称其为神经协同过滤层。神经协同过滤层的作用就是用隐性向量来预测分数（to map the latent vectors to prediction scores）。神经协同过滤层（神经同过滤层包含有多层）的每一层都可以进行调整，用以发现user-item交互之中确定的隐性结构（certain latent structures of user-item interactions）。最后的隐藏层$X$的维度决定了模型的能力。最终输出层用于预测分数$\hat y_{ui}$，通过计算$\hat y_{ui}$和$y_{ui}$之间的pointwise loss最小化作为目标函数来进行训练。我们注意到有另外的途径使用pairwise learning来训练模型，这种途径诸如bayesian personalized ranking和margin-based loss。由于本文的重点是神经网络建模部分，所以我们将不会展开讨论NCF在pairwise learning上的情况（we leave the extension to pairwise learning of NCF as a future work）。
 
-|编号|英语|中文|理解|
-|---|---|---|---|
-|||||
-|||||
-|||||
-|||||
-
 我们将NCF预测模型形式化的定义为：
 $$\hat y_{ui}=f(P^T v_u^U, Q^T v_i^I|P,Q,\Theta_f) \tag{3}$$
 其中$P\in R^{M \times K}$且$Q\in R^{N \times K}$，分别表示了user和item的隐性特征矩阵；$\Theta_f$表示了模型交互函数$f$的模型参数。由于函数$f$被定义为一个多层神经网络，因此$f$可以形式化定义为：
 $$f(P^T v_u^U, Q^T v_i^I)=\phi_{out}(\phi_X(...\phi_2(\phi_1(P^T v_u^U, Q^T v_i^I))...)) \tag{4}$$
+其中$\phi_{out}$和$\phi_X$分别表示输出层和第x个神经协同过滤（CF）层的映射函数，这其中共有x个神经协同过滤层。
+
+#### 3.1.1 学习NCF
+
+为了学习模型参数，现有的pointwise方法主要使用平方损失进行的回归方法。
+$$L_{sqr}=\sum\limits_{(u,i)\in y \cup y^-} w_{ui}(y_{ui}-\hat{y}_{ui})^2 \tag{5}$$  
+其中$y$表示为在$Y$中的一组可见交互，$y^-$表示为一组负面实例，$y^-$可以是不可见交互的全部或者从其中抽样一部分；$w_{ui}$是一个超参数，用于表示训练实例$(u,i)$的权重。虽然squared loss能通过假定可见值符合高斯分布，但是我们指出，这种分布规律可能并不能与隐性数据的真实规律符合得很好（就是高斯分布和隐性数据的真实分布并不一致）。这是因为对于隐性数据，目标值$y_{ui}$是二值化的1和0，用以表示u和i是否交互。在下文中，我们提出了一种学习pointwise NCF的概率性的方法，该方法对隐性数据的二进制性质给予了特别的关注。  
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|one-class nature|不清楚如何翻译|/|
+|2|probabilistic function|概率函数|/|
+|3|likelihood function|似然函数|[参考](https://blog.csdn.net/caimouse/article/details/60142085)|
+|4|cross entropy loss|交叉熵|/|
+|5|log loss|对数损失|[参考](https://blog.csdn.net/laolu1573/article/details/82925747)[对数损失和交叉熵是一个东西](https://zhuanlan.zhihu.com/p/96798110)[对数损失的详细说明](http://neuralnetworksanddeeplearning.com/chap3.html#the_cross-entropy_cost_function)[各种损失函数说明](https://zhuanlan.zhihu.com/p/44216830)|
+|6|item popularity biased|物品受欢迎的偏好|对于非均匀抽样进行的一种策略，可还没有具体的查看文献14和12，猜测可能对有偏好的物品进行更多的抽样。|
+
+考虑到隐性反馈的one-class nature，我们可以将$y_{ui}$的值当做是一个标签：1表示item i和u有关，否则为0。预测分值$\hat y_{ui}$表示（represents）i和u相关的可能性（how likely i is relevant to u）。为了赋予NCF的输出这种概率解释，我们需要将输出值$\hat y_{ui}$的范围限制在$[0,1]$之间，这样我们就可以使用概率函数（probabilistic function）（诸如 logistic or probit function）来轻松实现输出层$\phi_{out}$的激活函数。通过上述设置，我们将似然函数定义如下：  
+$$p(y,y^-|P,Q,\Theta_f)=\prod_{(u,i)\in y}\hat y_{ui} \prod_{(u,i)\in y^-}(1-\hat y_{ui}) \tag{6}$$  
+取似然的负对数，我们得到（由于连乘不好计算，所以通过取对数将其转换为加法来进行计算）：  
+$$L =-\sum \limits_{(u,i)\in y} \log \hat y_{ui}-\sum \limits_{(u,i)\in y^-}\log (1-\hat y_{ui})\\
+ = -\sum\limits_{(u,i)\in y \cup y^-} y_{ui} \log \hat{y}_{ui} + (1-y_{ui}) \log{(1-\hat{y}_{ui})}\tag{7}$$  
+这种NCF方法中需要将目标函数的最小化，并且使用随机梯度下降（stochastic gradient descent, SGN）可以对其优化。细心的读者可能已经意识到，它与二进制交叉熵损失（也称为对数损失）是相同的。通过对NCF进行probabilistic treatment，我们将隐性反馈推荐作为一个二元分类问题来处理。由于在推荐系统的相关文献中，很少对classification aware的对数损失（log loss）进行研究，我们这本项工作中对其进行了探讨，并在第4.3节中通过实验证明了使用对数损失的有效性。对于负面样本$y^-$我们的采样策略为：在每轮迭代中，我们均匀的（uniformly）从未观察到的交互中进行采样，并且控制采样率为$w.r.t$为可以观察到的交互数量。虽然非均匀的（nonuniform）采样策略（例如，item受欢迎程度偏好（popularity biased））可能会进一步的提高性能（是不是这样表述说明了这项工作中已经考虑了偏好问题？），但是我们将这一样工作留给未来（读到这句换，是不是意味着没有考虑偏好对模型的影响？）。
+
+### 3.2 通用矩阵分解（GMF）
+
+我们现在将说明MF能被解释为我们NCF框架的一种特殊形式。MF是推荐系统中最受欢迎的一种模型，并且MF已经在各种文献中得到了广泛的研究。如果NCF能够完整的模拟MF的能力，那么也就意味着NCF能够完整的模型基于MF的这一系列的因子分解模型（这句话的主语有点没读懂到底是MF还是NCF，按语法来说应该是MF，但是感觉怪怪的。这样的翻译是根据自己对上下文的理解来做出的。原文：being able to recover it allows NCF to mimic a large family of factorization models）。  
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|identity function|恒等映射，恒等函数|对于任意输入$x$，都有$f(x)$使得$f(x)=x$，称为恒等映射或者恒等函数。[参考](https://blog.csdn.net/None_Pan/article/details/106394920)|
+
+由于在输入层对user（item）都进行了one-hot编码，获得的embedding vector可以被视为user(item)的隐性向量。设user latent vector $p_u$为$P^T v_u^U$，item latent vector $q_i$为$Q^T v_i^I$。我们定义第一个神经CF层的映射函数如下：
+$$\phi_1(p_u,q_i) = p_u \cdot q_i \tag{8}$$
+将$\cdot$定义为向量element-wise之间的乘积（where $\cdot$ denotes the element-wise product of vectors.）。我们将上述向量投影到输出层上：  
+$$\hat{y}_{ui} = a_{out}(h^T(p_u \cdot q_i)) \tag{9}$$
+将$a_{out}$和$h$分别定义为输出层的激活函数和边上的权重。直观的，如果我们对于$a_{out}$使用一个idtentity function，并且让$h$全为1的统一向量（uniform vector，这里应该是说向量里面所有的元素都为1），我们就可以精准的呈现出MF模型。  
+在NCF框架下，可以容易的对MF进行推广和扩展。例如，如果我们允许$h$能从数据中学习，并且突破统一的限制（uniform constratint），那么我们将得到一个MF的变种（a variant of MF），这个变种允许隐性空间维度重要性的差异化。如果我们对$a_{out}$使用一个非线性的函数，$a_{out}$将把MF扩展到非线性的情况下的MF，这可能是的非线性的MF比线性MF模型具备更好的表现。在本工作中，我们将在NCF框架下实现一个MF的广义版本（generalized version），这个版本中使用sigmoid function$\sigma(x) = 1/(1+e^{-x})$为$a_{out}$，使用从带有log loss的数据中学习得到$h$（section 3.1.1）。我们将这种形式的称之为generalized matrix factorization，缩写为GMF。
+
+### 3.3 多层感知机（Multi-Layer Perceptron, MLP）
+
+因为NCF使用了2种方法对user和item建模，直观的通过将两种方法连接起来达到组合两种方法特征的目的。这种设计已经被广泛的应选用在深度学习的多种模型中。尽管，简单的向量连接并不能解释user和item的潜在特征之间的任何交互，这样不足以为协同过滤进行建模。为了解决这个问题，我们建议在连接向量（concatenated vector）上添加隐藏层，使用标准的MLP来了解user和item之间的隐性特征的交互。为了学习到$p_u$和$p_i$之间的交互，我们需要赋予模型很大的灵活性和非线性，而不是只使用固定元素的GMF方法。更准确的说，我们NCF框架下的MLP模型定义为：
+$$z_1 = \phi_1 (p_u, q_i) = \begin{bmatrix}
+p_u \\
+q_i \\
+\end{bmatrix} \\
+\phi_2 (z_1) = a_2 (W_2^T z_1 + b_2), \\
+... \\
+\phi_L (z_L -1) = a_L(W_L^T z_{L-1} + b_L), \\
+\hat{y}_{ui} = \sigma (h^T \phi_L (z_L -1)), \tag{10}
+$$
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|hyperbolic tangent(tanh)|双曲正切|/|
+|||||
+|||||
+|||||
+
+其中$W_x$、$b_x$和$a_x$分别表示第x层感知机的矩阵权重、偏好向量和激活函数。对于MLP层的激活函数可以自由选择以下其中之一：sigmod、hyperbolic tangent(tanh)和Rectifier(ReLU)。我们将逐个分析每个函数：1)sigmoid函数会限制每个神经元处于(0,1)之间，这可能会限制模型的性能；众所周知，他会suffer from saturation，当神经元的输出接近于0或者1的时候，神经元就会停止学习。2)虽然，tanh是一个更好的选择，并且已经被广泛使用，但是它只是在某种程度上缓解了sigmod的问题，因为它可以是当做simgod$(tanh(x/2) = 2 \sigma(x)-1)$的重制版本。3)因此，我们选择ReLU，ReLU更合理（biologically plausible）并且被证明是非饱和的（non-saturated）；另外，它能够激励稀疏激活函数，因而非常适合稀疏数据，并且不会让模型过拟合。我们的实验结果表明，ReLU的性能会略好于tanh，而tanh又明显比sigmod要好。  
+
+![avatar](/pictures/1TranslateNeuralCollaborativeFiltering_Figure2.png) 
+
+至于网络结构的设计，一个常见的解决方案是按照塔式样式（tower pattern），其中底层是最宽的，随后的依次每一层的神经元个数都会减少（如图2所示）。以更高层使用少量隐藏单元为基础，它们能够学习到更多数据的抽象特征。我们主要按照经验实现了塔式结构，从低到高，逐层神经元数量减半（halving the layer size for each successive higher layer）。
+
+### 3.4 GMF和MLP的混合
