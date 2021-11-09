@@ -170,7 +170,7 @@ $$p(y,y^-|P,Q,\Theta_f)=\prod_{(u,i)\in y}\hat y_{ui} \prod_{(u,i)\in y^-}(1-\ha
 取似然的负对数，我们得到（由于连乘不好计算，所以通过取对数将其转换为加法来进行计算）：  
 $$L =-\sum \limits_{(u,i)\in y} \log \hat y_{ui}-\sum \limits_{(u,i)\in y^-}\log (1-\hat y_{ui})\\
  = -\sum\limits_{(u,i)\in y \cup y^-} y_{ui} \log \hat{y}_{ui} + (1-y_{ui}) \log{(1-\hat{y}_{ui})}\tag{7}$$  
-这种NCF方法中需要将目标函数的最小化，并且使用随机梯度下降（stochastic gradient descent, SGN）可以对其优化。细心的读者可能已经意识到，它与二进制交叉熵损失（也称为对数损失）是相同的。通过对NCF进行probabilistic treatment，我们将隐性反馈推荐作为一个二元分类问题来处理。由于在推荐系统的相关文献中，很少对classification aware的对数损失（log loss）进行研究，我们这本项工作中对其进行了探讨，并在第4.3节中通过实验证明了使用对数损失的有效性。对于负面样本$y^-$我们的采样策略为：在每轮迭代中，我们均匀的（uniformly）从未观察到的交互中进行采样，并且控制采样率为$w.r.t$为可以观察到的交互数量。虽然非均匀的（nonuniform）采样策略（例如，item受欢迎程度偏好（popularity biased））可能会进一步的提高性能（是不是这样表述说明了这项工作中已经考虑了偏好问题？），但是我们将这一样工作留给未来（读到这句换，是不是意味着没有考虑偏好对模型的影响？）。
+这种NCF方法中需要将目标函数的最小化，并且使用随机梯度下降（stochastic gradient descent, SGN）可以对其优化。细心的读者可能已经意识到，它与二进制交叉熵损失（也称为对数损失）是相同的。通过对NCF进行probabilistic treatment，我们将隐性反馈推荐作为一个二元分类问题来处理。由于在推荐系统的相关文献中，很少对classification aware的对数损失（log loss）进行研究，我们这本项工作中对其进行了探讨，并在第4.3节中通过实验证明了使用对数损失的有效性。对于负面样本$y^-$我们的采样策略为：在每轮迭代中，我们均匀的（uniformly）从未观察到的交互中进行采样，并根据观察到的相互作用的数量控制采样率。~~并且控制采样率为$w.r.t$为可以观察到的交互数量。~~虽然非均匀的（nonuniform）采样策略（例如，item受欢迎程度偏好（popularity biased））可能会进一步的提高性能（是不是这样表述说明了这项工作中已经考虑了偏好问题？），但是我们将这一样工作留给未来（读到这句换，是不是意味着没有考虑偏好对模型的影响？）。
 
 ### 3.2 通用矩阵分解（GMF）
 
@@ -203,14 +203,76 @@ $$
 |编号|英语|中文|理解|
 |---|---|---|---|
 |1|hyperbolic tangent(tanh)|双曲正切|/|
-|||||
-|||||
-|||||
 
 其中$W_x$、$b_x$和$a_x$分别表示第x层感知机的矩阵权重、偏好向量和激活函数。对于MLP层的激活函数可以自由选择以下其中之一：sigmod、hyperbolic tangent(tanh)和Rectifier(ReLU)。我们将逐个分析每个函数：1)sigmoid函数会限制每个神经元处于(0,1)之间，这可能会限制模型的性能；众所周知，他会suffer from saturation，当神经元的输出接近于0或者1的时候，神经元就会停止学习。2)虽然，tanh是一个更好的选择，并且已经被广泛使用，但是它只是在某种程度上缓解了sigmod的问题，因为它可以是当做simgod$(tanh(x/2) = 2 \sigma(x)-1)$的重制版本。3)因此，我们选择ReLU，ReLU更合理（biologically plausible）并且被证明是非饱和的（non-saturated）；另外，它能够激励稀疏激活函数，因而非常适合稀疏数据，并且不会让模型过拟合。我们的实验结果表明，ReLU的性能会略好于tanh，而tanh又明显比sigmod要好。  
 
-![avatar](/pictures/1TranslateNeuralCollaborativeFiltering_Figure2.png) 
+![avatar](/pictures/1TranslateNeuralCollaborativeFiltering_Figure3.png) 
 
 至于网络结构的设计，一个常见的解决方案是按照塔式样式（tower pattern），其中底层是最宽的，随后的依次每一层的神经元个数都会减少（如图2所示）。以更高层使用少量隐藏单元为基础，它们能够学习到更多数据的抽象特征。我们主要按照经验实现了塔式结构，从低到高，逐层神经元数量减半（halving the layer size for each successive higher layer）。
 
 ### 3.4 GMF和MLP的混合
+
+到目前为止，我们使用线性内核（linear kernel）对隐性特征之间的交互进行建模，得到了NCF和GMF两个实例，因此MLP使用非线性内核（a non-linear kernel）从数据中学习得到交互函数（interaction function）。问题随之出现：在NCF框架下如何融合GMF和MLP，他们能够互相增强彼此，从而更好的模拟复杂user-item交互。
+
+一个直接的方案是让GMP和MLP共享相同的embedding layer，并且组合它们的交互函数输出。这个方法和著名的神经向量网（Neural Tensor Network, NTN）有相同的思想。具体而言，GMF和单层MLP组合的模型可以形式化的定义如下：  
+$$\hat{y}_{ui}=\sigma (h^T a(p_u \cdot q_i + W \begin{bmatrix}
+    p_u \\
+    q_i \\
+\end{bmatrix}  +b)) \tag{11}$$
+尽管共享GMF和MLP的embeddings可能会限制混合模型的性能。例如：它意味着GMF和MLP必须使用长度相同的embeddings；对于数据集而言两个模型的最优embedding大小的差别是非常大的（varies a lot），这个解决方法可能无法获得最优的集成模型。
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|w.r.t.|with respect to 的缩写。是 关于；谈及，谈到的意思|[参考](https://blog.csdn.net/qq_28193019/article/details/88087158)|
+|2|hyper-parameter|超参数|可以理解为完全用于调整模型状态和值的一些人工调试参数。这些参数不是从数据中或者模型中来的，而是由人工设置而来的。|
+
+为了给混合模型提供更多的灵活性，我们允许GMF和MLP学习各自的embedding，并且通过两个模型的隐藏层将它们组合起来。图3详细说明吗了我们的计划，形式化的定义如下：  
+$$
+\phi^{GMF}=p_u^G \cdot q_i^G, \\p_u^M \\
+\phi^{MLP}=a_L(W_L^T(a_{L-1}(...a_2(W_2^T \begin{bmatrix}
+    p_u^M \\
+    q_i^M \\
+\end{bmatrix} + b_2)...))+b_L), \\
+\hat{y}_{ui} = \sigma (h^T \begin{bmatrix}
+    \phi^{GMF} \\
+    \phi^{MLP}
+\end{bmatrix}), \tag{12}
+$$  
+其中$p_u^G$和$p_u^M$分别定义了GMF和MLP的user embedding部分；与之类似的$q_i^G$和$q_i^M$分别定义了item embeddings。如前所述，我们使用ReLU作为MLP层的激活函数。这个模型组合了MF的线性和DNNs的非线性来模拟user-item隐性结构。我们将这个模型命名为Neural Matrix Factorization，缩写为"NeuMF"。模型中关于每个节点的参数都可以通过标准反向传播来计算，由于文章体量限制，我们这里省略了具体说明。
+
+#### 3.4.1 预训练
+
+由于NeuMF目标函数的非凸性，基于梯度的优化方法只能找到局部最优解。按文献中的说明，初始值对深度学习模型的收敛和性能起着决定性的作用。由于NeuMF是GMF和MLP的组合，我们建议使用GMF和MLP的预训练模型初始化NeuMF。
+
+我们首先用随机初始值训练GMF和MLP直至收敛。然后，我们使用它们的模型参数作为NeuMF参数相应部分的初始化。唯一的调整是在输出层上，我们将两个模型的权重调整为：
+$$h\leftarrow \begin{bmatrix}
+    \alpha h^{GMF} \\
+    (1-\alpha)h^{MLP} \\
+\end{bmatrix} \tag{13}$$  
+其中$h^{GMF}$和$h^{MLP}$分别表示为GMF和MLP的预训练$h$向量；$\alpha$是一个超参数用于平衡两个预训练模型。
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|from scratch|从头开始，从零开始|/|
+|2|Adaptive Moment Estimation|自适应矩估计|还不理解，[参考](https://www.zhihu.com/question/323747423/answer/790457991)|
+|3|vanilla SGD|朴素SGD|[参考](https://blog.csdn.net/zxrttcsdn/article/details/79994730)|
+|4|outperform|优于||
+
+为了从头开始训练GMF和MLP，我们采用了Adaptive Moment Estimation(Adam)，它通过对频繁使用的参数进行比较小的更新，同时对不频繁使用的参数进行比较大的更新。Adam对于两个模型来收敛速度都要比朴素SGD要快，并且减少了调整学习率的代价。将预训练好的参数输入NeuMF后，我们使用朴素SGD而不是Adam对其进行优化。这是因为Adam需要保存动量信息以正确更新参数。由于我们仅使用预先训练的模型参数初始化NeuMF，并且放弃保存动量信息，因此不适合使用基于动量的方法进一步优化NeuMF。（这段的内容就一个意思：使用adam进行预训练，使用vanilla SGD进行优化（也就是在数据集上训练））。
+
+## 4. 实验
+
+在本节中，我们实验的目标是回答一下几个研究问题：
+RQ1 我们提出的NCF方法是否优于目前最先进的隐性协同过滤方法？
+RQ2 我们提出的优化框架（基于负样本的log loss）如何应用于推荐任务中？
+RQ3 更深层的隐藏单元（deeper layers of hidden units）是否有助于从user-item交互数据中学习？
+在下面的内容中，我们首先介绍了实验设置，然后回答了上述3个研究问题。
+
+### 4.1 实验设置
+
+|编号|数据集名称|链接|
+|---|---|---|
+|1|MovieLens|[链接](http://grouplens.org/datasets/movielens/1m/)|
+|2|Pinterest|[链接](https://sites.google.com/site/xueatalphabeta/academic-projects)|
+
+**数据集** 
