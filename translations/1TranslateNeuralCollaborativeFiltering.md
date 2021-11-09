@@ -206,7 +206,7 @@ $$
 
 其中$W_x$、$b_x$和$a_x$分别表示第x层感知机的矩阵权重、偏好向量和激活函数。对于MLP层的激活函数可以自由选择以下其中之一：sigmod、hyperbolic tangent(tanh)和Rectifier(ReLU)。我们将逐个分析每个函数：1)sigmoid函数会限制每个神经元处于(0,1)之间，这可能会限制模型的性能；众所周知，他会suffer from saturation，当神经元的输出接近于0或者1的时候，神经元就会停止学习。2)虽然，tanh是一个更好的选择，并且已经被广泛使用，但是它只是在某种程度上缓解了sigmod的问题，因为它可以是当做simgod$(tanh(x/2) = 2 \sigma(x)-1)$的重制版本。3)因此，我们选择ReLU，ReLU更合理（biologically plausible）并且被证明是非饱和的（non-saturated）；另外，它能够激励稀疏激活函数，因而非常适合稀疏数据，并且不会让模型过拟合。我们的实验结果表明，ReLU的性能会略好于tanh，而tanh又明显比sigmod要好。  
 
-![avatar](/pictures/1TranslateNeuralCollaborativeFiltering_Figure3.png) 
+![Figure3](/pictures/1TranslateNeuralCollaborativeFiltering_Figure3.png) 
 
 至于网络结构的设计，一个常见的解决方案是按照塔式样式（tower pattern），其中底层是最宽的，随后的依次每一层的神经元个数都会减少（如图2所示）。以更高层使用少量隐藏单元为基础，它们能够学习到更多数据的抽象特征。我们主要按照经验实现了塔式结构，从低到高，逐层神经元数量减半（halving the layer size for each successive higher layer）。
 
@@ -256,7 +256,8 @@ $$h\leftarrow \begin{bmatrix}
 |1|from scratch|从头开始，从零开始|/|
 |2|Adaptive Moment Estimation|自适应矩估计|还不理解，[参考](https://www.zhihu.com/question/323747423/answer/790457991)|
 |3|vanilla SGD|朴素SGD|[参考](https://blog.csdn.net/zxrttcsdn/article/details/79994730)|
-|4|outperform|优于||
+|4|outperform|优于|/|
+|5|update on/in|用on时后面接具体到天，in后面接月、季度、年。|[参考](http://www.360doc.com/content/18/1202/16/43864282_798777797.shtml)|
 
 为了从头开始训练GMF和MLP，我们采用了Adaptive Moment Estimation(Adam)，它通过对频繁使用的参数进行比较小的更新，同时对不频繁使用的参数进行比较大的更新。Adam对于两个模型来收敛速度都要比朴素SGD要快，并且减少了调整学习率的代价。将预训练好的参数输入NeuMF后，我们使用朴素SGD而不是Adam对其进行优化。这是因为Adam需要保存动量信息以正确更新参数。由于我们仅使用预先训练的模型参数初始化NeuMF，并且放弃保存动量信息，因此不适合使用基于动量的方法进一步优化NeuMF。（这段的内容就一个意思：使用adam进行预训练，使用vanilla SGD进行优化（也就是在数据集上训练））。
 
@@ -275,4 +276,26 @@ RQ3 更深层的隐藏单元（deeper layers of hidden units）是否有助于�
 |1|MovieLens|[链接](http://grouplens.org/datasets/movielens/1m/)|
 |2|Pinterest|[链接](https://sites.google.com/site/xueatalphabeta/academic-projects)|
 
-**数据集** 
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|Sparsity|稀疏|表格中用这个还没有理解。|
+|2|evaluating content-based image recommendation|基于内容图像的推荐系统|也就是通过item的图像来做推荐系统。这里需要和pinterest的功能联系起来才能理解。这里面的图片就是用户需要的商品。|
+|3|pin|钉到板子上的动作|pinterest是一个图片社交分享网站，用户将感兴趣的图片放到自己的面板上称其为pin|
+|4|leave-one-out evaluation|留一法|这种方法比较简单易懂，就是把一个大的数据集分为k个小数据集，其中k-1个作为训练集，剩下的一个作为测试集，然后选择下一个作为测试集，剩下的k-1个作为训练集，以此类推。这其中，k的取值就比较重要，在书中提到一般取10作为k的值（具体原因 不太清楚）。这种方法也被叫做‘k折交叉验证法（k-fold cross validation）’。最终的结果是这10次验证的均值。此外，还有一种交叉验证方法就是留一法（Leave-One-Out，简称LOO），顾名思义，就是使k等于数据集中数据的个数，每次只使用一个作为测试集，剩下的全部作为训练集，这种方法得出的结果与训练整个测试集的期望值最为接近，但是成本过于庞大。[参考](https://blog.csdn.net/weixin_35436966/article/details/98494046)|
+|5|Normalized Discounted Cumulative Gain, NDCG|归一化折扣累积增益|是用来衡量排序质量的指标[参考](https://blog.csdn.net/xiangyong58/article/details/51166127)。**具体方法还需要搞清楚**。|
+|6|Hit Ratio, HR|命中率|/|
+|7|metric|指标|/|
+
+**数据集**. 我们的实验使用两个易于访问的公开数据集：MovieLens和Pinterest。两个数据集的特征如表1所述。
+
+|Dataset|Interaction#|Item#|User#|Sparsity|
+|---|---|---|---|---|
+|MovieLens|1,000,209|3,706|6,040|95.53%|
+|Pinterest|||||
+
+1. MovieLens. 这是一个电源评论数据集，它被广泛用于评估协同过滤算法。我们用的版本包含约一百万条评论，其中每个用户至少有20条评论。显然这是一个明确的反馈数据，但是我们有意从明确的反馈信息当中的隐性信号来研究学习的性能（也就是将显性反馈故意转化为隐性信号来进行研究）。最终，我们通过将每个条目用户是否对其评论将其标识为0或者1来将显性反馈转换为隐性数据。
+2. Pinterest. 这个数据集是隐性反馈数据。它是评估基于内容的图像推荐系统数据由组成的。
+
+原始数据非常大但是非常稀疏。例如：有超过20%的用户只有一个pin，这导致能来评估协同过滤算法。因此，我们以和MovieLens相同的方法来过滤数据集，这种方法是只保留至少有20个交互的（pins）的用户。这导致数据的子集只包含了55,185个user和1,500,809条交互（评论）。每个交互意味着用户是否已经将图片放到了自己的面板上。
+
+**评估协议** 为评估item推荐系统的性能，我们使用了文献中广泛使用的leave-one-out evaluation。对于每个用户而言，我们将其最新的交互作为测试集，剩余的数据作为训练集。由于在评估过程中为每个user的所有items都进行排序过于耗时（time-consuming），所以我们使用通用策略来优化这个过程，这个策略是：随机抽取没有和user有交互的item，在100个items中对测试item进行排名（这个地方的策略还没理解）。排名list的性能由命中率（Hit Ratio, HR）和Normalized Discounted Cumulative Gain来判断。在没有特别说明得情况下，我们将这两个指标的排名列表都设置为10行。因此，命中率可以直观的衡量测试item是否出现在前10名中，**NDCG通过分配更高的分值给点击排名前几个的情况来说明点击的位置**。我们计算了每个测试user的两个指标，并且以平局值作为结果（reported the average score）。
