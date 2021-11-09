@@ -228,7 +228,7 @@ $$\hat{y}_{ui}=\sigma (h^T a(p_u \cdot q_i + W \begin{bmatrix}
 
 为了给混合模型提供更多的灵活性，我们允许GMF和MLP学习各自的embedding，并且通过两个模型的隐藏层将它们组合起来。图3详细说明吗了我们的计划，形式化的定义如下：  
 $$
-\phi^{GMF}=p_u^G \cdot q_i^G, \\p_u^M \\
+\phi^{GMF}=p_u^G \cdot q_i^G, \\
 \phi^{MLP}=a_L(W_L^T(a_{L-1}(...a_2(W_2^T \begin{bmatrix}
     p_u^M \\
     q_i^M \\
