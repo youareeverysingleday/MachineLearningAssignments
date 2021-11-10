@@ -1,15 +1,17 @@
 # Machine Learning Assignments
 
-study Machine Learning Assignments
+Learn the relative content of Machine Learning.
 
-## 1. first Machine Learning Assignment 
+## 1. Machine Learning Assignment
 
-### 1.1. implement AdaBoost
+### 1.1 first assignment
+
+#### 1.1.1 implement AdaBoost
 
 1. completed is 20211022.
 2. the choose error rate function is very important, because it direct decides how choose weak classifier. pay a attention, this code doesn't implement adaboost according to original design. but modify loop stop condition that error rate >=0.5. change the stop condition to global minimum error rate. maybe is wrong.
 
-### 1.2. mathematics
+#### 1.1.2. mathematics
 
 1. problem is :
 
@@ -25,8 +27,16 @@ Please prove that: $\alpha_2$ actually is the eigen-vector of $C$ associated to 
 
 ## 2. translation
 
-add the part of translation.
+add translation section.
 |number|title of paper|internet source|local source|correlative field|illustration|
 |---|---|---|---|---|---|
-|1|neural collaborative filtering|http://staff.ustc.edu.cn/~hexn/papers/www17-ncf.pdf|./references/1NeuralCollaborativeFiltering.pdf|recommonder system|English translate into chinese|
+|1|neural collaborative filtering|<http://staff.ustc.edu.cn/~hexn/papers/www17-ncf.pdf>|./references/1NeuralCollaborativeFiltering.pdf|recommonder system|English translate into chinese|
 |2||||||
+
+
+## 3. read book
+
+add reading section.
+|number|book name|auther|correlative field|illustration|
+|---|---|---|---|---|
+|1|机器学习|周志华|machine learning|/|
