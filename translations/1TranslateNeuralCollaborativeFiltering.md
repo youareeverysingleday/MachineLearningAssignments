@@ -363,9 +363,6 @@ pointwise log loss相比于pairwise objective functions的一个优势是可以�
 |编号|英语|中文|理解|
 |---|---|---|---|
 |1|identity function|恒等函数|$f(x)=x$|
-|||||
-|||||
-|||||
 
 由于将神经网络用于学习use-item交互函数的工作很少，所以很好奇使用深度网络结构是否有利于推荐任务。为此，我们进一步研究了具有不同隐藏层数的MLP。结果总结在表3和表4中。MLP-3展示了具有3个隐藏层的MLP范范（除嵌入层之外），和其他类似的符号。正如我们所见，即使对于具有相同功能的模型，堆叠更多层对性能更有利的。这个结果非常令人鼓舞，表明使用深度模型进行协同推荐的有效性。我们将这种改进归功于堆叠更多非线性层而带来的非线性性。为了验证这一点，我们进一步尝试堆叠线性层，使用identity function作为激活函数，它的性能比使用ReLU作为激活函数差得多（这里是否使用更多的层数来验证这一点合适一些？或者换一些复杂一点的线性函数是否会有变化？）
 
@@ -376,3 +373,13 @@ pointwise log loss相比于pairwise objective functions的一个优势是可以�
 对于没有隐藏层的的MLP-0（即嵌入层直接投影到预测），性能非常弱，而且并不比non-personalized ItemPop好。这验证我们再第3.3节中所讨论的论点，即简单的连接user和item的latent vectors不足以对其交互特征建模，因此有必要将其转换为隐藏层。
 
 ## 5. 相关工作
+
+虽然早期与推荐系统相关的文献主要集中在显式反馈，但最近注意力越来越转向隐性反馈数据了。具有隐性反馈的协同过滤（CF）任务通常被描述为一个item 推荐问题（物品推荐问题），其目的是向用户推荐一个简要的item列表。通过显式反馈数据已经被普遍解决的评分预测（rating prediction）相比，解决item推荐问题是更实际但是更有挑战性的问题（潜台词是通过隐性数据的item推荐问题）。一个关键性的领悟（突然体会到，insight）是对缺失数据如何进行建模，这项工作在显示反馈中常常被忽略了。为了通过隐性反馈对item推荐制作隐性特征模型，早期的工作采用了统一的权重，其中提出了两种策略，其一：将素有缺失数据视为负实例；其二，从缺失数据中抽取负实例。最近He等人和Liang等人提出了加权缺失数据（weight missing data，这里也可以翻译为权重缺失数据）的专用模型。Rendle等人为feature-based factorization models开发了隐式坐标下降(implicit coordinate descent, iCD)的解决方案，达到了item推荐的最优性能。下面，我们将讨论在推荐系统中使用神经网络的情况。
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|implicit coordinate descent, iCD|隐式坐标下降|[需要了解](https://blog.csdn.net/qq_32742009/article/details/81735274)|
+|2|Restricted Boltzmann Machines|限制玻尔兹曼机|[需要了解](https://blog.csdn.net/qq_39388410/article/details/78306190)|
+|||||
+
+Salakhutdinov等人早期的先驱性的工作中提出了一种2层Restricted Boltzmann Machines(RBMs)，RBMs被用于模拟用户对物品的明确评级。这项工作后来被推广到模拟评级的顺序属性（ordinal nature of ratings）。最近，自动编码器（autoencoders）已成为构建推荐系统的流行选择。user-based AutoRec的思想是学习隐藏结构，根据用户的历史评分作为输入，能够重现一个用户的评价。
