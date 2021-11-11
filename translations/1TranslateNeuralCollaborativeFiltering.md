@@ -303,9 +303,10 @@ RQ3 更深层的隐藏单元（deeper layers of hidden units）是否有助于�
 |编号|英语|中文|理解|
 |---|---|---|---|
 |1|Baselines|基线|就是参照物的意思。[参考](https://www.zhihu.com/question/313705075)|
-|2||||
-|||||
-|||||
+|2|be worth note|值得注意的是|/|
+|3|without special mention|不需要特别注意|/|
+|4|predictive factor|预测因子|输出向量的维度|
+|5|evaluated the factors|评估因子|/|
 
 **参照物Baselines** 我们将通过以下几种方法来比较我们提出的NCF方法（包括GMF、MLP和NeuMF）：
 
@@ -316,4 +317,62 @@ RQ3 更深层的隐藏单元（deeper layers of hidden units）是否有助于�
 
 由于我们提出的方法的目标是对user和item之间的关系进行建模，因此我们主要和user-item类模型进行比较。我们省略了与item-item类模型（SLIM和CDAE）的比较，因为性能差异可能是由于定制化的user模型导致的，所以和这类模型不存在比较的基础。
 
-**参数设置**：[我们基于Keras实现了我们提出的方法](https://github.com/hexiangnan/neural_collaborative_filtering)。为了确定NCF方法的超参数，我们随机对每个用户的所有交互数据抽样一条作为验证数据，并在验证数据上调整超参数。所有NCF模型都是通过优化公式(7)所示的log loss进行学习的。在公式(7)中，我们对每个正实例取4个的负实例（这里用的是instance这个单词，我理解就是样本）。对于从头开始训练的NCF模型，我们使用高斯分布来随机初始化模型的超参数
+**参数设置**：[我们基于Keras实现了我们提出的方法](https://github.com/hexiangnan/neural_collaborative_filtering)。为了确定NCF方法的超参数，我们随机对每个用户的所有交互数据抽样一条作为验证数据，并在验证数据上调整超参数。所有NCF模型都是通过优化公式(7)所示的log loss进行学习的。在公式(7)中，我们对每个正实例取4个的负实例（这里用的是instance这个单词，我理解就是样本）。对于从头开始训练的NCF模型，我们使用高斯分布来随机初始化模型的超参数（其中平均值为0，标准差为0.01），使用mini-batch Adam来优化模型。我们测试的batch大小为[128, 256, 512, 1024]并且学习率为[0.0001, 0.0005, 0.001, 0.005]。由于NCF的最后一个隐藏层决定了模型的能力，我们将其称为预测因子（predictive factors），我们评估了值为[8, 16, 32, 64]factor的性能（~~这里要么评估的是隐藏层的层数，要么评估的是隐藏层中节点个数。结合后面的内容，这里应该是隐藏层中节点的数量。~~ ~~前面两种可能都不对，这个factor好像类似权重的意思，以为后面说了设置factor为一个数。好像也不对，后面用的是size of predictvie factors来描述它。这个需要看代码来明确。~~ 输出层输出的结果向量的维度）。值得注意的是，较重要factor可能导致过拟合并且降低性能。另外，我们为MLP配置了3个隐藏层；例如，如果predictive factors的大小为8，那么neural CF层数量就是$32\rightarrow 16\rightarrow 8$，嵌入层大小是16。对于使用预训练的NeuMF，$\alpha$设置为0.5，允许预训练GMF和MLP对NeuMF的初始化做出相同的贡献。
+
+### 4.2 性能比较(RQ1)
+
+图4显示了不同数量predictive factors对于HR@10和NDCG@10性能的影响。对于BPR和eALS方法而言，predictive factors的数量等于latent factors的数量。对于ItemKNN而言，我们测试了不同的邻居大小对性能的影响，同时说明了额最佳性能时的选择。由于ItemPop的性能比较弱，为了更好的突出设计方法的性能差异，我们有意忽略了它。所以在图4中没有显示。
+
+![Performance of HR@10 and NDCG@10](../pictures/1TranslateNeuralCollaborativeFiltering_Figure4.png)
+
+首先，我们可以看到NeuMF在两个数据集上都取得了最好的性能，而且大大优于目前最先进的eALS和BPR方法（平均而言，相对于eALS和BPR的相对改善率为4.5%和4.9%）。对于Pinterest而言，即使使用大小较小（为8）的predictive factor，NeuMF也显著优于eALS和BPR的表现，predictive factor大小较大时（为64）也明显优于eALS和BPR。这表明，作为融合了线性MF和非线性MLP的NeuMF模型具备很高的表达（high expressiveness）能力。
+
+其次，另外两种NCF方法-GMF和MLP也表现出了相当强的性能。其中MLP的表现略逊于GMF。需要注意的是，MLP可以通过添加更多的隐藏层来进一步改进性能（详见4.4节），这里我们只展示了使用个3层次的性能。对于较小的predictive factors，在两个数据集善GMF都由于eALS；虽然GMF会因为较大factors而导致过拟合，但是它获得的最佳性能依然优于或者等于eALS。
+
+最后，由于GMF和BPR学习相同的MF模型，但是使用不同的目标函数，同时不得不说在推荐任务中classificationaware log loss是十分有效的，所以GMF显示出比BPR更具备可持续的改进空间。
+
+![Evaluation of Top-K item recommendation](../pictures/1TranslateNeuralCollaborativeFiltering_Figure5.png)
+
+图5显示了Top-K推荐列表性能，其中排名位置K的范围从1到10。为了使图更清晰，我们只展示了NeuMF的性能，而不是所有三种NCF的方法。与其他方法相比我们可以看出，NeuMF在不同条件（across positions）下都表现出了改善，我们进一步将one-sample和t-tests进行了配对，验证了所有改善在统计学上均具有显著性（$p<0.01$）。就基线方法而言，eALS在MovieLens上表现优于BPR，相对改善率为5.1%，而在NDCG方面则不如Pinterest上的BPR，这与[14]的发现是一致的，既BPR在ranking性能的体现，owing to its pairwise ranking-aware learner。基于领域ItemKNN的性能不如model-based方法。ItemPop的表现最差，这表明有必要对用户的个性化偏好进行建模，而不仅仅是推荐流行的item给用户。
+
+#### 4.2.1 预训练的效用
+
+为了证明NeuMF预训练的实用性，我们比较了有和没有预训练两个版本的NeuMF的性能。对于没有预训练的NeuMF，我们使用Adam通过随机初始化权重来完成学习。如表2所示，具有雨荨的NeuMF在大多数情况下都能获得更好的性能；只有predictive factors 为8对于MovieLens数据集的情况下，预训练方法的性能表现稍差。对于MovieLens和Pinterest两个数据集，NeuMF预训练相比于没有预训练的情况，改善率为2.2%和1.1%。这一结果证明了我们采用预训练方法对初始化NeuMF是有效的。
+
+![Performance of NeuMF with and without pre-training](../pictures/1TranslateNeuralCollaborativeFiltering_Table2.png)
+
+### 4.3 负采样的对数损失（log loss with negative sampling）
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|one-class nature|单分类的天然属性|由于在隐性推荐中缺少负样本，在只有正样本的情况下，对item进行推荐就是一种单分类场景。但是单分类问题在工业界广泛存在，由于每个企业刻画用户的数据都是有限的，很多二分类问题很难找到负样本，即使用一些排除法筛选出负样本，负样本也会不纯，不能保证负样本中没有正样本。所以在只能定义正样本不能定义负样本的场景中，使用单分类算法更合适。[参考](https://www.cnblogs.com/wj-1314/p/10701708.html)|
+|2|on par with|与...平分秋色/势均力敌/不分上下|/|
+
+![Training loss and recommendation performance of NCF methods](../pictures/1TranslateNeuralCollaborativeFiltering_Figure6.png)
+
+为了应对隐式反馈的one-class的天然属性，我们将推荐转换为二分类任务。通过将NCF视为一个概率模型，我们使用Log loss作为优化函数。图6显示了在MovieLens数据集上使用NCF方法每次迭代的训练损失（对所有实例取了平均值）和推荐性能。在Pinterest数据集上的结果显示了基本相同的趋势，由于文章篇幅所限所以我们没有在本文中展示出来。首先，我们可以看到，随着迭代次数的增加，NCF模型的训练损失逐渐减少，推荐性能逐渐提高。效果明显变好的情况发生在前10次迭代中，更多的迭代次数可能会使得模型过拟合（例如：尽管NeuMF的训练损失在前10次迭代之后不断减少，但其推荐性能反而在下降）。其次，在三种NCF方法中，NeuMF的训练损失最小，其次是MLP，最后是GMF。推荐性能也表现出于NeuMF>MLP>GMF的情况。上述研究结果表明：使用log loss作为学习隐性数据的优化函数的合理性和有效性。
+
+![Performance of NCF methods w.r.t. the number of negative samples per positive instance](../pictures/1TranslateNeuralCollaborativeFiltering_Figure7.png)
+
+pointwise log loss相比于pairwise objective functions的一个优势是可以灵活的定义负实例的采样率。虽然pairewise objective functions只能将一个负实例和一个正实例配对，但我们可以灵活的控制pointwise loss的采样率（这句话没有明白逻辑关系的重点在哪里？）。为了说明负采样对NCF方法的影响，我们在图7中展示了不同负采样率对NCF方法性能的影响。可以清楚的看到，每个正实例仅仅采样一个负实例是不足以实现最佳性能的，因此采样更多的负实例是有益处的。GMF和BPR相比，我们可以看到，采样率为1的GMF的性能与BPR相当，而在采样率较大的情况下GMF的性能明显优于BPR。
+
+这显示了pointwise log loss比pairwise BPR loss更具优势。对于两个数据集而言，最佳的采样率约为3到6。在pinterest上，我们发现当采样率大于7时，NCF方法的性能开始下降。它表明过于设置过高的采样率对性能会产生不利影响。
+
+### 4.4 深度学习是否有用？（RQ3）
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|identity function|恒等函数|$f(x)=x$|
+|||||
+|||||
+|||||
+
+由于将神经网络用于学习use-item交互函数的工作很少，所以很好奇使用深度网络结构是否有利于推荐任务。为此，我们进一步研究了具有不同隐藏层数的MLP。结果总结在表3和表4中。MLP-3展示了具有3个隐藏层的MLP范范（除嵌入层之外），和其他类似的符号。正如我们所见，即使对于具有相同功能的模型，堆叠更多层对性能更有利的。这个结果非常令人鼓舞，表明使用深度模型进行协同推荐的有效性。我们将这种改进归功于堆叠更多非线性层而带来的非线性性。为了验证这一点，我们进一步尝试堆叠线性层，使用identity function作为激活函数，它的性能比使用ReLU作为激活函数差得多（这里是否使用更多的层数来验证这一点合适一些？或者换一些复杂一点的线性函数是否会有变化？）
+
+![HR@10 of MLP with different layers](../pictures/1TranslateNeuralCollaborativeFiltering_Table3.png)
+
+![NDCG@10 of MLP with different layers](../pictures/1TranslateNeuralCollaborativeFiltering_Table4.png)
+
+对于没有隐藏层的的MLP-0（即嵌入层直接投影到预测），性能非常弱，而且并不比non-personalized ItemPop好。这验证我们再第3.3节中所讨论的论点，即简单的连接user和item的latent vectors不足以对其交互特征建模，因此有必要将其转换为隐藏层。
+
+## 5. 相关工作
