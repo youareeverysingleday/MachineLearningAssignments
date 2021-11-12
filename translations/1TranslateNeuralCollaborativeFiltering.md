@@ -323,7 +323,7 @@ RQ3 更深层的隐藏单元（deeper layers of hidden units）是否有助于�
 
 图4显示了不同数量predictive factors对于HR@10和NDCG@10性能的影响。对于BPR和eALS方法而言，predictive factors的数量等于latent factors的数量。对于ItemKNN而言，我们测试了不同的邻居大小对性能的影响，同时说明了额最佳性能时的选择。由于ItemPop的性能比较弱，为了更好的突出设计方法的性能差异，我们有意忽略了它。所以在图4中没有显示。
 
-![Performance of HR@10 and NDCG@10](../pictures/1TranslateNeuralCollaborativeFiltering_Figure4.png)
+![Performance of HR@10 and NDCG@10](/pictures/1TranslateNeuralCollaborativeFiltering_Figure4.png)
 
 首先，我们可以看到NeuMF在两个数据集上都取得了最好的性能，而且大大优于目前最先进的eALS和BPR方法（平均而言，相对于eALS和BPR的相对改善率为4.5%和4.9%）。对于Pinterest而言，即使使用大小较小（为8）的predictive factor，NeuMF也显著优于eALS和BPR的表现，predictive factor大小较大时（为64）也明显优于eALS和BPR。这表明，作为融合了线性MF和非线性MLP的NeuMF模型具备很高的表达（high expressiveness）能力。
 
@@ -331,7 +331,7 @@ RQ3 更深层的隐藏单元（deeper layers of hidden units）是否有助于�
 
 最后，由于GMF和BPR学习相同的MF模型，但是使用不同的目标函数，同时不得不说在推荐任务中classificationaware log loss是十分有效的，所以GMF显示出比BPR更具备可持续的改进空间。
 
-![Evaluation of Top-K item recommendation](../pictures/1TranslateNeuralCollaborativeFiltering_Figure5.png)
+![Evaluation of Top-K item recommendation](/pictures/1TranslateNeuralCollaborativeFiltering_Figure5.png)
 
 图5显示了Top-K推荐列表性能，其中排名位置K的范围从1到10。为了使图更清晰，我们只展示了NeuMF的性能，而不是所有三种NCF的方法。与其他方法相比我们可以看出，NeuMF在不同条件（across positions）下都表现出了改善，我们进一步将one-sample和t-tests进行了配对，验证了所有改善在统计学上均具有显著性（$p<0.01$）。就基线方法而言，eALS在MovieLens上表现优于BPR，相对改善率为5.1%，而在NDCG方面则不如Pinterest上的BPR，这与[14]的发现是一致的，既BPR在ranking性能的体现，owing to its pairwise ranking-aware learner。基于领域ItemKNN的性能不如model-based方法。ItemPop的表现最差，这表明有必要对用户的个性化偏好进行建模，而不仅仅是推荐流行的item给用户。
 
@@ -339,7 +339,7 @@ RQ3 更深层的隐藏单元（deeper layers of hidden units）是否有助于�
 
 为了证明NeuMF预训练的实用性，我们比较了有和没有预训练两个版本的NeuMF的性能。对于没有预训练的NeuMF，我们使用Adam通过随机初始化权重来完成学习。如表2所示，具有雨荨的NeuMF在大多数情况下都能获得更好的性能；只有predictive factors 为8对于MovieLens数据集的情况下，预训练方法的性能表现稍差。对于MovieLens和Pinterest两个数据集，NeuMF预训练相比于没有预训练的情况，改善率为2.2%和1.1%。这一结果证明了我们采用预训练方法对初始化NeuMF是有效的。
 
-![Performance of NeuMF with and without pre-training](../pictures/1TranslateNeuralCollaborativeFiltering_Table2.png)
+![Performance of NeuMF with and without pre-training](/pictures/1TranslateNeuralCollaborativeFiltering_Table2.png)
 
 ### 4.3 负采样的对数损失（log loss with negative sampling）
 
@@ -348,11 +348,11 @@ RQ3 更深层的隐藏单元（deeper layers of hidden units）是否有助于�
 |1|one-class nature|单分类的天然属性|由于在隐性推荐中缺少负样本，在只有正样本的情况下，对item进行推荐就是一种单分类场景。但是单分类问题在工业界广泛存在，由于每个企业刻画用户的数据都是有限的，很多二分类问题很难找到负样本，即使用一些排除法筛选出负样本，负样本也会不纯，不能保证负样本中没有正样本。所以在只能定义正样本不能定义负样本的场景中，使用单分类算法更合适。[参考](https://www.cnblogs.com/wj-1314/p/10701708.html)|
 |2|on par with|与...平分秋色/势均力敌/不分上下|/|
 
-![Training loss and recommendation performance of NCF methods](../pictures/1TranslateNeuralCollaborativeFiltering_Figure6.png)
+![Training loss and recommendation performance of NCF methods](/pictures/1TranslateNeuralCollaborativeFiltering_Figure6.png)
 
 为了应对隐式反馈的one-class的天然属性，我们将推荐转换为二分类任务。通过将NCF视为一个概率模型，我们使用Log loss作为优化函数。图6显示了在MovieLens数据集上使用NCF方法每次迭代的训练损失（对所有实例取了平均值）和推荐性能。在Pinterest数据集上的结果显示了基本相同的趋势，由于文章篇幅所限所以我们没有在本文中展示出来。首先，我们可以看到，随着迭代次数的增加，NCF模型的训练损失逐渐减少，推荐性能逐渐提高。效果明显变好的情况发生在前10次迭代中，更多的迭代次数可能会使得模型过拟合（例如：尽管NeuMF的训练损失在前10次迭代之后不断减少，但其推荐性能反而在下降）。其次，在三种NCF方法中，NeuMF的训练损失最小，其次是MLP，最后是GMF。推荐性能也表现出于NeuMF>MLP>GMF的情况。上述研究结果表明：使用log loss作为学习隐性数据的优化函数的合理性和有效性。
 
-![Performance of NCF methods w.r.t. the number of negative samples per positive instance](../pictures/1TranslateNeuralCollaborativeFiltering_Figure7.png)
+![Performance of NCF methods w.r.t. the number of negative samples per positive instance](/pictures/1TranslateNeuralCollaborativeFiltering_Figure7.png)
 
 pointwise log loss相比于pairwise objective functions的一个优势是可以灵活的定义负实例的采样率。虽然pairewise objective functions只能将一个负实例和一个正实例配对，但我们可以灵活的控制pointwise loss的采样率（这句话没有明白逻辑关系的重点在哪里？）。为了说明负采样对NCF方法的影响，我们在图7中展示了不同负采样率对NCF方法性能的影响。可以清楚的看到，每个正实例仅仅采样一个负实例是不足以实现最佳性能的，因此采样更多的负实例是有益处的。GMF和BPR相比，我们可以看到，采样率为1的GMF的性能与BPR相当，而在采样率较大的情况下GMF的性能明显优于BPR。
 
@@ -366,9 +366,9 @@ pointwise log loss相比于pairwise objective functions的一个优势是可以�
 
 由于将神经网络用于学习use-item交互函数的工作很少，所以很好奇使用深度网络结构是否有利于推荐任务。为此，我们进一步研究了具有不同隐藏层数的MLP。结果总结在表3和表4中。MLP-3展示了具有3个隐藏层的MLP范范（除嵌入层之外），和其他类似的符号。正如我们所见，即使对于具有相同功能的模型，堆叠更多层对性能更有利的。这个结果非常令人鼓舞，表明使用深度模型进行协同推荐的有效性。我们将这种改进归功于堆叠更多非线性层而带来的非线性性。为了验证这一点，我们进一步尝试堆叠线性层，使用identity function作为激活函数，它的性能比使用ReLU作为激活函数差得多（这里是否使用更多的层数来验证这一点合适一些？或者换一些复杂一点的线性函数是否会有变化？）
 
-![HR@10 of MLP with different layers](../pictures/1TranslateNeuralCollaborativeFiltering_Table3.png)
+![HR@10 of MLP with different layers](/pictures/1TranslateNeuralCollaborativeFiltering_Table3.png)
 
-![NDCG@10 of MLP with different layers](../pictures/1TranslateNeuralCollaborativeFiltering_Table4.png)
+![NDCG@10 of MLP with different layers](/pictures/1TranslateNeuralCollaborativeFiltering_Table4.png)
 
 对于没有隐藏层的的MLP-0（即嵌入层直接投影到预测），性能非常弱，而且并不比non-personalized ItemPop好。这验证我们再第3.3节中所讨论的论点，即简单的连接user和item的latent vectors不足以对其交互特征建模，因此有必要将其转换为隐藏层。
 
@@ -382,4 +382,4 @@ pointwise log loss相比于pairwise objective functions的一个优势是可以�
 |2|Restricted Boltzmann Machines|限制玻尔兹曼机|[需要了解](https://blog.csdn.net/qq_39388410/article/details/78306190)|
 |||||
 
-Salakhutdinov等人早期的先驱性的工作中提出了一种2层Restricted Boltzmann Machines(RBMs)，RBMs被用于模拟用户对物品的明确评级。这项工作后来被推广到模拟评级的顺序属性（ordinal nature of ratings）。最近，自动编码器（autoencoders）已成为构建推荐系统的流行选择。user-based AutoRec的思想是学习隐藏结构，根据用户的历史评分作为输入，能够重现一个用户的评价。
+Salakhutdinov等人早期的先驱性的工作中提出了一种2层Restricted Boltzmann Machines(RBMs)，RBMs被用于模拟用户对物品的明确评级。这项工作后来被推广到模拟评级的顺序属性（ordinal nature of ratings）。最近，自动编码器（autoencoders）已成为构建推荐系统的流行选择。user-based AutoRec的思想是学习隐藏结构，根据用户的历史评分作为输入能够重现一个用户的评价。就用户的个性化而言，
