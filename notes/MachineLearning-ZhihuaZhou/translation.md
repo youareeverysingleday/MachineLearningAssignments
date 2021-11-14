@@ -2,12 +2,25 @@
 
 |编号|英文|中文|章节|理解|参考|
 |---|---|---|---|---|---|
-|1|classification|分类||||
-|2|regression|回归||||
-|3|binary classification|二分类||||
-|4|positive sample|正样本||||
-|5|negative sample|负样本||||
-|6|independent |独立同分布||||
+|1|classification|分类|1.2|/|/|
+|2|regression|回归|1.2|/|/|
+|3|binary classification|二分类|1.2|/|/|
+|4|positive sample|正样本|1.2|/|/|
+|5|negative sample|负样本|1.2|/|/|
+|6|independent |独立同分布|1.2|我们获得的每个样本都是独立地从这个分布上采样获得的。一般而言，训练样本越，我们得到的关于D的信息这样就越有可能通过学习获得具有强泛化能力的模型。|/|
+|7|clustering|聚类|1.2|/|/|
+|8|cluster|簇（cu4）|1.2|/|/|
+|9|supervised learning|监督学习|1.2|分类和回归是前者的代表|/|
+|10|unsupervised learning|无监督学习|1.2|聚类是后者的代表|/|
+|11|generalization|泛化|1.2|对新样本的适应性|/|
+|12|inductive bias|归纳偏好|1.4 p6|这种偏好看书里面的说明好像是必须的。不然就没有意义了。还有点不理解。和奥卡姆剃刀原则发生了联系。||
+|||||||
+|||||||
+|||||||
+|||||||
+|||||||
+|||||||
+|||||||
 |||||||
 |||||||
 |||||||

@@ -33,10 +33,14 @@ add translation section.
 |1|neural collaborative filtering|<http://staff.ustc.edu.cn/~hexn/papers/www17-ncf.pdf>|./references/1NeuralCollaborativeFiltering.pdf|recommonder system|English translate into chinese|
 |2||||||
 
+## 3. learning book/video
 
-## 3. read book
-
-add reading section.
-|number|book name|auther|correlative field|illustration|
-|---|---|---|---|---|
-|1|机器学习|周志华|machine learning|/|
+add learning section.
+|number|book name|auther|correlative field|illustration|whether or not start|had learned chapter|
+|---|---|---|---|---|---|---|
+|1|机器学习|周志华|machine learning|/|y|1|
+|2|李宏毅的视频||machine learning|/|n|/|
+|3|吴恩达的100讲||machine learning|/|n|/|
+|4|统计学习方法|李航|machine learning and mathematic|/|n|/|
+|5|线性代数|3Blue1Brown|mathematic|[link](https://space.bilibili.com/88461692/?spm_id_from=333.999.0.0)|y|【熟肉】线性代数的本质 - 06|
+|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|05 线性代数 动手学深度学习v2|
