@@ -380,6 +380,30 @@ pointwise log loss相比于pairwise objective functions的一个优势是可以�
 |---|---|---|---|
 |1|implicit coordinate descent, iCD|隐式坐标下降|[需要了解](https://blog.csdn.net/qq_32742009/article/details/81735274)|
 |2|Restricted Boltzmann Machines|限制玻尔兹曼机|[需要了解](https://blog.csdn.net/qq_39388410/article/details/78306190)|
+|3|denoising autoencoder, DAE|去噪自动编码器|/|
+|4|collaborative denoising autoencoder, CDAE|协同去噪自动编码器|/|
+
+Salakhutdinov等人早期的先驱性的工作中提出了一种2层Restricted Boltzmann Machines(RBMs)，RBMs被用于模拟用户对物品的明确评级。这项工作后来被推广到模拟评级的顺序属性（ordinal nature of ratings）。最近，自动编码器（autoencoders）已成为构建推荐系统的流行选择。user-based AutoRec的思想是学习隐藏结构，根据用户的历史评分作为输入能够重现一个用户的评价。就用户的个性化而言，这个方法与item-item模型具有相同的精神，其中item-item模型将一个用户表示为他的评分item（也就是说将用户的评分视作一个item，然后建立一个item-item模型）。为了避免autoencoders学习一个identity function，并且无法泛化到不可见（unseen）数据，denoising autoencoders被用于从故意损坏的输入中学习（intentionally corrupted inputs）（没理解为什么要冲这样的输入中来学习）。最近，Zheng等人提出了一种CF（协同过滤）的神经自回归方法。尽管之前的研究支持神经网络实现CF的有效性，但大多数研究侧重于显性评分，并且仅对可见的数据进行建模。因此，这些模型在从positive-only隐性数据中学习用户的偏好时非常容易失败。
+
+尽管最近一下工作探索了基于隐性反馈的的推荐深度学习模型，但它们主要使用DNN（深度神经网络）对辅助信息进行建模，比如items的文本描述、音乐的声学特征、用户的跨域行为（cross-domain behaviors of users），以及知识库中丰富的信息。然后，将DNN来学习特征集成到基于MF（矩阵分解）的CF（协同过滤）中。与我们的工作最相关的是[44]，在隐性反馈数据中它为CF提供了一个collaborative denoising autoencoder（CDAE）。与基于DAE的CF不同，CDAE还将用户节点插入自动编码器的输入端，以重建用户的评级。如作者所示，当应用identity function激活CDAE的隐藏层时，CDAE相当于SVD++模型。这意味着，尽管CDAE是CF的一种神经建模方法，但它仍然使用了线性内核（即内积）来建模user-item交互。这可能部分解释了为什么使用更深层次的CDAE并不能提高性能（参见[44]第6节）。与CDAE不同，我们的NCF采用two-pathway体系，通过多层前馈神经网络对user-item交互进行建模。这样允许NCF从数据中学习任意函数（arbitrary function），它比固定的内积函数(inner product function)更强大、更具表达力。  
+
+按照类似的路线，在[2, 33]知识图谱（knowledge graphs）的文章中对学习两个实体的关系进行了深入研究。[24]设计了许多关系机器学习方法。与我们建议最相似的是神经张量网络（Neural Tensor Network, NTN），它使用神经网络来学习两个实体之间的交互，并显示出了强大的性能。在这里我们聚焦于CF的不同问题设置（different problem setting of CF）。虽然将MF于MLP相结合的NeuMF的思想受到了NTN的部分启发，但是就允许MF和MLP学习不同嵌入集而言，我们的NeuMF比NTN更灵活和泛用。
+
+最近google在app推荐领域公布了Wide & Deep learning。它的deep组件类似的将MLP应用在了特征嵌入上，根据报道，这样具备很强的泛化能力。虽然他们的工作重点是合并user和item的各种功能，但我们的目标是探索纯协同过滤的系统的DNN。在本文中，我们展示了对于user-item交互建模有前景的选择，在我们所知的范围内是从来没有研究过的。
+
+## 6. 结论和今后的工作
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|multi-media item|多媒体item|这里应该是指从多个不同媒介终端来源的item信息。包含视频、文字、图像等。|
+|2|recurrent neural networks|递归神经网络||
+|3|hashing methods|哈希方法||
 |||||
 
-Salakhutdinov等人早期的先驱性的工作中提出了一种2层Restricted Boltzmann Machines(RBMs)，RBMs被用于模拟用户对物品的明确评级。这项工作后来被推广到模拟评级的顺序属性（ordinal nature of ratings）。最近，自动编码器（autoencoders）已成为构建推荐系统的流行选择。user-based AutoRec的思想是学习隐藏结构，根据用户的历史评分作为输入能够重现一个用户的评价。就用户的个性化而言，
+在本工作中，我们探索了用于协同过滤的神经网络体系。我们设计了一个通用的NCF框架，并提出了3个实例：GMF、MLP和NeuMF，这三个实例是对user-item交互建模的三种途径。我们的矿建是一个简单的并且通用的，它不限于本文中介绍的模型，而是旨在作为开发推荐深度学习方法的指南。这项工作补充了协同过滤的主流浅层模型，开辟了一条新的基于深度学习的推荐策略研究途径。
+
+在未来，我们将研究pair wise learners 的NCF模型和将NCF扩展到模型辅助信息，诸如用户评论（user reviews）、知识库和时间信号（temporal signals）。虽然现在有的个性化模型主要关注个人（primarily focused on individuals），但为用户群听开发模型很有趣，这有助于社会群体决策（decision-making）。此外我们尤其对多媒体item建立推荐系统感兴趣。这是一项有趣的任务，同时它在推荐社区中较少受到审查。多媒体item，如图像、视频，它们包含更丰富的视觉语义信息，可以反映用户的兴趣。为了建立多媒体推荐系统，我们需要开发有效的方法，从多视图和多模态数据中学习信息。另外新兴的方向是探索递归神经网络和hashing methods的潜力，已提供更加有效的在线推荐系统。
+
+## 致谢 Acknowledgement
+
+作者感谢匿名评论者提供的宝贵意见，这些意见有助于作者对推荐系统的思考和论文的修改。  
