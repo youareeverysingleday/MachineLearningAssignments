@@ -396,9 +396,8 @@ Salakhutdinov等人早期的先驱性的工作中提出了一种2层Restricted B
 |编号|英语|中文|理解|
 |---|---|---|---|
 |1|multi-media item|多媒体item|这里应该是指从多个不同媒介终端来源的item信息。包含视频、文字、图像等。|
-|2|recurrent neural networks|递归神经网络||
-|3|hashing methods|哈希方法||
-|||||
+|2|recurrent neural networks|递归神经网络|/|
+|3|hashing methods|哈希方法|/|
 
 在本工作中，我们探索了用于协同过滤的神经网络体系。我们设计了一个通用的NCF框架，并提出了3个实例：GMF、MLP和NeuMF，这三个实例是对user-item交互建模的三种途径。我们的矿建是一个简单的并且通用的，它不限于本文中介绍的模型，而是旨在作为开发推荐深度学习方法的指南。这项工作补充了协同过滤的主流浅层模型，开辟了一条新的基于深度学习的推荐策略研究途径。
 
