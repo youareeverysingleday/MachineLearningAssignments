@@ -77,4 +77,4 @@ add learning section.
 |3|吴恩达的100讲||machine learning|/|y|1|
 |4|统计学习方法|李航|machine learning and mathematics|/|n|/|
 |5|线性代数|3Blue1Brown|mathematics|[link](https://space.bilibili.com/88461692/?spm_id_from=333.999.0.0)|y|07|
-|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|07|
+|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|[动手深度学习v2]07、[论文精读]AlexNet论文逐段精读|
