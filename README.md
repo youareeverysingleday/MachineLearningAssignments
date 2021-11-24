@@ -67,6 +67,15 @@ add translation section.
 |1|neural collaborative filtering|<http://staff.ustc.edu.cn/~hexn/papers/www17-ncf.pdf>|./references/1NeuralCollaborativeFiltering.pdf|recommonder system|English translate into chinese|
 |2||||||
 
+## 4. mathematics
+
+you must need to learn knowledge is follows:
+
+1. least square method,
+2. Lagrange multiplier method,
+3. Taylor formula,
+4. Matrix.
+
 ## 4. learning book/video
 
 add learning section.
