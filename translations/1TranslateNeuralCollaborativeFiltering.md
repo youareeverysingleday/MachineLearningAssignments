@@ -1,6 +1,6 @@
 # translate翻译
 
-1. 题目：neural collaborative filtering
+1. 题目：Neural Collaborative Filtering
 神经协同过滤
 
 2. 翻译说明：

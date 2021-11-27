@@ -86,6 +86,6 @@ add learning section.
 |3|吴恩达的100讲|吴恩达|machine learning|/|y|1|n|
 |4|统计学习方法|李航|machine learning and mathematics|/|n|/|n|
 |5|线性代数|3Blue1Brown|mathematics|[link](https://space.bilibili.com/88461692/?spm_id_from=333.999.0.0)|y|07|n|
-|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|[动手深度学习v2]07、[论文精读]AlexNet论文逐段精读|n|
+|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|[动手深度学习v2]07、[论文精读]ResNet论文逐段精读|n|
 |7|Methods for nonlinear least squares|K. Madsen|machine learning|/|y|/|n|
 |8|老师的SVD课件|teacher|machine learning|/|y|/|n|
