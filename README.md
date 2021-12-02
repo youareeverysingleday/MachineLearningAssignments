@@ -45,11 +45,12 @@ Hint: You need to prove that $\boldsymbol{M}_i$ satisfies the four properties of
 
 ### 2.2 Design
 
-1. In our lecture, we mentioned NIN architecture which introduces a "mlpconv" concept. The mlpconv layer maps the input local patch to the output feature vector with a multilayer perceptron(MLP) consisting of multiple fully connected layers with nonlinear activation functions. The following figure compares the linear convolution layer with the MLPconv layer. For more details, you can refer to the paper "M. Liu et al., Network in network, in Proc. ICLR 2014".  
+1. In our lecture, we mentioned NIN architecture which introduces a "mlpconv" concept. The mlpconv layer maps the input local patch to the output feature vector with a multilayer perceptron(MLP) consisting of multiple fully connected layers with nonlinear activation functions. The following figure compares the linear convolution layer with the MLPconv layer. For more details, you can refer to the paper "Min Lin et al., Network in network, in Proc. ICLR 2014".  
 ![picture](pictures/SecondAssignment_2.2_Design.png)  
 Actually, mlpconv can be implemented with convertional convolution layers. So, please spectify the network design to implement the following particular mlpconv layer.  
 For a mlpconv layer, suppose that the input feature map is of the size $m \times m \times 32$, the expected output feature map is of the size $m \times m \times 64$, the receptive field is $5 \times 5$; the mlpconv layer has 2 hidden layers, whose node numbers are 16 and 32, respectively.  
-How to implement this mlpconv layer with convolutional layers?
+How to implement this mlpconv layer with convolutional layers?  
+answer:[implement reference](https://zh-v2.d2l.ai/chapter_convolutional-modern/nin.html)
 
 ### 2.3 Programming
 
