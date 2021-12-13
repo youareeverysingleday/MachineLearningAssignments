@@ -76,17 +76,15 @@ You are every single day.
     D=\begin{vmatrix}
     a_{11} & a_{12} & \cdots & a_{1n} \\
     \vdots & \vdots & \ddots & \vdots \\
-    a_{i1}+a'_{i1} & a_{i2}+a'_{i2} & \cdots & a_{in}+a'_{in} \\
+    a_{i1}+a_{i1} & a_{i2}+a_{i2} & \cdots & a_{in}+a_{in} \\
     \vdots & \vdots & \ddots & \vdots \\
     a_{n1} & a_{n2} & \cdots & a_{nn}
     \end{vmatrix}
-    $$  
-    则D等于下列两个行列式之和：
-    $$
+    \text{则D等于下列两个行列式之和：}\\
     D=\begin{vmatrix}
     a_{11} & a_{12} & \cdots & a_{1n} \\
     \vdots & \vdots & \ddots & \vdots \\
-    a_{i1}+a'_{i1} & a_{i2}+a'_{i2} & \cdots & a_{in}+a'_{in} \\
+    a_{i1}+a_{i1} & a_{i2}+a_{i2} & \cdots & a_{in}+a_{in} \\
     \vdots & \vdots & \ddots & \vdots \\
     a_{n1} & a_{n2} & \cdots & a_{nn}
     \end{vmatrix}
@@ -99,7 +97,7 @@ You are every single day.
     \end{vmatrix} + \begin{vmatrix}
     a_{11} & a_{12} & \cdots & a_{1n} \\
     \vdots & \vdots & \ddots & \vdots \\
-    a'_{i1} & a'_{i2} & \cdots & a'_{in} \\
+    a_{i1} & a_{i2} & \cdots & a_{in} \\
     \vdots & \vdots & \ddots & \vdots \\
     a_{n1} & a_{n2} & \cdots & a_{nn}
     \end{vmatrix}
