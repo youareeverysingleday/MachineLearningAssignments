@@ -76,18 +76,18 @@ You are every single day.
     D=\begin{vmatrix}
     a_{11} & a_{12} & \cdots & a_{1n} \\
     \vdots & \vdots & \ddots & \vdots \\
-    a_{i1}+a_{i1} & a_{i2}+a_{i2} & \cdots & a_{in}+a_{in} \\
+    a_{i1}+a^{'}_{i1} & a_{i2}+a^{'}_{i2} & \cdots & a_{in}+a^{'}_{in} \\
     \vdots & \vdots & \ddots & \vdots \\
     a_{n1} & a_{n2} & \cdots & a_{nn}
-    \end{vmatrix}
+    \end{vmatrix}\\
     \text{则D等于下列两个行列式之和：}\\
     D=\begin{vmatrix}
     a_{11} & a_{12} & \cdots & a_{1n} \\
     \vdots & \vdots & \ddots & \vdots \\
-    a_{i1}+a_{i1} & a_{i2}+a_{i2} & \cdots & a_{in}+a_{in} \\
+    a_{i1}+a^{'}_{i1} & a_{i2}+a^{'}_{i2} & \cdots & a_{in}+a^{'}_{in} \\
     \vdots & \vdots & \ddots & \vdots \\
     a_{n1} & a_{n2} & \cdots & a_{nn}
-    \end{vmatrix}
+    \end{vmatrix}\\
     =\begin{vmatrix}
     a_{11} & a_{12} & \cdots & a_{1n} \\
     \vdots & \vdots & \ddots & \vdots \\
@@ -97,7 +97,7 @@ You are every single day.
     \end{vmatrix} + \begin{vmatrix}
     a_{11} & a_{12} & \cdots & a_{1n} \\
     \vdots & \vdots & \ddots & \vdots \\
-    a_{i1} & a_{i2} & \cdots & a_{in} \\
+    a^{'}_{i1} & a^{'}_{i2} & \cdots & a^{'}_{in} \\
     \vdots & \vdots & \ddots & \vdots \\
     a_{n1} & a_{n2} & \cdots & a_{nn}
     \end{vmatrix}
@@ -149,12 +149,12 @@ You are every single day.
     \text{则：}D=D_1 D_2$$
     这个是矩阵分块的思路。注意矩阵一定是方阵。
 5. $$D_{2n}=\begin{vmatrix}
-    & a &  &  &  &  &b \\
-    &   & \ddots &  & &\vdots & \\
-    &   &  & a & b &  &  \\
-    &   &  & c & d &  &  \\
-    &   & \vdots &  & &\ddots & \\
-    & c &  &  &  &  &d
+    a &  &  &  &  &b \\
+      & \ddots &  & &\vdots & \\
+      &  & a & b &  &  \\
+      &  & c & d &  &  \\
+      & \vdots &  & &\ddots & \\
+    c &  &  &  &  &d
    \end{vmatrix}=(ad-bc)^n$$
    通过4中的思路，通过行与行的交换变成很多2*2的小块之后再进行计算。
 6. 范德蒙德（Vandermonder）行列式
@@ -210,10 +210,10 @@ You are every single day.
        & \text{雅可比矩阵是}\boldsymbol{f}对\boldsymbol{x}\text{求一阶导数，形势如下：}\\
        & \boldsymbol{J}=[\frac{\partial{\boldsymbol{f}}}{\partial{x_1}}, \frac{\partial{\boldsymbol{f}}}{\partial{x_2}},\cdots,\frac{\partial{\boldsymbol{f}}}{\partial{x_n}}]\\
        & = \begin{vmatrix}
-           & \frac{\partial{f_1}}{\partial{x_1}} & \cdots &\frac{\partial{f_1}}{\partial{x_n}}\\
-           & \frac{\partial{f_2}}{\partial{x_1}} & \cdots &\frac{\partial{f_2}}{\partial{x_n}}\\
-           & \vdots & \ddots &\vdots \\
-           & \frac{\partial{f_m}}{\partial{x_1}} & \cdots &\frac{\partial{f_m}}{\partial{x_n}}\\
+           \frac{\partial{f_1}}{\partial{x_1}} & \cdots &\frac{\partial{f_1}}{\partial{x_n}}\\
+           \frac{\partial{f_2}}{\partial{x_1}} & \cdots &\frac{\partial{f_2}}{\partial{x_n}}\\
+           \vdots & \ddots &\vdots \\
+           \frac{\partial{f_m}}{\partial{x_1}} & \cdots &\frac{\partial{f_m}}{\partial{x_n}}\\
        \end{vmatrix}_{m\times n}\\
    \end{aligned}$$
    2. 泰勒展开在$\boldsymbol{x_0}$处的一阶近似：$\boldsymbol{f}(\boldsymbol{x})=\boldsymbol{f}(\boldsymbol{x_0})+\boldsymbol{J}(\boldsymbol{x}-\boldsymbol{x_0})+o(||\boldsymbol{x}-\boldsymbol{x_0}||)$。

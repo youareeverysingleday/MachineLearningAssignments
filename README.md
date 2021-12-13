@@ -37,8 +37,8 @@ $$\nabla_{\theta} J(\theta)=\sum \limits_{i=1}^{m}x_i(h_{\theta}(x_i)-y_i)$$
 2. In our lectures, we mentioned that matrices that can represent isometries can from a group. Specifically, in 3D space, the set comprising matrices ${M_i}$ is actually a group,  
 where,  
 $M_i = \begin{bmatrix}
-&\boldsymbol{R}_i & \boldsymbol{t}_i \\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_i & \boldsymbol{t}_i \\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix}\in \mathbb{R}, \boldsymbol{R}_i \in \mathbb{R^{3\times 3}}(det(\boldsymbol{R}_i)=1)$ is an orthonormal matrix and $\boldsymbol{t}_i \in \mathbb{R^{3\times 1}}$ is a vector.  
 Please prove that the set ${\boldsymbol{M}_i}$ forms a group.  
 Hint: You need to prove that $\boldsymbol{M}_i$ satisfies the four properties of a group, i.e., the closure, the associativity, the existence of identity element, and the existence of inverse element for each group element.
@@ -98,7 +98,7 @@ you must need to learn knowledge is follows:
 add learning section.
 |number|book name|auther|correlative field|illustration|whether or not start|had learned chapter|isCompleted|
 |---|---|---|---|---|---|---|---|
-|1|机器学习|周志华|machine learning|/|y|2|n|
+|1|机器学习|周志华|machine learning|/|y|2.2.4|n|
 |2|李宏毅的视频|李宏毅|machine learning|/|n|/|n|
 |3|吴恩达的100讲|吴恩达|machine learning|/|y|1|n|
 |4|统计学习方法|李航|machine learning and mathematics|/|n|/|n|
