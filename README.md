@@ -25,9 +25,9 @@ Now let's consider such an orientation $\alpha_2$. it is orthogonal to $\alpha_1
 
 Please prove that: $\alpha_2$ actually is the eigen-vector of $C$ associated to $C$'s second largest eigen-value. (We can assume that $\alpha_2$ is a unit vector.)
 
-### 2.1 Second Assignment
+### 1.2 Second Assignment
 
-#### 2.1.1 mathsmetics
+#### 1.2.1 mathsmetics
 
 1. In our lecture, we mentioned that for logistic regression, the cost function is :
 $$J(\theta)=-\sum \limits_{i=1}^{m} y_i log(h_{\theta}(x_i))+(1-y_i)log(1-h_{\theta}(x_i))$$
@@ -43,7 +43,7 @@ $M_i = \begin{bmatrix}
 Please prove that the set ${\boldsymbol{M}_i}$ forms a group.  
 Hint: You need to prove that $\boldsymbol{M}_i$ satisfies the four properties of a group, i.e., the closure, the associativity, the existence of identity element, and the existence of inverse element for each group element.
 
-### 2.2 Design
+#### 1.2.2 Design
 
 1. In our lecture, we mentioned NIN architecture which introduces a "mlpconv" concept. The mlpconv layer maps the input local patch to the output feature vector with a multilayer perceptron(MLP) consisting of multiple fully connected layers with nonlinear activation functions. The following figure compares the linear convolution layer with the MLPconv layer. For more details, you can refer to the paper "Min Lin et al., Network in network, in Proc. ICLR 2014".  
 ![picture](pictures/SecondAssignment_2.2_Design.png)  
@@ -52,7 +52,7 @@ For a mlpconv layer, suppose that the input feature map is of the size $m \times
 How to implement this mlpconv layer with convolutional layers?  
 answer:[implement reference](https://zh-v2.d2l.ai/chapter_convolutional-modern/nin.html)
 
-### 2.3 Programming
+#### 1.2.3 Programming
 
 In intelligent retial, one task is to investigate the proportion of each commodity occupying shelves. In the assignment, suppose that you are provided a  surveillance video of a shelf and you need to recognize and locate three specific kind of products, "统一香辣牛肉面","统一老坛酸菜面",and "康师傅香辣牛肉面" in real time. You are recommended to use YoloVX (an object dectection approach) for this task.  
 The interface may be similar like this,  
@@ -60,7 +60,23 @@ The interface may be similar like this,
 The test video is given on the course website. Please show your result to TA.
 (Markdown does not support embedded video, so the test video path is :videos/SecondAssignment_2.3_TestVideo.mp4)  
 
-## 3. Translation
+### 1.3 Third Assignment
+
+#### 1.3.1 Mathematics
+
+Nonlinear least-squares. Suppose that $f(x):\mathbb{R}^n \rightarrow \mathbb{R}^n, x \in \mathbb{R}^n, f \in \mathbb{R}^n$, and some $f_i(x):\mathbb{R}^n \rightarrow \mathbb{R}$is a (are) non-linear function(s). Then, the problem,
+
+$$\vec{x}^*=\underset{x}{arg\,min} \frac{1}{2} ||f(\vec{x})||_2^2 = \underset{x}{arg\,min} \frac{1}{2}(f(\vec{x}))^T f(\vec{x})$$
+is a nonlinear least-squares problem. In our lecture, we mentioned that Levenberg-Marquardt algorithm is a typical method to solve this problem. In L-M algorithm, for each updating step, at the current $\vec{x}$, a local approximation model is constructed as,
+$$L(\boldsymbol{h})=\frac{1}{2} (f(\boldsymbol{x}+\boldsymbol{h}))^T f(\boldsymbol{x}+\boldsymbol{h}) + \frac{1}{2} \mu \boldsymbol{h}^T\boldsymbol{h} \\
+=\frac{1}{2}(f(\boldsymbol{x}))^T f(\boldsymbol{x}) + \boldsymbol{h}^T(J(\boldsymbol{x}))^T f +\frac{1}{2}\boldsymbol{h}^T(J(\boldsymbol{x}))^T J(\boldsymbol{x}) \boldsymbol{h} + \frac{1}{2}\mu \boldsymbol{h}^T\boldsymbol{h}$$
+where $\boldsymbol{J}(\boldsymbol{x})$ is $\boldsymbol{f}(\boldsymbol{x})$'s Jacobian matrix, and $\mu >0$ is the damped coefficient. Please prove that $L(\boldsymbol{h})$ is a strictly convex function. (Hint: If a function $L(\boldsymbol{x})$ is differentiable up to at least second order, $\boldsymbol{L}$ is stricly convex if its Hessian matrix is positive definite.)
+
+#### 1.3.2 Programming
+
+On the website, I provide you a Matlab program which demonstrates how to fit the parameters of a GMM using the EM algorithm. Please add detailed comments at the required places.
+
+## 2. Translation
 
 add translation section.
 |number|title of paper|internet source|local source|correlative field|illustration|
@@ -68,7 +84,7 @@ add translation section.
 |1|neural collaborative filtering|<http://staff.ustc.edu.cn/~hexn/papers/www17-ncf.pdf>|./references/1NeuralCollaborativeFiltering.pdf|recommonder system|English translate into chinese|
 |2||||||
 
-## 4. mathematics
+## 3. mathematics
 
 you must need to learn knowledge is follows:
 
