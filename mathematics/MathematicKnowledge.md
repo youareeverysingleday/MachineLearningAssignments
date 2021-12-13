@@ -130,7 +130,7 @@ You are every single day.
     \lambda_{n} &   &   &  
     \end{vmatrix}=(-1)^{\frac {n(n-1)}{2}}\lambda_{1}\lambda_{2}\cdots \lambda_{n}=(-1)^{\frac {n(n-1)}{2}} \prod \limits_{i=1}^n \lambda_i$
 3. 1和2的主要思想是通过行之间的交换行列式变号这个性质来完成计算的。
-4. $$\text{设} 
+4. $$\text{设}
     D=\begin{vmatrix}
     a_{11} & \cdots & a_{1k} &   &   &   \\
     \vdots &   & \vdots &   & 0 &   \\
@@ -147,7 +147,7 @@ You are every single day.
       b_{11} & \cdots & b_{1n} \\
       \vdots &   & \vdots \\
       b_{n1} & \cdots & b_{nn}
-    \end{vmatrix}. \\ 
+    \end{vmatrix}. \\
     \text{则：}D=D_1 D_2$$
     这个是矩阵分块的思路。注意矩阵一定是方阵。
 5. $$D_{2n}=\begin{vmatrix}
@@ -162,7 +162,6 @@ You are every single day.
 6. 范德蒙德（Vandermonder）行列式
    $$D=$$
 
-
 ## 2. 群论
 
 群论相关的参考书：
@@ -170,3 +169,54 @@ You are every single day.
 
 1. 李代数的作用就是说明了将李群中的一个矩阵可以映射到一个向量上，而且是唯一映射到一个向量上。也就是说李群中的矩阵可以和向量一一对应。
    - 对于矩阵进行求导的时候，矩阵是不容易求导的（不容易求驻点，而且没有很好的数学工具来求）。所以直观的思维就是将矩阵变为一个一维的向量来对其求驻点。李代数就完成了这个工作。
+
+## 3. 最小二乘法
+
+### 3.1 最小二乘法的局限性
+
+1. 函数形式的选取。在选取的时候如何设置函数的参数。
+   1. 设置有些参数是可以化简的，这样只是导致了增加解方程的个数，但实际上并没有起到好的效果。这个时候就需要仔细研究函数的形式。
+2. 超越方程组的求解。如果拟合函数不是多项式函数，也不是线性函数，超越方程组是很难解的。
+   1. [神经网络和最小二乘是等价的](https://www.bilibili.com/video/BV1q741177US?from=search&seid=966740903727178826&spm_id_from=333.337.0.0)。这个视频的29:37处说出了这句话。神经网络的本质就是最小二乘法。
+   2. 首先神经网络使用阶梯函数解决了函数型的选取。用很多的阶梯函数（也就是激活函数）来拟合曲线。每个阶梯函数一般都会产生3个参数：1. 什么时候上升或者下降；2. 从多少开始变化； 3. 到多少变化结束。视频的31:00开始说这个问题。
+   3. 如果分的非常细，也就是用非常多的阶梯函数去拟合，那么就会产生参数爆炸。通过增加参数的代价来解决了如何选取函数形式的问题。
+   4. 用梯度下降的方法去求取超越方差组的数值解。三种拟合方法![ThreeFittingMathematicMethods](../pictures/ThreeFittingMathematicMethods.png)。该图来源于[数学建模之数据拟合（3）：最小二乘法@遇见数学](https://www.bilibili.com/video/BV1q741177US?from=search&seid=966740903727178826&spm_id_from=333.337.0.0)。
+
+### 3.2 线性最小二乘法
+
+1. 假设在二维平面上有3个坐标点$\{x_1, y_1\}, \{x_2, y_2\}, \{x_3, y_3\}$，期望使用一个条直线去拟合。
+2. 这条直线或者线性关系设为：
+   $$y=ax+b \tag{1}$$
+3. 评估拟合的情况需要使用评估函数，直观的评估函数的为$L(a,b)=|y_1-f(x_1)| +|y_2-f(x_2)| +|y_3-f(x_3)|$。但是存在绝对值的函数不容易使用数学工具计算（**只能使用零点分区间发来计算含有绝对值的函数。同时含有绝对值的函数不是光滑的，存在尖点；也就是说无法对其求导，所以需要变化这个评估函数**）。所以将评估函数修改
+   $$L(a,b)=(y_1-f(x_1))^2 +(y_2-f(x_2))^2 +(y_3-f(x_3))^2 \tag{2} $$
+   $$L(a,b)= \sum \limits_{i=1}^{n}(y_i-f(x_i))^2, \text{n为样本个数} \tag{3}$$
+   **二次幂函数是光滑的，可以求高阶导数来判断它的性质**。
+   1. 注意(2)中的$\boldsymbol{x}, \boldsymbol{y}$都是已有的已知量，未知量是$a,b$，$a,b$也是自变量。
+4. 然后对公式(3)中所有的自变量（这里的自变量是a和b）求偏导数，并且使得偏导数为0的解即为最小值解。偏导数为0的点就是驻点。
+5. 对于非线性的函数可以将函数进行线性化之后再使用最小二乘法来处理。
+6. 最小二乘法的几何意义就是寻找n维空间上点的距离最小。
+
+### 3.3 非线性最小二乘法
+
+#### 3.3.1 参考
+
+1. [高斯牛顿法讲解和代码实现](https://www.bilibili.com/video/BV1zE41177WB?from=search&seid=13608592245711698094&spm_id_from=333.337.0.0)
+2. [牛顿法](https://www.bilibili.com/video/BV1JT4y1c7wS/?spm_id_from=autoNext)还没有看。
+
+#### 3.3.2 基础知识
+
+1. 雅可比矩阵 Jacobian Matrix
+   1. 雅可比矩阵的定义。
+   $$\begin{aligned}
+       & \text{设}\boldsymbol{x}:[x_1, x_2, \cdots, x_n],\boldsymbol{f}:[f_1(\boldsymbol{x}),f_2(\boldsymbol{x}),\cdots,f_m(\boldsymbol{x})],\\
+       & \text{雅可比矩阵是}\boldsymbol{f}对\boldsymbol{x}\text{求一阶导数，形势如下：}\\
+       & \boldsymbol{J}=[\frac{\partial{\boldsymbol{f}}}{\partial{x_1}}, \frac{\partial{\boldsymbol{f}}}{\partial{x_2}},\cdots,\frac{\partial{\boldsymbol{f}}}{\partial{x_n}}]\\
+       & = \begin{vmatrix}
+           & \frac{\partial{f_1}}{\partial{x_1}} & \cdots &\frac{\partial{f_1}}{\partial{x_n}}\\
+           & \frac{\partial{f_2}}{\partial{x_1}} & \cdots &\frac{\partial{f_2}}{\partial{x_n}}\\
+           & \vdots & \ddots &\vdots \\
+           & \frac{\partial{f_m}}{\partial{x_1}} & \cdots &\frac{\partial{f_m}}{\partial{x_n}}\\
+       \end{vmatrix}_{m\times n}\\
+   \end{aligned}$$
+   2. 泰勒展开在$\boldsymbol{x_0}$处的一阶近似：$\boldsymbol{f}(\boldsymbol{x})=\boldsymbol{f}(\boldsymbol{x_0})+\boldsymbol{J}(\boldsymbol{x}-\boldsymbol{x_0})+o(||\boldsymbol{x}-\boldsymbol{x_0}||)$。
+   3. 海森矩阵就是梯度的雅可比矩阵：$\boldsymbol{H}(\boldsymbol{f}(\boldsymbol{x}))=\boldsymbol{J}(\nabla\boldsymbol{f}(\boldsymbol{x}))$。
