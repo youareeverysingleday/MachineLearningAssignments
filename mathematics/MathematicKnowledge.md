@@ -4,6 +4,19 @@ You are every single day.
 
 ## 1. 线性代数
 
+在机器学习中10个常用公式：
+
+1. $\vec{a}, \vec{x} \in \mathbb{R^{n\times 1}}, then \frac{d\vec{a}^T\vec{x}}{d\vec{x}}=\vec{a}, \frac{d\vec{x}^T\vec{a}}{d\vec{x}}=\vec{a}$
+2. $\vec{x} \in \mathbb{R^{n\times 1}}, then \frac{d\vec{x}^T \vec{x}}{d\vec{x}}=2\vec{x}$
+3. $\vec{x} \in \mathbb{R^{n\times 1}}, \boldsymbol{y}(\vec{x}) \in \mathbb{R^{m\times 1}}, then \frac{d\boldsymbol{y}^T(\vec{x})}{d\vec{x}} = (\frac{d\boldsymbol{y}(\vec{x})}{d\vec{x}})^T$
+4. $\boldsymbol{A} \in \mathbb{R^{m\times n}}, \vec{x} \in\mathbb{R^{n\times 1}}, then \frac{d\boldsymbol{A}\vec{x}}{d\vec{x}^T}=\boldsymbol{A}$
+5. $\boldsymbol{A} \in \mathbb{R^{m\times n}}, \vec{x} \in\mathbb{R^{n\times 1}}, then \frac{d\vec{x}^T\boldsymbol{A}^T}{d\vec{x}}=\boldsymbol{A}^T$
+6. $\boldsymbol{A} \in \mathbb{R^{n\times n}} \text{，A是方阵}, \vec{x} \in\mathbb{R^{n\times 1}}, then \frac{d\vec{x}^T\boldsymbol{A}\vec{x}}{d\vec{x}}=(\boldsymbol{A} + \boldsymbol{A}^T)\vec{x}$
+7. $\boldsymbol{x} \in \mathbb{R^{m\times n}}, \vec{a} \in \mathbb{R^{m\times 1}}, \vec{b} \in \mathbb{R^{n\times 1}}, then \frac{d\vec{a}^T\boldsymbol{x}\vec{b}}{d\vec{x}}=\vec{a} \vec{b}^T$
+8. $\boldsymbol{x} \in \mathbb{R^{n\times m}} \text{注意这里是n}\times \text{m维度。而不是前面的m}\times \text{n维度}, \vec{a} \in \mathbb{R^{m\times 1}}, \vec{b} \in \mathbb{R^{n\times 1}}, then \frac{d\vec{a}^T\boldsymbol{x}^T\vec{b}}{d\vec{x}}=\vec{b}\vec{a}^T$
+9. $\boldsymbol{X} \in \mathbb{R^{m\times n}}, \boldsymbol{B} \in \mathbb{R^{n\times m}}, then \frac{d(tr\boldsymbol{X}\boldsymbol{B})}{d\boldsymbol{X}}=\boldsymbol{B}^T$
+10. $\boldsymbol{X} \in \mathbb{R^{m\times n}}, \boldsymbol{X} \text{是可逆的。} then \frac{d|\boldsymbol{X}|}{d\boldsymbol{X}}=|\boldsymbol{X}|(\boldsymbol{X}^{-1})^T$
+
 ### 1.1 行列式
 
 ### 1.1.1 需要注意的关键点
