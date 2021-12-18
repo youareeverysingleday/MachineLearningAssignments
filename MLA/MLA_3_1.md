@@ -38,6 +38,8 @@ $$
 
 ## 2 Programming
 
+A matlab program demonstrating how to estimate the parameters of a GMM using the EM algorithm.
+
 ```matlab
 clear;
 close all;
