@@ -40,131 +40,138 @@ $$
 
 A matlab program demonstrating how to estimate the parameters of a GMM using the EM algorithm.
 
-```matlab
-clear;
-close all;
+    ```matlab
+    clear;
+    close all;
 
-datapath = 'data3.mat';
-load(datapath); 
+    datapath = 'data3.mat';
+    load(datapath); 
 
-figure;
-h1 = gscatter(data(:,1), data(:,2)); 
-hold on;
+    figure;
+    h1 = gscatter(data(:,1), data(:,2)); 
+    hold on;
 
-%请给下面这个section加上总的注释，并尽量给每一个语句加上注释
-xRange = min(data(:,1)) :0.1:max(data(:,1));
-yRange = min(data(:,2)):0.1:max(data(:,2));
-xRange = xRange * 1.5; 
-yRange = yRange * 1.5;
-[gridX, gridY] = meshgrid(xRange, yRange); 
-%%%%%%%%%%%%%%
-
-
-set(gca, 'color', [0.3 0.5 0.6])
-set(gcf, 'color', [0.3 0.5 0.6])
-
-% create a gif from the plotting option
-gif = true;
-if gif
-    filename = 'gmm.gif';
-    delete(filename);
-end
-
-%% 请加上注释来说明一下这几个变量代表或存储的都是什么东西？
-K = 3; 
-pDatatoEachGauss = zeros(size(data, 1), K); 
-mus = zeros(K, size(data, 2)); 
-alphas = ones(K, 1) / K; 
-sigmas = struct(); 
-%%%%%%%%%%%%%%%%%%%
+    %请给下面这个section加上总的注释，并尽量给每一个语句加上注释
+    xRange = min(data(:,1)) :0.1:max(data(:,1));
+    yRange = min(data(:,2)):0.1:max(data(:,2));
+    xRange = xRange * 1.5; 
+    yRange = yRange * 1.5;
+    [gridX, gridY] = meshgrid(xRange, yRange); 
+    %%%%%%%%%%%%%%
 
 
-for indexGauss = 1:K
-    %%%%%%%%%%%%%%%%
-    %给这个section里面的每一句话加上注释
-    sample = data(randsample(1:size(data,1), 1), :); 
-    mus(indexGauss, :) = sample; 
-    sigmas(indexGauss).covmat = 0.1 * rand(1,1) * cov(data); 
-    
-    gaussValuesAtSamplingPoints = mvnpdf([gridX(:) gridY(:)], mus(indexGauss, :), sigmas(indexGauss).covmat); 
-    gaussValuesAtSamplingPoints = reshape(gaussValuesAtSamplingPoints, length(yRange), length(xRange));
-    [~, hn(indexGauss)] = contour(xRange, yRange, gaussValuesAtSamplingPoints, [.0001 .001 .01 .05:.1:.95 .99 .999 .9999]); 
-    hmus(indexGauss) = plot(mus(indexGauss,1), mus(indexGauss,2), 'kx', 'LineWidth', 2, 'MarkerSize', 10);
-    %%%%%%%%%%%%%%%%%%%%%%%
-    
-    frame = getframe(1);
-    im = frame2im(frame);
-    [imind,cm] = rgb2ind(im,256);
-    imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
-end
+    set(gca, 'color', [0.3 0.5 0.6])
+    set(gcf, 'color', [0.3 0.5 0.6])
 
-%% EM iteration steps
-epsilon = 0.001;
-iteration = 1;
-loglikelihood = [];
-while(true)
-    % 对这个for循环加上整体的注释
-    for dataIndex = 1 : size(data,1)
-        pThisDataToEachGauss = arrayfun(@(k) alphas(k) * mvnpdf(data(dataIndex, :), mus(k, :), sigmas(k).covmat), 1:K);
-        pThisDataToEachGauss = pThisDataToEachGauss / sum(pThisDataToEachGauss);
-        pDatatoEachGauss(dataIndex, :) = pThisDataToEachGauss;
+    % create a gif from the plotting option
+    gif = true;
+    if gif
+        filename = 'gmm.gif';
+        delete(filename);
     end
-    
-    %为本句加上注释
-    sumPDataToEachGauss = sum(pDatatoEachGauss, 1);
-    %为本句加上注释
-    alphas = (sumPDataToEachGauss/sum(sumPDataToEachGauss))';
-    
-    for gaussIndex = 1 : K
-        %%%%%%%%%%%%%%%%%%%%
-        %为这个section里的每个语句加上注释
-        gaussMuUpper = sum(data(:, :) .* pDatatoEachGauss(:, gaussIndex));
-        mus(gaussIndex,:) = gaussMuUpper / sumPDataToEachGauss(gaussIndex);
-        sigmas(gaussIndex).covmat = ((data(:,:)-mus(gaussIndex, :))' * (pDatatoEachGauss(:, gaussIndex) .* (data(:,:)-mus(gaussIndex, :))))/sumPDataToEachGauss(gaussIndex);
+
+    %% 请加上注释来说明一下这几个变量代表或存储的都是什么东西？
+    K = 3; 
+    pDatatoEachGauss = zeros(size(data, 1), K); 
+    mus = zeros(K, size(data, 2)); 
+    alphas = ones(K, 1) / K; 
+    sigmas = struct(); 
+    %%%%%%%%%%%%%%%%%%%
+
+
+    for indexGauss = 1:K
+        %%%%%%%%%%%%%%%%
+        %给这个section里面的每一句话加上注释
+        sample = data(randsample(1:size(data,1), 1), :); 
+        mus(indexGauss, :) = sample; 
+        sigmas(indexGauss).covmat = 0.1 * rand(1,1) * cov(data); 
         
-        delete(hn(gaussIndex));
-        delete(h1);
-        delete(hmus(gaussIndex));
-        
-        [M,I] = max(pDatatoEachGauss, [], 2);
-        h1 = gscatter(data(:,1), data(:,2), I);
-        
-        F = mvnpdf([gridX(:) gridY(:)], mus(gaussIndex, :), sigmas(gaussIndex).covmat);
-        F = reshape(F, length(yRange), length(xRange));
-        [~, hn(gaussIndex)] = contour(xRange, yRange, F, [.0001 .001 .01 .05:.1:.95 .99 .999 .9999]); 
-        hmus(gaussIndex) = plot(mus(gaussIndex,1),mus(gaussIndex,2),'kx','LineWidth',2,'MarkerSize',10);
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
-        uistack(h1, 'bottom');
-        drawnow;
+        gaussValuesAtSamplingPoints = mvnpdf([gridX(:) gridY(:)], mus(indexGauss, :), sigmas(indexGauss).covmat); 
+        gaussValuesAtSamplingPoints = reshape(gaussValuesAtSamplingPoints, length(yRange), length(xRange));
+        [~, hn(indexGauss)] = contour(xRange, yRange, gaussValuesAtSamplingPoints, [.0001 .001 .01 .05:.1:.95 .99 .999 .9999]); 
+        hmus(indexGauss) = plot(mus(indexGauss,1), mus(indexGauss,2), 'kx', 'LineWidth', 2, 'MarkerSize', 10);
+        %%%%%%%%%%%%%%%%%%%%%%%
         
         frame = getframe(1);
         im = frame2im(frame);
         [imind,cm] = rgb2ind(im,256);
-        imwrite(imind,cm,filename,'gif','WriteMode','append');
+        imwrite(imind,cm,filename,'gif', 'Loopcount',inf);
     end
-    
-    %%%%%%%%%%%%%%%%%%
-    %给这个section里面的每个语句加上注释
-    laccum = 0; 
-    for dataIndex = 1 : size(data, 1)
-        thisDataPointLiklyhood = 0;
+
+    %% EM iteration steps
+    epsilon = 0.001;
+    iteration = 1;
+    loglikelihood = [];
+    while(true)
+        % 对这个for循环加上整体的注释
+        for dataIndex = 1 : size(data,1)
+            pThisDataToEachGauss = arrayfun(@(k) alphas(k) * mvnpdf(data(dataIndex, :), mus(k, :), sigmas(k).covmat), 1:K);
+            pThisDataToEachGauss = pThisDataToEachGauss / sum(pThisDataToEachGauss);
+            pDatatoEachGauss(dataIndex, :) = pThisDataToEachGauss;
+        end
+        
+        %为本句加上注释
+        sumPDataToEachGauss = sum(pDatatoEachGauss, 1);
+        %为本句加上注释
+        alphas = (sumPDataToEachGauss/sum(sumPDataToEachGauss))';
+        
         for gaussIndex = 1 : K
-            thisDataPointLiklyhood = thisDataPointLiklyhood + alphas(gaussIndex)* mvnpdf(data(dataIndex,:), mus(gaussIndex, :), sigmas(gaussIndex).covmat);
+            %%%%%%%%%%%%%%%%%%%%
+            %为这个section里的每个语句加上注释
+            gaussMuUpper = sum(data(:, :) .* pDatatoEachGauss(:, gaussIndex));
+            mus(gaussIndex,:) = gaussMuUpper / sumPDataToEachGauss(gaussIndex);
+            sigmas(gaussIndex).covmat = ((data(:,:)-mus(gaussIndex, :))' * (pDatatoEachGauss(:, gaussIndex) .* (data(:,:)-mus(gaussIndex, :))))/sumPDataToEachGauss(gaussIndex);
+            
+            delete(hn(gaussIndex));
+            delete(h1);
+            delete(hmus(gaussIndex));
+            
+            [M,I] = max(pDatatoEachGauss, [], 2);
+            h1 = gscatter(data(:,1), data(:,2), I);
+            
+            F = mvnpdf([gridX(:) gridY(:)], mus(gaussIndex, :), sigmas(gaussIndex).covmat);
+            F = reshape(F, length(yRange), length(xRange));
+            [~, hn(gaussIndex)] = contour(xRange, yRange, F, [.0001 .001 .01 .05:.1:.95 .99 .999 .9999]); 
+            hmus(gaussIndex) = plot(mus(gaussIndex,1),mus(gaussIndex,2),'kx','LineWidth',2,'MarkerSize',10);
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+            uistack(h1, 'bottom');
+            drawnow;
+            
+            frame = getframe(1);
+            im = frame2im(frame);
+            [imind,cm] = rgb2ind(im,256);
+            imwrite(imind,cm,filename,'gif','WriteMode','append');
         end
-        laccum = laccum + log(thisDataPointLiklyhood);
+        
+        %%%%%%%%%%%%%%%%%%
+        %给这个section里面的每个语句加上注释
+        laccum = 0; 
+        for dataIndex = 1 : size(data, 1)
+            thisDataPointLiklyhood = 0;
+            for gaussIndex = 1 : K
+                thisDataPointLiklyhood = thisDataPointLiklyhood + alphas(gaussIndex)* mvnpdf(data(dataIndex,:), mus(gaussIndex, :), sigmas(gaussIndex).covmat);
+            end
+            laccum = laccum + log(thisDataPointLiklyhood);
+        end
+        %%%%%%%%%%%%%%%%%%
+        fprintf('[%d-th iteration] log-likelihood: %.3f\n', iteration, laccum);
+        loglikelihood = [loglikelihood; laccum];
+        iteration = iteration + 1;
+        
+        % 迭代停止条件：如果两次迭代的对数似然之差小于eps了，迭代停止
+        if numel(loglikelihood) > 1
+            if abs(loglikelihood(end)-loglikelihood(end-1)) <= epsilon
+                fprintf('[Optimization completed]\n');
+                break;
+            end
+        end
     end
-    %%%%%%%%%%%%%%%%%%
-    fprintf('[%d-th iteration] log-likelihood: %.3f\n', iteration, laccum);
-    loglikelihood = [loglikelihood; laccum];
-    iteration = iteration + 1;
+    ```
+
+<!-- I am very sorry, I don't know matlab language. therefore, I implement GMM using python.-->
+[参考](https://github.com/wrayzheng/gmm-em-clustering)
+
+    ```python
     
-    % 迭代停止条件：如果两次迭代的对数似然之差小于eps了，迭代停止
-    if numel(loglikelihood) > 1
-        if abs(loglikelihood(end)-loglikelihood(end-1)) <= epsilon
-            fprintf('[Optimization completed]\n');
-            break;
-        end
-    end
-end
-```
+    ```
