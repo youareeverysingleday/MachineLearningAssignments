@@ -32,27 +32,27 @@ $$
 
 ## 2 证明矩阵是一个群
 
-M是一个正交矩阵，而且ti是一个向量。需要正面M满足4个条件。
+M是一个正交矩阵，而且ti是一个向量。需要证明M满足4个条件。
 证明：
 $$
 \begin{aligned}
 & \boldsymbol{M}_i = \begin{bmatrix}
-&\boldsymbol{R}_i & \boldsymbol{t}_i \\
-&\boldsymbol{0} &\boldsymbol{1}
-\end{bmatrix}\in \mathbb{R}, \boldsymbol{R}_i \in \mathbb{R^{3\times 3}}(det(\boldsymbol{R}_i)=1), \text{and} \quad \boldsymbol{t}_i \in \mathbb{R^{3\times 1}}\\
+\boldsymbol{R}_i & \boldsymbol{t}_i \\
+\boldsymbol{0} &\boldsymbol{1}
+\end{bmatrix}\in \mathbb{R}, \boldsymbol{R}_i \in \mathbb{R^{3\times 3}}(det(\boldsymbol{R}_i)=1), \text{and} \quad \boldsymbol{t}_i \in \mathbb{R^{3\times 1}}, \text{请证明}\boldsymbol{M}_i \text{是一个群。}\\
 
 & \text{1. proof closure:} \\
 & \text{set} \boldsymbol{M}_j \in \boldsymbol{M}_i, \boldsymbol{M}_k \in \boldsymbol{M}_i, \text{and} \quad \boldsymbol{R}_j \in \boldsymbol{R}_i, \boldsymbol{R}_k \in \boldsymbol{R}_i, \boldsymbol{t}_j \in \boldsymbol{t}_i, \boldsymbol{t}_k \in \boldsymbol{t}_i. \\
 & M_j \cdot M_k = \begin{bmatrix}
-&\boldsymbol{R}_j & \boldsymbol{t}_j \\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_j & \boldsymbol{t}_j \\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix} \cdot \begin{bmatrix}
-&\boldsymbol{R}_k & \boldsymbol{t}_k \\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_k & \boldsymbol{t}_k \\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix} \\
 & =\begin{bmatrix}
-&\boldsymbol{R}_j \boldsymbol{R}_k & \boldsymbol{R}_j\boldsymbol{t}_k + \boldsymbol{t}_j\\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_j \boldsymbol{R}_k & \boldsymbol{R}_j\boldsymbol{t}_k + \boldsymbol{t}_j\\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix} \\
 & \because \boldsymbol{R}_i \in \mathbb{R^{3\times 3}}, \quad \text{实数之间四则运算的结果肯定还是属于实数的.}\\
 & \therefore \boldsymbol{R}_j \boldsymbol{R}_k \in \mathbb{R^{3\times 3}}.\\
@@ -64,26 +64,26 @@ $$
 & \text{2. proof associativity:} \\
 & \text{set} \boldsymbol{M}_l \in \boldsymbol{M}_i,\text{and} \quad \boldsymbol{R}_l \in \boldsymbol{R}_i, \boldsymbol{t}_l \in \boldsymbol{t}_i. \\
 & (\boldsymbol{M}_j \cdot \boldsymbol{M}_k )\cdot \boldsymbol{M}_l= \begin{bmatrix}
-&\boldsymbol{R}_j \boldsymbol{R}_k & \boldsymbol{R}_j\boldsymbol{t}_k + \boldsymbol{t}_j\\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_j \boldsymbol{R}_k & \boldsymbol{R}_j\boldsymbol{t}_k + \boldsymbol{t}_j\\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix} \cdot \begin{bmatrix}
-&\boldsymbol{R}_l & \boldsymbol{t}_l \\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_l & \boldsymbol{t}_l \\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix}\\
 & =\begin{bmatrix}
-&\boldsymbol{R}_j \boldsymbol{R}_k \boldsymbol{R}_l & \boldsymbol{R}_j \boldsymbol{R}_k\boldsymbol{t}_l + \boldsymbol{R}_j\boldsymbol{t}_k + \boldsymbol{t}_j\\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_j \boldsymbol{R}_k \boldsymbol{R}_l & \boldsymbol{R}_j \boldsymbol{R}_k\boldsymbol{t}_l + \boldsymbol{R}_j\boldsymbol{t}_k + \boldsymbol{t}_j\\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix} \\
 & \boldsymbol{M}_j \cdot (\boldsymbol{M}_k \cdot \boldsymbol{M}_l)= \begin{bmatrix}
-&\boldsymbol{R}_j & \boldsymbol{t}_j \\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_j & \boldsymbol{t}_j \\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix}  \cdot \begin{bmatrix}
-&\boldsymbol{R}_k \boldsymbol{R}_l & \boldsymbol{R}_k\boldsymbol{t}_l + \boldsymbol{t}_k\\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_k \boldsymbol{R}_l & \boldsymbol{R}_k\boldsymbol{t}_l + \boldsymbol{t}_k\\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix} \\
 & = \begin{bmatrix}
-&\boldsymbol{R}_j \boldsymbol{R}_k \boldsymbol{R}_l & \boldsymbol{R}_j \boldsymbol{R}_k\boldsymbol{t}_l + \boldsymbol{R}_j\boldsymbol{t}_k + \boldsymbol{t}_j\\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_j \boldsymbol{R}_k \boldsymbol{R}_l & \boldsymbol{R}_j \boldsymbol{R}_k\boldsymbol{t}_l + \boldsymbol{R}_j\boldsymbol{t}_k + \boldsymbol{t}_j\\
+\boldsymbol{0} &\boldsymbol{1}
 \end{bmatrix} \\
 & \therefore (\boldsymbol{M}_j \cdot \boldsymbol{M}_k )\cdot \boldsymbol{M}_l=\boldsymbol{M}_j \cdot (\boldsymbol{M}_k \cdot \boldsymbol{M}_l) \\
 
@@ -96,8 +96,8 @@ $$
 & \because det(\boldsymbol{R}_i)=1 \\
 & \therefore \boldsymbol{R}_i \text{可逆}. \\
 & det(\boldsymbol{M}_i)=\begin{vmatrix}
-&\boldsymbol{R}_i & \boldsymbol{t}_i \\
-&\boldsymbol{0} &\boldsymbol{1}
+\boldsymbol{R}_i & \boldsymbol{t}_i \\
+\boldsymbol{0} &\boldsymbol{1}
 \end{vmatrix}\\
 & = det(\boldsymbol{R}_i) det(\boldsymbol{1})\\
 & \because \boldsymbol{1} \in \mathbb{R^{1\times 1}} \\
