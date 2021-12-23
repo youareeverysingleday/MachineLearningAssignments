@@ -76,6 +76,15 @@ where $\boldsymbol{J}(\boldsymbol{x})$ is $\boldsymbol{f}(\boldsymbol{x})$'s Jac
 
 On the website, I provide you a Matlab program which demonstrates how to fit the parameters of a GMM using the EM algorithm. Please add detailed comments at the required places.
 
+
+### 1.4 Four Assignment
+
+Deadline: December 30, 2021.
+
+1. Write a paper about Rough set.
+2. Translate a paper about application.
+3. Complete the coding of a GNN project.
+
 ## 2. Translation
 
 add translation section.
@@ -98,7 +107,7 @@ you must need to learn knowledge is follows:
 add learning section.
 |number|book name|auther|correlative field|illustration|whether or not start|had learned chapter|isCompleted|
 |---|---|---|---|---|---|---|---|
-|1|机器学习|周志华|machine learning|/|y|2.2.4|n|
+|1|机器学习|周志华|machine learning|/|y|2.3|n|
 |2|李宏毅的视频|李宏毅|machine learning|/|n|/|n|
 |3|吴恩达的100讲|吴恩达|machine learning|/|y|1|n|
 |4|统计学习方法|李航|machine learning and mathematics|/|n|/|n|
