@@ -7,7 +7,7 @@
 
 |number|title of paper|internet source|local source|correlative field|illustration|
 |---|---|---|---|---|---|
-|1|neural collaborative filtering|<http://staff.ustc.edu.cn/~hexn/papers/www17-ncf.pdf>|/references/1NeuralCollaborativeFiltering.pdf|recommonder system|English translate into chinese|
+|1|neural collaborative filtering|<http://staff.ustc.edu.cn/~hexn/papers/www17-ncf.pdf>|/|recommonder system|English translate into chinese|
 
 ## abstract 摘要
 
