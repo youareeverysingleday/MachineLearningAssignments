@@ -6,6 +6,7 @@
 /test/
 /otherRefer/
 /references/
+/data/fsq/
 ##只包含哪些结尾的文件，大小限制在10MB以内。特别是视频，千万注意大小。
 !*.ipynb
 !*.csv
