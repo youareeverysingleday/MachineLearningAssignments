@@ -107,7 +107,7 @@ you must need to learn knowledge is follows:
 add learning section.
 |number|book name|auther|correlative field|illustration|whether or not start|had learned chapter|isCompleted|
 |---|---|---|---|---|---|---|---|
-|1|机器学习|周志华|machine learning|/|y|2.3|n|
+|1|机器学习|周志华|machine learning|/|y|3.1|n|
 |2|李宏毅的视频|李宏毅|machine learning|/|n|/|n|
 |3|吴恩达的100讲|吴恩达|machine learning|/|y|1|n|
 |4|统计学习方法|李航|machine learning and mathematics|/|n|/|n|
