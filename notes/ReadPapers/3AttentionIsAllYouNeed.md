@@ -33,22 +33,31 @@ Transformer实现。
 14. 解码器用到的技术点：LayerNorm、残差网络、多头注意力机制、自回归模型、掩码。
 15. **掩码是因为多头注意力机制每次会看到完整的输入，为了避免这个情况的出现就采用了掩码技术。也就是在对t时刻进行预测的时候，不应该看到t时刻之后的那些输入。从而保证训练和预测的时候行为是一致的**。
 16. 注意力attention
-    1. 注意力函数是将一个query和一些key-value映射成一个output的函数。注意，这里有三个变量：一个quer、一些key-value对、一个output。这里的query、key、value、output四个都是向量。具体而言output是values（复数，表示多个value）的加权和，导致output的维度和value的维度是一样的。加权和的权重是对应于value的key和查询这个query的相识度计算出来的。这个相识度compatibility function不同的注意力机制有不同的算法。
+    1. 注意力函数是将一个query和一些key-value映射成一个output的函数。注意，这里有三个变量：一个query、一些key-value对、一个output。这里的query、key、value、output四个都是向量。具体而言output是values（复数，表示多个value）的加权和，导致output的维度和value的维度是一样的。加权和的权重是对应于value的key和查询这个query的相识度计算出来的。这个相识度compatibility function不同的注意力机制有不同的算法。
     2. 注意力机制原理，同时简要说明相似函数compatibility function的计算：现在有一组key-value的对。然后假设输入query0（黄色），通过将query0和key两个向量之间做比较（通过计算内积可以比较两个向量之间的相似程度），发现query0和key中的$key_1, key_2$比较相似，而和$key_3$不一样；那么query0就和$key_1, key_2$之间的权重高，和$key_3$之间的权重低。同理假设输入query1（蓝色），发现query1和key中的$key_2, key_3$比较相似，而和$key_1$不一样；那么query1就和$key_2, key_3$之间的权重高，和$key_1$之间的权重低。如图所示：![相识度计算举例](../../pictures/AttentionsIsAllYouNeed_CompatibilityFunctionExample.png)。虽然key-value对并没有改变，但是随着query的变化，权重的分配会不一样，导致输出也会随之改变。
-    3. 不同的相似函数会得到不同的注意力机制的版本。Transformer里面用的相似函数是scaled dot-product attention，这个就是最简单的相似函数。Transformer中的query和key是等长的（query和key可以不等长，不等长有其他的计算方法），长度为$d_k$。value的长度是$d_v$，那么输出的长度也是$d_v$。然后对query和每一个key做内积，作为相识度。然后将内积的除以$\sqrt{d_k}$，然后再通过softmax来得到权重值。这里需要说明的是给一个query会对给定的n个key做内积计算，再放入softmax中就会得到n个非负的而且加起来等于1的一个权重。然后将这个权重作用在values上就可以得到输出。实际中计算法的方法$Attention(\boldsymbol{Q},\boldsymbol{V},\boldsymbol{K}) = softmax(\frac{\boldsymbol{Q}_{(n,d_k)}\boldsymbol{K}^T_{(d_k,m)}}{\sqrt{d_k}})\boldsymbol{V}_{(m,d_v)}$其中softmax是对$(\frac{\boldsymbol{Q}_{(n,d_k)}\boldsymbol{K}^T_{(d_k,m)}}{\sqrt{d_k}})_{(n,m)}$的每一行进行softmax。这样如果有n个query的话，可以通过两次矩阵乘法来计算得到最后的结果。这样非常容易并行的计算每个元素。因为矩阵乘法是一个非常好并行的运算。
+    3. 不同的相似函数会得到不同的注意力机制的版本。Transformer里面用的相似函数是scaled dot-product attention，这个就是最简单的相似函数。Transformer中的query和key是等长的（query和key可以不等长，不等长有其他的计算方法），key长度为$d_k$。value的长度是$d_v$，那么输出的长度也是$d_v$。然后对query和每一个key做内积，作为相识度。然后将内积的除以$\sqrt{d_k}$，然后再通过softmax来得到权重值。这里需要说明的是给一个query会对给定的n个key做内积计算，再放入softmax中就会得到n个非负的而且加起来等于1的一个权重。然后将这个权重作用在values上就可以得到输出。实际中计算法的方法$Attention(\boldsymbol{Q},\boldsymbol{V},\boldsymbol{K}) = softmax(\frac{\boldsymbol{Q}_{(n,d_k)}\boldsymbol{K}^T_{(d_k,m)}}{\sqrt{d_k}})\boldsymbol{V}_{(m,d_v)}$其中softmax是对$(\frac{\boldsymbol{Q}_{(n,d_k)}\boldsymbol{K}^T_{(d_k,m)}}{\sqrt{d_k}})_{(n,m)}$的每一行进行softmax。这样如果有n个query的话，可以通过两次矩阵乘法来计算得到最后的结果。这样非常容易并行的计算每个元素。因为矩阵乘法是一个非常好并行的运算。
     4. 和别的注意力机制的区别：
        1. 一种是加型的注意力机制，可以处理query和key不等长的情况。
-       2. 另外一种是点积注意力机制。这个点积注意力机制和我们transformer基本上是一样的。除了transformer在计算的过程中除以了一个$\sqrt{d_k}$。这里就是为什么要用scaled这个单词的原因。选择点积的原因是实现比较简单而且可以并行计算。为什么要除以$\sqrt{d_k}$的原因：当$d_k$不是很大的时候其实除不除以$d_k$都是没有关系的。但是当$d_k$比较大的时候，也就是说两个向量长度比较长的时候。在做点积的时候会出现值之间的差距比较大（也就是query和多个key的点积结果有相对比较大的，也有相对比较小的）。这时在进行softmax运算时，导致最大的那个值更加靠近于1，剩下的那些比较小的值更加靠近于0。也就是值会更加向两端靠拢。当出现这种情况是，计算梯度时梯度会比较小。因为softmax的结果是置信的地方尽量靠近于1，不置信的地方尽量靠近于0。这是说明收敛得差不多，这时梯度就会变得比较小，那么模型训练就会跑不动。而在transformer里面的$d_k$比较大，所以除以一个$d_k$是不错的选择。
-17. mask主要是为了避免在第t时刻看到t时刻之后的输入。假设query和key的长度都为n，而且在时间上可以可以对应起来。对于t时刻的$q_t$只需要看到$k_1,k_2,\cdots,k_{t-1}$，而不应该看到$k_{t+1},k_{t+2},\cdots,k_{n}$。虽然实际上在注意力机制是可以看到所有的$\boldsymbol{k}$的，而且$q_t$是会和所有$\boldsymbol{k}$进行计算的。这个时候的解决方法是：可以先计算出来，但是在计算权重的时候将$q_t$和$k_t$之后计算出来的值替换为一个非常大的负数（比如说$-10^{10}$），在进入softmax之后做指数运算时就会变成0。直接导致$k_{t+1},k_{t+2},\cdots,k_{n}$对应的计算值都为0，只会有$k_1,k_2,\cdots,k_{t-1}$出效果。对应的在计算output的时候就只会有$v_1,v_2,\cdots,v_{t-1}$进行计算，t及t时刻之后的全部参与计算了。
-18. multi-head多头
+       2. 另外一种是点积注意力机制。这个点积注意力机制和我们transformer基本上是一样的。除了transformer在计算的过程中除以了一个$\sqrt{d_k}$。这里就是为什么要用scaled这个单词的原因。选择点积的原因是实现比较简单而且可以并行计算。为什么要除以$\sqrt{d_k}$的原因：当$d_k$不是很大的时候其实除不除以$d_k$都是没有关系的。但是当$d_k$比较大的时候，也就是说两个向量长度比较长的时候。在做点积的时候会出现值之间的差距比较大（也就是query和多个key的点积结果有相对比较大的，也有相对比较小的）。这时在进行softmax运算时，导致最大的那个值更加靠近于1，剩下的那些比较小的值更加靠近于0。也就是值会更加向两端靠拢。当出现这种情况是，计算梯度时梯度会比较小。因为softmax的结果是置信的地方尽量靠近于1，不置信的地方尽量靠近于0。这是说明收敛得差不多，这时梯度就会变得比较小，那么模型训练就会跑不动。而在transformer里面的$d_k$比较大，所以除以一个$d_k$是不错的选择。![点积计算流程图](../../pictures/AttentionsIsAllYouNeed_Figure2_Left.png)
+17. mask主要是为了避免在第t时刻看到t时刻之后的输入。假设query和key的长度都为n，而且在时间上可以可以对应起来。对于t时刻的$q_t$只需要看到$k_1,k_2,\cdots,k_{t-1}$，而不应该看到$k_{t+1},k_{t+2},\cdots,k_{n}$。虽然实际上在注意力机制是可以看到所有的$\boldsymbol{k}$的，而且$q_t$是会和所有$\boldsymbol{k}$进行计算的。这个时候的解决方法是：可以先计算出来，但是在计算权重的时候将$q_t$和$k_t$之后计算出来的值替换为一个非常大的负数（比如说$-10^{10}$）（问题：是否可以赋值为0呢？），在进入softmax之后做指数运算时就会变成0。直接导致$k_{t+1},k_{t+2},\cdots,k_{n}$对应的计算值都为0，只会有$k_1,k_2,\cdots,k_{t-1}$出效果。对应的在计算output的时候就只会有$v_1,v_2,\cdots,v_{t-1}$进行计算，t及t时刻之后的全部参与计算了。
+18. multi-head多头：与其做一个单个的注意力函数，不如将整个keys, values, queries（注意都是复数）都投影到一个低维，投影h次。然后再做h次的注意力函数。并且将每一个注意力函数的输出并在一起。再投影回来得到最终的输出。 ![多头机制](../../pictures/AttentionsIsAllYouNeed_Figure2_Right.png)。QKV都进过了一个线性层。线性层的作用就是将数据投影到一个比较低的维度上。然后再做h次scaled dot-product attention。会得到h个输出。把输出向量全部合并到一起之后最后做一次线性投影。然后回到multi-head attention。为什么要做多头注意力机制？原因可以发现在scaled dot-product attention的过程中没有需要调节的参数。在识别不一样的模式，希望有一些不太一样的计算像素的办法。如果使用的addition attention时，其中还有一个权重需要学习。但是乘积性的attention中没有。所以这里通过一个权重w来将K\V\Q投影到低维。也就是说给予模型h次机会，希望学到不一样的投影方法。使得在被投影的度量空间中能够去匹配不同的模式所需要的一些相似函数。最后再做一次投影回来。有一点类似卷积神经网络中的多个输出通道的意思。
+    $$\text{MutliHead}(Q, K, V)=\text{Concat}(head_1, head_2, \cdots ,head_h)\boldsymbol{W}^O \\
+    \text{where }head_i=\text{Attention}(\boldsymbol{QW}_i^Q, \boldsymbol{KW}_i^K, \boldsymbol{VW}_i^V)$$
+QKV依然还是QKV，但是通过多头机制之后将输出的head连接起来，然后投影到$\boldsymbol{W}^O$空间上。每个$\text{head}_i$是每个QKV通过3个不同的可以学习的$\boldsymbol{W}_i^{Q/K/V}$投影到低维上面。在做我们之前提到的注意力函数。最终输出结果。目前h=8。
 19. 自注意力机制的核心是：key, value, query实际是输入的复制了3份。
 20. 归纳偏置
 
 ## 2. 问题
 
 1. BLEU score具体是什么评价标准？
+2. 在使用mask的时候是否可以将不计算的部分直接设置为为0，而不是赋值为$-10^{10}$？
 
 ## 3. 其他
 
 1. 四类基础模型：MLP、CNN、RNN和Transformer。
 2. 通常代码都会放在摘要的最后一句话。
+
+## 4. 代码实现
+
+1. [Google Tensorflow参考](https://tensorflow.google.cn/tutorials/text/transformer?hl=zh_cn)
+2. 代码试验实现：codes/2Transformer/pyTransformer.ipynb .
