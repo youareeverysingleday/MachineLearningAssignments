@@ -43,14 +43,20 @@ Transformer实现。
 18. multi-head多头：与其做一个单个的注意力函数，不如将整个keys, values, queries（注意都是复数）都投影到一个低维，投影h次。然后再做h次的注意力函数。并且将每一个注意力函数的输出并在一起。再投影回来得到最终的输出。 ![多头机制](../../pictures/AttentionsIsAllYouNeed_Figure2_Right.png)。QKV都进过了一个线性层。线性层的作用就是将数据投影到一个比较低的维度上。然后再做h次scaled dot-product attention。会得到h个输出。把输出向量全部合并到一起之后最后做一次线性投影。然后回到multi-head attention。为什么要做多头注意力机制？原因可以发现在scaled dot-product attention的过程中没有需要调节的参数。在识别不一样的模式，希望有一些不太一样的计算像素的办法。如果使用的addition attention时，其中还有一个权重需要学习。但是乘积性的attention中没有。所以这里通过一个权重w来将K\V\Q投影到低维。也就是说给予模型h次机会，希望学到不一样的投影方法。使得在被投影的度量空间中能够去匹配不同的模式所需要的一些相似函数。最后再做一次投影回来。有一点类似卷积神经网络中的多个输出通道的意思。
     $$\text{MutliHead}(Q, K, V)=\text{Concat}(head_1, head_2, \cdots ,head_h)\boldsymbol{W}^O \\
     \text{where }head_i=\text{Attention}(\boldsymbol{QW}_i^Q, \boldsymbol{KW}_i^K, \boldsymbol{VW}_i^V)$$
-QKV依然还是QKV，但是通过多头机制之后将输出的head连接起来，然后投影到$\boldsymbol{W}^O$空间上。每个$\text{head}_i$是每个QKV通过3个不同的可以学习的$\boldsymbol{W}_i^{Q/K/V}$投影到低维上面。在做我们之前提到的注意力函数。最终输出结果。目前h=8。
+QKV依然还是QKV，但是通过多头机制之后将输出的head连接起来，然后投影到$\boldsymbol{W}^O$空间上。**每个$\text{head}_i$是每个QKV通过3个不同的可以学习的$\boldsymbol{W}_i^{Q/K/V}$投影到低维上面**。在做我们之前提到的注意力函数。最终输出结果。目前h=8。因为有残差的存在，所以输入和输出的维度是一样的。投影的时候就是输出的维度除以h。
 19. 自注意力机制的核心是：key, value, query实际是输入的复制了3份。
-20. 归纳偏置
+20. Transformer如何使用注意力机制，也就是说在一个transformer模型中使用了3个注意力层，下面将详细说明这3个注意力层的输入和输出：
+    1. 在编码器中![第一个输入部分](../../pictures/AttentionsIsAllYouNeed_EncodeSelfAttention.png)的输入：假设句子的长度为n，那么输入就是n个长度为d的向量。如果批量大小设置为1。可以看到第1个注意力层有3个输入，分别表示的是key、value、query。这里也就是说同一个输入复制为3份，即作为key也作为value同时也是query。**这个的复制成3个的过程就表示了“自注意力”机制中的“自”。key、value、query其实都是一个东西，就是输入本身**。而且输入和value的长度是一样的，也就是输出的维度也是$n\times d$。也就意味着输入和输出的大小其实是一样的。对于每个query都会计算一个输出（注意这里的“输出”的维度是$n \times 1$）。这个输出其实就是value的加权和。![encode中的注意力层](../../pictures/AttentionsIsAllYouNeed_EncodeSelfAttention_illustration.png)这个加权和的权重来资源query和key。如图所示，绿色线代表权重。权重实际上是该向量和其他的向量之间计算相识度。该向量和自己计算肯定相似度是最高的，如果该向量和其他的某个向量的相似程度也有一定程度，那么权重也会变高。在不考虑多头和投影的情况下，输出其实就是你输入的加权和，权重来自于自己与自己本身和自己和其他向量之间的一个相似度。如果有多头和投影的情况下，会学习**h个不一样的距离空间**出来。而且每个权重之间都会有所差别。
+    2. 在解码器中第1个注意力层![decodeSelfAttention](../../pictures/AttentionsIsAllYouNeed_FirstDecodeSelfAttention.png)的输入也和编码器中注意力层类似，也是将同一个输入复制了3次，只不过维度从$n \times d$可能变为了$m \times d$。结构上不一样的在于有一个masked的地方。原因在于通过一个query计算输出的时候，它是不应该看到它自己之后的query的。也就是说需要它自己之后的权重要设置为0。![decodeSelfAttentionIllstration](../../pictures/AttentionsIsAllYouNeed_DecodeSelfAttention_illustration.png)如图黄色部分所示。
+    3. 在解码器中的第2个注意力层![SecondDecodeSelfAttention](../../pictures/AttentionsIsAllYouNeed_SecondDecodeSelfAttention.png)。**特别需要注意的是这里不再是自注意力**。key和value来自于编码器的输出，query来自于前一个解码器注意力层的输出。编码器的输出是维度为$n \times d$的矩阵（也就是n个长为d的向量），需要注意的是这里编码器的输出复制成为了2份。前面一个解码器注意力层的输出维度是$m \times d$。**这个注意力层的输出是52:13后面到完成attention讲解部分没有听明白**。这个attention做的事情就是有效的把编码器中的输出根据想要的东西把它提炼出来。举个例子：假设从编码器出来的输出是"hello world"，期望的输出是"你好世界"，在计算输出的时候，"你"和"hello"的相关性要高，和其他的相关性要低；同样的在计算输出"世"或者"界"query的时候期望和"world"的value、key的权重要高。这就是说根据解码器输入的不一样，根据当前解码器中前一个注意力层的输出向量的不同，从编码器的输出中挑选感兴趣的东西，也就是你注意到你感兴趣的东西，那些和你没有太多关系的编码器的输出就可以忽略掉它。这个也是attention如何在编码器和解码器之间传递信息的时候起到的作用。
+21. 归纳偏置
 
 ## 2. 问题
 
 1. BLEU score具体是什么评价标准？
 2. 在使用mask的时候是否可以将不计算的部分直接设置为为0，而不是赋值为$-10^{10}$？
+   1. 可以设置为0。在20.2中老师说明了可以设置为0。
+3. 需要将自注意力机制用代码实现一次，不然对数据没有感性认识。
 
 ## 3. 其他
 

@@ -115,3 +115,24 @@ add learning section.
 |6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|[动手深度学习v2]07、[论文精读]GNN论文逐段精读(Transformer需要再看一遍，有地方没看懂)|n|
 |7|Methods for nonlinear least squares|K. Madsen|machine learning|/|y|/|n|
 |8|老师的SVD课件|teacher|machine learning|/|y|/|n|
+
+```mermaid
+gantt
+    title learning task
+    dateFormat YYYY-MM-DD
+    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
+    axisFormat %m-%d
+
+    section read book
+    机器学习-周志华 chapter 2 :active, r1, 2022-01-18, 10d
+
+    section prepare hardware
+    server: active, ph1, 2022-01-18,7d
+
+    section coding
+    implement Transformer :crit, active, c1, 2022-01-18 , 14d
+    implement predicet location: after c1,5d
+
+    section watch video
+    跟李沐学AI transformer: crit, active, w1, 2022-01-18, 2d
+```
