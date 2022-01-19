@@ -116,6 +116,10 @@ add learning section.
 |7|Methods for nonlinear least squares|K. Madsen|machine learning|/|y|/|n|
 |8|老师的SVD课件|teacher|machine learning|/|y|/|n|
 
+other references
+
+1. [史上最全推荐系统传统算法合集](https://zhuanlan.zhihu.com/p/451353072)。[完全展开版本](https://mp.weixin.qq.com/s/gUBApp37F7TRM_O36hilfg)
+
 ```mermaid
 gantt
     title learning task

@@ -40,16 +40,44 @@ Transformer实现。
        1. 一种是加型的注意力机制，可以处理query和key不等长的情况。
        2. 另外一种是点积注意力机制。这个点积注意力机制和我们transformer基本上是一样的。除了transformer在计算的过程中除以了一个$\sqrt{d_k}$。这里就是为什么要用scaled这个单词的原因。选择点积的原因是实现比较简单而且可以并行计算。为什么要除以$\sqrt{d_k}$的原因：当$d_k$不是很大的时候其实除不除以$d_k$都是没有关系的。但是当$d_k$比较大的时候，也就是说两个向量长度比较长的时候。在做点积的时候会出现值之间的差距比较大（也就是query和多个key的点积结果有相对比较大的，也有相对比较小的）。这时在进行softmax运算时，导致最大的那个值更加靠近于1，剩下的那些比较小的值更加靠近于0。也就是值会更加向两端靠拢。当出现这种情况是，计算梯度时梯度会比较小。因为softmax的结果是置信的地方尽量靠近于1，不置信的地方尽量靠近于0。这是说明收敛得差不多，这时梯度就会变得比较小，那么模型训练就会跑不动。而在transformer里面的$d_k$比较大，所以除以一个$d_k$是不错的选择。![点积计算流程图](../../pictures/AttentionsIsAllYouNeed_Figure2_Left.png)
 17. mask主要是为了避免在第t时刻看到t时刻之后的输入。假设query和key的长度都为n，而且在时间上可以可以对应起来。对于t时刻的$q_t$只需要看到$k_1,k_2,\cdots,k_{t-1}$，而不应该看到$k_{t+1},k_{t+2},\cdots,k_{n}$。虽然实际上在注意力机制是可以看到所有的$\boldsymbol{k}$的，而且$q_t$是会和所有$\boldsymbol{k}$进行计算的。这个时候的解决方法是：可以先计算出来，但是在计算权重的时候将$q_t$和$k_t$之后计算出来的值替换为一个非常大的负数（比如说$-10^{10}$）（问题：是否可以赋值为0呢？），在进入softmax之后做指数运算时就会变成0。直接导致$k_{t+1},k_{t+2},\cdots,k_{n}$对应的计算值都为0，只会有$k_1,k_2,\cdots,k_{t-1}$出效果。对应的在计算output的时候就只会有$v_1,v_2,\cdots,v_{t-1}$进行计算，t及t时刻之后的全部参与计算了。
+
 18. multi-head多头：与其做一个单个的注意力函数，不如将整个keys, values, queries（注意都是复数）都投影到一个低维，投影h次。然后再做h次的注意力函数。并且将每一个注意力函数的输出并在一起。再投影回来得到最终的输出。 ![多头机制](../../pictures/AttentionsIsAllYouNeed_Figure2_Right.png)。QKV都进过了一个线性层。线性层的作用就是将数据投影到一个比较低的维度上。然后再做h次scaled dot-product attention。会得到h个输出。把输出向量全部合并到一起之后最后做一次线性投影。然后回到multi-head attention。为什么要做多头注意力机制？原因可以发现在scaled dot-product attention的过程中没有需要调节的参数。在识别不一样的模式，希望有一些不太一样的计算像素的办法。如果使用的addition attention时，其中还有一个权重需要学习。但是乘积性的attention中没有。所以这里通过一个权重w来将K\V\Q投影到低维。也就是说给予模型h次机会，希望学到不一样的投影方法。使得在被投影的度量空间中能够去匹配不同的模式所需要的一些相似函数。最后再做一次投影回来。有一点类似卷积神经网络中的多个输出通道的意思。
     $$\text{MutliHead}(Q, K, V)=\text{Concat}(head_1, head_2, \cdots ,head_h)\boldsymbol{W}^O \\
     \text{where }head_i=\text{Attention}(\boldsymbol{QW}_i^Q, \boldsymbol{KW}_i^K, \boldsymbol{VW}_i^V)$$
 QKV依然还是QKV，但是通过多头机制之后将输出的head连接起来，然后投影到$\boldsymbol{W}^O$空间上。**每个$\text{head}_i$是每个QKV通过3个不同的可以学习的$\boldsymbol{W}_i^{Q/K/V}$投影到低维上面**。在做我们之前提到的注意力函数。最终输出结果。目前h=8。因为有残差的存在，所以输入和输出的维度是一样的。投影的时候就是输出的维度除以h。
-19. 自注意力机制的核心是：key, value, query实际是输入的复制了3份。
+
+19. **自注意力机制的核心是：key, value, query实际是输入的复制了3份**。
+
 20. Transformer如何使用注意力机制，也就是说在一个transformer模型中使用了3个注意力层，下面将详细说明这3个注意力层的输入和输出：
     1. 在编码器中![第一个输入部分](../../pictures/AttentionsIsAllYouNeed_EncodeSelfAttention.png)的输入：假设句子的长度为n，那么输入就是n个长度为d的向量。如果批量大小设置为1。可以看到第1个注意力层有3个输入，分别表示的是key、value、query。这里也就是说同一个输入复制为3份，即作为key也作为value同时也是query。**这个的复制成3个的过程就表示了“自注意力”机制中的“自”。key、value、query其实都是一个东西，就是输入本身**。而且输入和value的长度是一样的，也就是输出的维度也是$n\times d$。也就意味着输入和输出的大小其实是一样的。对于每个query都会计算一个输出（注意这里的“输出”的维度是$n \times 1$）。这个输出其实就是value的加权和。![encode中的注意力层](../../pictures/AttentionsIsAllYouNeed_EncodeSelfAttention_illustration.png)这个加权和的权重来资源query和key。如图所示，绿色线代表权重。权重实际上是该向量和其他的向量之间计算相识度。该向量和自己计算肯定相似度是最高的，如果该向量和其他的某个向量的相似程度也有一定程度，那么权重也会变高。在不考虑多头和投影的情况下，输出其实就是你输入的加权和，权重来自于自己与自己本身和自己和其他向量之间的一个相似度。如果有多头和投影的情况下，会学习**h个不一样的距离空间**出来。而且每个权重之间都会有所差别。
     2. 在解码器中第1个注意力层![decodeSelfAttention](../../pictures/AttentionsIsAllYouNeed_FirstDecodeSelfAttention.png)的输入也和编码器中注意力层类似，也是将同一个输入复制了3次，只不过维度从$n \times d$可能变为了$m \times d$。结构上不一样的在于有一个masked的地方。原因在于通过一个query计算输出的时候，它是不应该看到它自己之后的query的。也就是说需要它自己之后的权重要设置为0。![decodeSelfAttentionIllstration](../../pictures/AttentionsIsAllYouNeed_DecodeSelfAttention_illustration.png)如图黄色部分所示。
-    3. 在解码器中的第2个注意力层![SecondDecodeSelfAttention](../../pictures/AttentionsIsAllYouNeed_SecondDecodeSelfAttention.png)。**特别需要注意的是这里不再是自注意力**。key和value来自于编码器的输出，query来自于前一个解码器注意力层的输出。编码器的输出是维度为$n \times d$的矩阵（也就是n个长为d的向量），需要注意的是这里编码器的输出复制成为了2份。前面一个解码器注意力层的输出维度是$m \times d$。**这个注意力层的输出是52:13后面到完成attention讲解部分没有听明白**。这个attention做的事情就是有效的把编码器中的输出根据想要的东西把它提炼出来。举个例子：假设从编码器出来的输出是"hello world"，期望的输出是"你好世界"，在计算输出的时候，"你"和"hello"的相关性要高，和其他的相关性要低；同样的在计算输出"世"或者"界"query的时候期望和"world"的value、key的权重要高。这就是说根据解码器输入的不一样，根据当前解码器中前一个注意力层的输出向量的不同，从编码器的输出中挑选感兴趣的东西，也就是你注意到你感兴趣的东西，那些和你没有太多关系的编码器的输出就可以忽略掉它。这个也是attention如何在编码器和解码器之间传递信息的时候起到的作用。
-21. 归纳偏置
+    3. 在解码器中的第2个注意力层![SecondDecodeSelfAttention](../../pictures/AttentionsIsAllYouNeed_SecondDecodeSelfAttention.png)。**特别需要注意的是这里不再是自注意力**。key和value来自于编码器的输出，query来自于前一个解码器注意力层的输出。编码器的输出是维度为$n \times d$的矩阵（也就是n个长为d的向量），需要注意的是这里编码器的输出复制成为了2份。前面一个解码器注意力层的输出维度是$m \times d$。![DecodeSelfAttentionillustration](../../pictures/AttentionsIsAllYouNeed_DecodeSecondSelfAttention_illustration.png)。这个attention做的事情就是有效的把编码器中的输出根据想要的东西把它提炼出来。举个例子：假设从编码器出来的输出是"hello world"，期望的输出是"你好世界"，在计算输出的时候，"你"和"hello"的相关性要高，和其他的相关性要低；同样的在计算输出"世"或者"界"query的时候期望和"world"的value、key的权重要高。这就是说根据解码器输入的不一样，根据当前解码器中前一个注意力层的输出向量的不同，从编码器的输出中挑选感兴趣的东西，也就是你注意到你感兴趣的东西，那些和你没有太多关系的编码器的输出就可以忽略掉它。这个也是attention如何在编码器和解码器之间传递信息的时候起到的作用。
+
+21. Position-wise Feed-Forward Network的作用。3个Feed-Forward Network实际上就是3个MLP，但是它们不一样的地方在于（applied to each position separately and identically）：一个MLP对每一个词（每一个词认为是一个点）作用一次，对于每一个词起作用的是同一个MLP（这也是position-wise的含义）。说白了就是一个MLP，只是作用于最后一个维度。$FFN(x)=max(0, x\boldsymbol{W}_1 + b_1)\boldsymbol{W}_2 + b_2$。其中$x\boldsymbol{W}_1 + b_1$就是一个线性层$max(0, x\boldsymbol{W}_1 + b_1)\boldsymbol{W}_2$当中的max就是relu激活层。最外层再有一层线性层。目前注意力层的对应每个query的输入长度为512。也就是说公式中的$x$是一个长度为512的向量。$\boldsymbol{W}_1$会将$x$长度投影成2048。因为最后有个残差连接需要长度一致，所以$\boldsymbol{W}_2$将长度又投影回了512。说穿了了$FFN(x)$就是一个但隐藏层的MLP。中间的隐藏层把输入长度扩大4倍，在最后输出的时候又缩小4倍。**实际上就是把两个线性层放在一起**。
+
+22. attention做的事情是将序列中感兴趣的东西抓取出来，做一次汇聚aggregation。后面的MLP是将序列映射成更想要的语义空间。通过attention之后的输出的每个向量都含有了感兴趣的语义信息，所以每个MLP都只需要对每个向量独立做映射就可以了。
+
+23. 线性层也就是MLP具体的作用是做语义空间的转换。
+
+24. transformer和RNN的区别
+    1. 两者都是用MLP来做语义转换。
+    2. 不同的地方在于如何传递序列信息：transformer每次读取了所有的全局序列信息。RNN是利用上一时刻的输出作为下一个时刻的输入。
+    3. 关注点都是在如何有效的使用序列信息。
+
+25. Embedding and softmax层。**输入的是一个一个词或者称其为token**，需要将其映射为向量。给定任何一个词embedding就是学习一个长度为$d_{model}$的向量来表示它。编码器和解码器的输入都需要一个embedding。softmax之前的线性也需要一个embedding。论文中说明这3个embedding都使用相同的权重。这样会使得训练起来简单一点。在计算权重的时候将权重乘以了$\sqrt{d_{model}}$。为什么在学习embedding的时候需要乘以了$\sqrt{d_{model}}$呢？在学习embedding的时候会把每个向量的$L2 Norm$（L2范数）学成比较小的值。当维度比较大的时候会导致学的权重值变小。由于之后需要加上Positional Encoding，不会随着长度变成而把L2Norm固定住。所以在乘以了$\sqrt{d_{model}}$之后使得embedding加上Positional Encoding的时候在规模或者比例(scale)上差不多。
+
+26. Positional Encoding层：
+    1. 存在的原因是因为**ettention中不包含时序信息**。输出的是value的加权和。权重是query和key之间的距离。**这导致和序列信息无关，也就是说不会关心key、value在序列中的什么位置。直接导致的结果如果给你一句话，把顺序打乱之后通过attention的结果都是一样的；虽然顺序会变但是值不会变**。所以需要将时序信息加入进来。RNN是通过上一个时刻输出作为下一个时刻的输入来传递历史信息，也就是传递了时序信息。RNN本身就包含时序的信息。
+    2. transformer的做法是在输入中加入时序信息。比如一个词在整个句子中的位置i加入到输入中。将位置信息成为positional encoding。
+    3. 实现的思路：将位置信息通过一个512为的值来表示。具体是使用周期不一样的sin、cos函数来表示的。然后将positional encoding和embedding相加，这样就完成了将时序信息加入到输入数据的方法。特别需要注意的embedding乘以了$\sqrt{d_{model}}$之后会使得embedding的结果在-1到1之间。而positional encoding因为是sin、cos函数所以它的值域也是在-1到1之间。这就完成了在输入之中加入了位置信息。由于ettention不会改变顺序，也就是说输入序列无论如何打乱顺序，输出的值不会变，最多是顺序发生了相应的变化。所以transformer直接将顺序信息的值和embedding相加了。
+27. 为什么要用ettention
+    |层类型|不同层的复杂性|时序操作性sequential Operations|最大路径长度|
+    |---|---|---|---|
+    |self-attention|$$|$$|$$|
+    |recurrent|$$|$$|$$|
+    |convolutional|$$|$$|$$|
+    |self-attention(restricted)|$$|$$|$$|
+28. 归纳偏置
 
 ## 2. 问题
 
@@ -62,6 +90,7 @@ QKV依然还是QKV，但是通过多头机制之后将输出的head连接起来�
 
 1. 四类基础模型：MLP、CNN、RNN和Transformer。
 2. 通常代码都会放在摘要的最后一句话。
+3. 这里注意说明了token对应的含义。
 
 ## 4. 代码实现
 
