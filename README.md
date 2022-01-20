@@ -112,7 +112,7 @@ add learning section.
 |3|吴恩达的100讲|吴恩达|machine learning|/|y|1|n|
 |4|统计学习方法|李航|machine learning and mathematics|/|n|/|n|
 |5|线性代数|3Blue1Brown|mathematics|[link](https://space.bilibili.com/88461692/?spm_id_from=333.999.0.0)|y|07|n|
-|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|[动手深度学习v2]07、[论文精读]GNN论文逐段精读(Transformer需要再看一遍，有地方没看懂)|n|
+|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|[动手深度学习v2]07、[论文精读]GNN论文逐段精读(completed the reading of Transformer)|n|
 |7|Methods for nonlinear least squares|K. Madsen|machine learning|/|y|/|n|
 |8|老师的SVD课件|teacher|machine learning|/|y|/|n|
 
@@ -138,5 +138,5 @@ gantt
     implement predicet location: after c1,5d
 
     section watch video
-    跟李沐学AI transformer: crit, active, w1, 2022-01-18, 2d
+    跟李沐学AI transformer:done, w1, 2022-01-18, 2d
 ```
