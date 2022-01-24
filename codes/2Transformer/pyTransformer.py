@@ -5,7 +5,9 @@
 # datetime:2020/3/16 11:08
 # Description: 
 #   1. reference https://tensorflow.google.cn/tutorials/text/transformer?hl=zh_cn
-#   2. 
+#   2. embedding reference: https://github.com/tensorflow/docs-l10n/blob/master/site/zh-cn/tutorials/text/word_embeddings.ipynb
+#                           https://tensorflow.google.cn/text/guide/word_embeddings
+#                           the content of the above two examples are the same, the difference is that the first is Chinese and the second is English.
 # software: VSCode
 
 
