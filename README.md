@@ -128,7 +128,7 @@ gantt
     axisFormat %m-%d
 
     section read book
-    机器学习-周志华 chapter 2 :active, r1, 2022-01-18, 10d
+    机器学习-周志华 chapter 3 :active, r1, 2022-01-18, 10d
 
     section prepare hardware
     server: active, ph1, 2022-01-18,7d
