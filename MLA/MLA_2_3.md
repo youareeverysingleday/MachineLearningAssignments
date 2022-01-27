@@ -30,3 +30,8 @@
    3. 估计是cuda的版本和nvidia驱动的版本不一致造成的。直接结果是使用nvidia-smi命令中显示的cuda版本和使用nvcc -V显示的cuda版本不一致。可能需要重新安装nvidia的驱动，另外驱动大师显示该服务器的的显卡是GRID的。很奇怪。
    4. **要求将bandwidthTest.exe和deviceQuery.exe命令运行成功**，这样成功了才认为GPU可以使用了。然后再使用tensorflow中的函数来调用GPU，能够识别那么就认为tensorflow可以使用GPU了。[参考](https://blog.csdn.net/xiangxiang613/article/details/112603083)
       1. 对于这个问题按照CUDA的说明，有可能是操作系统和CUDA不匹配造成的。
+5. Linux设置
+   1. 安装驱动、安装CUDA。
+   2. 运行nvcc的之前需要使用永久设置的环境变量。
+   3. 要求使用环境变量生效。
+   4. 需要src一下让配置的环境变量生效。
