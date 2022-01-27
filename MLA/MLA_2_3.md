@@ -29,3 +29,4 @@
    2. 运行C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\extras\demo_suite目录下的deviceQuery.exe总是提示初始化失败。而且cuda 11.1也重装了。
    3. 估计是cuda的版本和nvidia驱动的版本不一致造成的。直接结果是使用nvidia-smi命令中显示的cuda版本和使用nvcc -V显示的cuda版本不一致。可能需要重新安装nvidia的驱动，另外驱动大师显示该服务器的的显卡是GRID的。很奇怪。
    4. **要求将bandwidthTest.exe和deviceQuery.exe命令运行成功**，这样成功了才认为GPU可以使用了。然后再使用tensorflow中的函数来调用GPU，能够识别那么就认为tensorflow可以使用GPU了。[参考](https://blog.csdn.net/xiangxiang613/article/details/112603083)
+      1. 对于这个问题按照CUDA的说明，有可能是操作系统和CUDA不匹配造成的。
