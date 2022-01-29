@@ -9,8 +9,8 @@ Embedding
 3. <https://zhuanlan.zhihu.com/p/46016518>这篇只做了介绍，并没有说得很深入。
 4. <https://www.zhihu.com/question/38002635>原理说明的非常清楚。
 5. <https://zhuanlan.zhihu.com/p/138310401>这篇好像是所有原理的来源。其中把3种实现方法也说清楚了。
-6. <https://zhuanlan.zhihu.com/p/85802954>
-7. <https://www.bilibili.com/video/BV1Cf4y1e7Ht?from=search&seid=16604717378042548315&spm_id_from=333.337.0.0>来详细说明embedding的过程。
+6. <https://zhuanlan.zhihu.com/p/85802954>主要是有些使用tensorflow代码的部分。
+7. <https://www.bilibili.com/video/BV1Cf4y1e7Ht?from=search&seid=16604717378042548315&spm_id_from=333.337.0.0>来**详细说明embedding的过程，这一片视频对理解非常有用**。
 
 ## 理解
 
@@ -48,9 +48,15 @@ Embedding
     3. **embedding实际上做了一个线性的变换**。对事物的投影是有局限性的，不一定能够实现对比较复杂的关系的认知。
 16. 一个比较典型的词向量嵌入模型word2vec，实际上就是将词嵌入到一个向量空间中。word2vec实际上也是线性的。只不过采用的方法不同。
 17. 严格的来说word2vec是一种监督学习（无论是对CBOW或者skip gram两种算法而言），都对词做了各种格言的标注。在实际应用中并没有对导入的数据进行标注，而是模型自己对数据进行了处理。所以，一般就把这种模型定义为了自监督学习。
-18. 严格意义上的无监督学习：auto encode。这个和镜像预训练是一样的。就是比较输入和输出的相似性，auto encode是得到中间的隐藏层为embedding，镜像预训练是得到网络中的权重作为模型训练之前的初始值。
+18. 严格意义上的无监督学习：auto encode。这个和镜像预训练是一样的。就是比较输入和输出的相似性，auto encode是得到中间的隐藏层为embedding，镜像预训练是得到网络中的权重作为模型训练之前的初始值。auto encode应用的场景包括：训练表达、图像降噪。
+    1. 在图像降噪应用中，给定一个高清图，然后人工给高清图添加噪声，然后需要将输入和输出的图片之间的差距越小越好。
+    2. sparse auto encoder，它强调的是auto encoder得到的结果必须是一个稀疏的网络。也就是每一个神经元不是零的概率非常小。衡量一个样本空间的稀疏性通过sigmoid激活函数，把输入控制在0和1之间，然后在把输出相加起来，再除以样本个数，得到的值可以近似的理解成网络的稀疏性。通过估计的稀疏性和想要的稀疏性之间的差别来作为损失函数的一部分去做训练。通常来说通过KL divergence来衡量两个分布之间的不同情况（它的斜率更陡），从而更好的关注网络的稀疏性。
+    3. auto encoder不光是可以去学习表示事物本身的表示，它还可以去学习事物的分布情况。在这个过程中可能会产生一些随机的东西，有可能和原来的事物很像，但又不是完全一样。产生新事物的generative learning和representation learning（表示学习）。两者之间有很多内在的联系。
+
+-- END --
 
 ## 问题
 
-1. auto encode和PCA是类似的东西，如何理解的？
+1. auto encoder和PCA是类似的东西，如何理解的？
+    - auto encoder中有个部分是也是在做降维的操作，他们的实现机理有些类似。
 
