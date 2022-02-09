@@ -24,6 +24,11 @@ import seaborn as sns
 from matplotlib import font_manager
 
 class TransformerModel:
+    """[summary]
+    refer to offical code of tensorflow, use the top-down method to 
+    implement the Transformer Model that yourself understanding.
+    参照tensorflow的官方代码，采用自顶向下的方法来实现自己理解的transformer模型。
+    """
     
     def __init__(self, N, d_model, d_ff, h, d_k, d_v, P_drop, l_rate, train_steps):
         """[summary]
@@ -52,8 +57,29 @@ class TransformerModel:
     def input(self):
         pass
     
-    def Embedding(self):
+    def Embedding(self, input_vocabulary_size, d_model):
+        """[summary]
+
+        Args:
+            input_vocabulary_size ([type]): [description]
+            d_model ([type]): [description]
+        """
+        self.embedding = tf.keras.layers.Embedding(input_vocabulary_size, d_model)
         pass
+    
+    def get_angles(self, pos, i, d_model):
+        """[summary]
+        compute position of vocabulary.
+        Args:
+            pos ([type]): [description]
+            i ([type]): [description]
+            d_model ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        angle_rates = 1 / np.power(10000, (2 * (i//2)) / np.float32(d_model))
+        return pos * angle_rates
     
     def PositionEncoding(self):
         pass

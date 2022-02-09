@@ -28,7 +28,7 @@ Embedding
     # 这个Embedding3个主要参数说明：
     # input_dim用于表示输入数据的维度。如果是分类问题，那么这个值就是样本总的类别数量。
     # output_dim表示的输出数据的表示维度。如果是分类问题，那么这个值就是在输出的时候希望用几个维度的数值来表示所有类别中一个种类。
-    # input_length表示的是输入数据的表示维度。如果是分类问题，那么就表示用几个维度的数据来表示单个种类。
+    # input_length表示的是输入数据的表示维度。如果是分类问题，那么就表示用几个维度的数据来表示单个种类。这个参数是可选参数，也就是说tf.keras.layers.Embedding会自动识别input_length的值，或者说自动识别表示单个种类的维度数。
     # The model will take as input an integer matrix of size (batch,
     # input_length), and the largest integer (i.e. word index) in the input
     # should be no larger than 999 (vocabulary size).
