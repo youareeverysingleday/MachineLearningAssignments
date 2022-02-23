@@ -240,7 +240,7 @@ You are every single day.
 1. 条件概率
    设A,B是两个事件，且P(A)>0，称
    $$P(B|A)=\frac{P(AB)}{P(A)}, \text{其中}AB=A\cap B$$
-   为在时间A发生的条件下事件B发生的条件概率。
+   为在事件A发生的条件下事件B发生的条件概率。
 
 
 ### 2.2 随机变量及其分布
@@ -327,3 +327,8 @@ You are every single day.
    \end{aligned}$$
    2. 泰勒展开在$\boldsymbol{x_0}$处的一阶近似：$\boldsymbol{f}(\boldsymbol{x})=\boldsymbol{f}(\boldsymbol{x_0})+\boldsymbol{J}(\boldsymbol{x}-\boldsymbol{x_0})+o(||\boldsymbol{x}-\boldsymbol{x_0}||)$。
    3. 海森矩阵就是梯度的雅可比矩阵：$\boldsymbol{H}(\boldsymbol{f}(\boldsymbol{x}))=\boldsymbol{J}(\nabla\boldsymbol{f}(\boldsymbol{x}))$。
+
+## 5. 其他
+
+1. 图灵的停机问题说明了计算机程序不可能完成所有的功能。说明了希尔伯特关于数学完备性、一致性、可判定性三个不可能同时在一个计算机程序上完成。
+2. 到目前为止，可计算能力上没有超越图灵机。其他的只是被证明与图灵机等价。

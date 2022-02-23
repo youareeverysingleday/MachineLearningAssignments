@@ -47,7 +47,7 @@
 |11|interaction function|交互函数|通过偏置项这里的说明可以推断这个是交互函数，而不是交互功能。|
 |12|latent|隐性|这里统一一下，应该理解为“隐性”这种翻译，而不是“潜在”这种翻译。|
 
-在信息爆炸的时代，推荐系统在缓解信息过载扮演着关键作用，而且它已经在众多在线服务中广泛使用，比如电子商务、在线新闻和社交网站。个性化的推荐系统关键在于根据用户过去与物品（item）之间的互动（比如评分和点击）而表现出来的偏好进行建模，成为协同过滤。在各种协同过滤技术中，矩阵分解（MF）是最流行的一种，他将用户和物品的映射到一个共享隐性空间中，使用隐性特征向量来代表**一个**用户和**一个**物品。以后，用户和物品（item）的交互被做成它们隐性向量的内积模型。
+在信息爆炸的时代，**推荐系统在缓解信息过载扮演着关键作用**，而且它已经在众多在线服务中广泛使用，比如电子商务、在线新闻和社交网站。个性化的推荐系统关键在于根据用户过去与物品（item）之间的互动（比如评分和点击）而表现出来的偏好进行建模，成为协同过滤。在各种协同过滤技术中，矩阵分解（MF）是最流行的一种，他将用户和物品的映射到一个共享隐性空间中，使用隐性特征向量来代表**一个**用户和**一个**物品。以后，用户和物品（item）的交互被做成它们隐性向量的内积模型。
 
 通过Netfix奖的推广，矩阵分解已经成为事实上方法，~~这种方法是隐性因素model-based推荐系统的~~。许多研究工作致力于增强矩阵分解，例如将其MF和基于邻居（neighbor-based）的模型集成、将MF与item内容的主题模型（topic models）组合起来，并将MF扩展到分解机（factorization machines），以便于对通用的特征进行建模。尽管对于协同过滤而言MF是有效的，但众所周知，交互函数的内积（interaction function inner product）的简单选择（simple choice）会阻碍MF的性能。例如，对于显示反馈中的评分预测任务，大家都知道，MF模型的性能能通过将用户和item的偏置项包含到交互函数中得到提高。虽然它仅仅似乎只是对内积运算（inner product operator）一个细微的调整，但它指出了（points）对于如何设计更好、更专业的交互函数来模拟用户们和items之间的隐性特征交互达到更好的效果。内积只是简单线性组合隐性特征的乘法，它可能不能够很好的获取（capture，这里应该是获取或者体现的意思）用户交互数据的复杂结构。
 
@@ -84,18 +84,18 @@ $$y_{ui}=\begin{cases}
 \end{cases} \tag{1}
 $$
 
-这里的$y_{ui}$值为1的时候表示user $u$和item $i$之间存在一次交互；然而这并不意味着u真的喜欢i。类似的，值为0页并不代表u不喜欢i，值为0可能表示user不知道item的存在。这也导致了从隐性数据进行学习的挑战，因为隐性数据只提供了用户偏好的噪声信号（only noisy signals about users' preference）。虽然观察到来的条目（entries）至少反映了用户对该item感兴趣，但是没有观察到的条目有可能只是数据缺失，并且负面反馈存在天然稀缺性。
+这里的$y_{ui}$值为1的时候表示user $u$和item $i$之间存在一次交互；然而这并不意味着u真的喜欢i。类似的，值为0并不代表u不喜欢i，值为0可能表示user不知道item的存在。这也导致了从隐性数据进行学习的挑战，因为隐性数据只提供了用户偏好的噪声信号（only noisy signals about users' preference）。虽然观察到来的条目（entries）至少反映了用户对该item感兴趣，但是没有观察到的条目有可能只是数据缺失，并且负面反馈存在天然稀缺性。
 
 |编号|英语|中文|理解|
 |---|---|---|---|
 |1|underlying model|潜在模型或者基础模型|还不太理解|
-|2|pointwise loss|单点损失|pointwise和pairwise都是对物品偏好程度的平方方法。单点主要是对单一物品评分的拟合，注重对评分的拟合程度。|
+|2|pointwise loss|单点损失|pointwise和pairwise都是对物品偏好程度的评分方法。单点主要是对单一物品评分的拟合，注重对评分的拟合程度。|
 |3|pairwise loss|双点损失|而pairwise可能的操作方式是先选择一些没有被购买的item作为负样本，然后将已经购买的作为正样本。这样计算两种样本之间的差值。也就是说pairwise更关注的是pair样本之间的关系。|
 |4|listwise loss|列表损失|本文中目前还没有出现这种loss，这里只是做一点扩展。|
 
 在隐性反馈的推荐系统中存在的问题被描述为估计（estimation）$Y$中未观察到的条目的分值（scores）的问题，这个分数用于对条目进行排序。model-based方法假定数据能够通过一个深层模型（underlying model）来生成（或者被描述）。形式上，他们能被$\hat y_{ui} = f(u,i|\Theta)$，其中$\hat y_{ui}$表示交互$y_{ui}$的预测分数（pridicted score），$\Theta$表示为模型的多个参数（model parameters），$f$表示将模型多个参数映射到预测值的的函数（我们将其称为一个交互函数（an interaction function））。
 
-为了估计参数$\Theta$，现有的方法遵循优化一个目标函数的机器学习范式。文献中常用目标函数有两种：pointwise loss和pairwise loss。作为显性反馈评估的自然延伸，pointwise learning通常按照回归框架，通过求$\hat y_{ui}$和目标值$y_{ui}$之间的平方损失（squared loss）的最小值来实现。为了处理负面评价数据的缺失（absence of negative data），他们要么将所有未观察到的entries视为负反馈，要么从未观察到的entries中进行抽样负面实例（negative instances）作为负反馈（这句话的意思就是如何提取负反馈的方法，二选一：要么将所有的非正反馈都视作负反馈，要么从所有的非正样本中抽样一部分作为负样本）。对于pairwise learning而言，其出发点是观察到的条目的评级应该比未观察到的条目搞。因此，pairwise learning通过求观察到的条目的$\hat y_{ui}$和未观察到条目的$\hat y_{ui}$之间的最大幅值（maximizes the margin）来代替求$\hat y_{ui}$和$y_{ui}$之间的最小化损失。
+为了估计参数$\Theta$，现有的方法遵循优化一个目标函数的机器学习范式。文献中常用目标函数有两种：pointwise loss和pairwise loss。作为显性反馈评估的自然延伸，pointwise learning通常按照回归框架，通过求$\hat y_{ui}$和目标值$y_{ui}$之间的平方损失（squared loss）的最小值来实现。为了处理负面评价数据的缺失（absence of negative data），他们要么将所有未观察到的entries视为负反馈，要么从未观察到的entries中进行抽样负面实例（negative instances）作为负反馈（这句话的意思就是如何提取负反馈的方法，二选一：要么将所有的非正反馈都视作负反馈，要么从所有的非正样本中抽样一部分作为负样本）。对于pairwise learning而言，其出发点是观察到的条目的评级应该比未观察到的条目高。因此，pairwise learning通过求观察到的条目的$\hat y_{ui}$和未观察到条目的$\hat y_{ui}$之间的最大幅值（maximizes the margin）来代替求$\hat y_{ui}$和$y_{ui}$之间的最小化损失。
 
 我们向前进了一步，我们的NCF框架使用神经网络参数化交互函数$f$来估计$\hat y_{ui}$的。因此，NCF框架天然支持pointwise和pairwise learning。
 
@@ -108,7 +108,7 @@ $$\hat y_{ui}=f(u,i|p_u, q_i) = p_u^T q_i=\sum \limits_{k=1}^K p_{uk}q_{ik}, \ta
 |编号|英语|中文|理解|
 |---|---|---|---|
 |1|ground truth similarity|真实值。一词指的是训练集对监督学习技术的分类的准确性。这在统计模型中被用来证明或否定研究假设。|[参考](https://blog.csdn.net/qq_15150903/article/details/84789591)|
-|2|jaccard coefficient|Jaccard相似系数。用于比较有限样本集之间的相似性与差异性。**Jaccard系数值越大，样本相似度越高**。|[参考](https://baike.baidu.com/item/Jaccard%E7%B3%BB%E6%95%B0/6784913?fr=aladdin)|
+|2|Jaccard coefficient|Jaccard相似系数。用于比较有限样本集之间的相似性与差异性。**Jaccard系数值越大，样本相似度越高**。|[参考](https://baike.baidu.com/item/Jaccard%E7%B3%BB%E6%95%B0/6784913?fr=aladdin)|
 |3|note|注意到|这里翻译为注意到比较合适。如果翻译为指出，好像和后面有点对不上。|
 
 ![avatar](/pictures/1TranslateNeuralCollaborativeFiltering_Figure1.png)  
@@ -130,7 +130,7 @@ $$
 
 |编号|英语|中文|理解|
 |---|---|---|---|
-|1|binary property|二值化属性|还不理解是什么意思。|
+|1|binary property|二值化属性|还不理解是什么意思。是不是对应的二分类模型，这样理解不知道是否合适？|
 |2|margin-based loss|基于边缘的损失|和后面的ranking loss好像是同一个事物的不同名字或者表现。[参考，这里面说了和ranking loss的关系，说margin loss只是ranking loss的另外一种表现形式](https://zhuanlan.zhihu.com/p/158853633)|
 |3|bayesian personalized ranking|rangking loss，在训练集上使用ranking loss函数是非常灵活的，我们只需要一个可以衡量数据点之间的相似度度量就可以使用这个损失函数了。这个度量可以是二值的（相似/不相似）。比如，在一个人脸验证数据集上，我们可以度量某个两张脸是否属于同一个人（相似）或者不属于同一个人（不相似）。这样就和前面的Jaccard系数联系起来了。注意这里使用的是pairwise loss。|[参考](https://zhuanlan.zhihu.com/p/158853633)|
 
