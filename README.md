@@ -2,6 +2,28 @@
 
 Learn the relative content of Machine Learning.
 
+## Term Plan
+
+You must finish the following work quickly. If you encounter some problems, record it first.
+
+```mermaid
+gantt
+    title learning task
+    dateFormat YYYY-MM-DD
+    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
+    axisFormat %m-%d
+
+    section read book
+    机器学习-周志华 chapter 3 :active, rb1, 2022-02-25, 7d
+
+    section read 2/100 papers
+    2NeuralGraphCollaborativeFiltering :crit, active, rp1, 2022-02-25 , 3d
+    one paper of recommendation system :crit, active, after rp1, 3d
+
+    section watch video
+    跟李沐学AI 斯坦福21秋季1.1:crit, active, w1, 2022-02-25, 3d
+```
+
 ## 1. Machine Learning Assignment
 
 ### 1.1 first assignment
@@ -119,25 +141,3 @@ add learning section.
 other references
 
 1. [史上最全推荐系统传统算法合集](https://zhuanlan.zhihu.com/p/451353072)。[完全展开版本](https://mp.weixin.qq.com/s/gUBApp37F7TRM_O36hilfg)
-
-## 5. Term Plan
-
-You must finish the following work quickly. If you encounter some problems, record it first.
-
-```mermaid
-gantt
-    title learning task
-    dateFormat YYYY-MM-DD
-    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
-    axisFormat %m-%d
-
-    section read book
-    机器学习-周志华 chapter 3 :active, rb1, 2022-02-25, 7d
-
-    section read 2/100 papers
-    2NeuralGraphCollaborativeFiltering :crit, active, rp1, 2022-02-25 , 3d
-    one paper of recommendation system :crit, active, after rp1, 3d
-
-    section watch video
-    跟李沐学AI 斯坦福21秋季1.1:crit, active, w1, 2022-02-25, 3d
-```
