@@ -120,6 +120,10 @@ other references
 
 1. [史上最全推荐系统传统算法合集](https://zhuanlan.zhihu.com/p/451353072)。[完全展开版本](https://mp.weixin.qq.com/s/gUBApp37F7TRM_O36hilfg)
 
+## 5. Term Plan
+
+You must finish the following work quickly. If you encounter some problems, record it first.
+
 ```mermaid
 gantt
     title learning task
@@ -128,15 +132,12 @@ gantt
     axisFormat %m-%d
 
     section read book
-    机器学习-周志华 chapter 3 :active, r1, 2022-01-18, 10d
+    机器学习-周志华 chapter 3 :active, rb1, 2022-02-25, 7d
 
-    section prepare hardware
-    server: active, ph1, 2022-01-18,7d
-
-    section coding
-    implement Transformer :crit, active, c1, 2022-01-18 , 14d
-    implement predicet location: after c1,5d
+    section read 2/100 papers
+    2NeuralGraphCollaborativeFiltering :crit, active, rp1, 2022-02-25 , 3d
+    one paper of recommendation system :crit, active, after rp1, 3d
 
     section watch video
-    跟李沐学AI transformer:done, w1, 2022-01-18, 2d
+    跟李沐学AI 斯坦福21秋季1.1:crit, active, w1, 2022-02-25, 3d
 ```
