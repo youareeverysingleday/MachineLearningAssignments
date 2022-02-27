@@ -26,7 +26,7 @@
 2. **范数：就是把空间中两个点的距离的概念进行了扩充**。也就是有多种定义方式来定义空间中两个点的距离。权重$\boldsymbol{w}$可以理解为高维向量；也可以理解为高维空间中的一个点。
    1. 这个点到原点的距离如果是欧式距离的话那么就是$L_2$范数，记为$||w||_2$。具体的计算就是用高维的勾股定理得到的。把$L_2$相同的点连起来的话，组成的是一个圆形。
    2. $L_1$范数，计算方式是对坐标值直接取绝对值然后相加作为距离，记为$||w||_1$。把$L_1$相同的点连起来的话，组成的是一个正方形。这个正方形的中心是在原点上。
-   3. $L_p$范数，p的取值范围为$0\leqslant p \leqslant 1 \text{ or } 2\leqslant p \leqslant \infty$
+   3. $L_p$范数，p的取值范围为$0\leqslant p \leqslant 1 \text{ or } 2\leqslant p \leqslant \infty$。只有在$L_p$范数中的P大于等于1的时候构成的集合才是凸集。（在讲到拉格朗日对偶问题的时候）凸集是有一个非常好的特性的，如果对应的是一个凸函数的话，对应的可执行域是一个凸集的话（取值范围内）是一个对应的就是一个凸优化问题。凸优化问题就是一个简单问题。$L_1$和$L_2$正则化就是在利用它们的凸集特性。
 
 ## 详述
 
@@ -46,24 +46,26 @@
    s.t. ||\omega||_2^2 \leqslant m$就转化为了有不等式约束的最优化问题。
    3. 为了解决2中的不等式约束的最优化问题，使用KKT给出的判断条件来判断最优解的必要条件。
    4. 通过KKT条件作为结论。KKT的结论为:
-   $$\left\{
-    \begin{aligned}
-    & min f(x) \\
-   & s.t. g_j(x)\leqslant 0(j=1,2,\cdots,m) \\
-   & h_k(x)=0(k=1,2,\cdots,l)
-   \end{aligned}
-    \right.$$
-    KKT条件给出了判断，是否为最优解的必要条件，即解空间必然满足以下公式：
-    $$ \left\{
-    \begin{aligned}
-    &\frac{\partial f}{\partial x_i} + \sum \limits_{j=1}^{m}\mu_j\frac{\partial g_j}{\partial x_i} + \sum \limits_{k=1}^{l}\lambda_k\frac{\partial h_k}{\partial x_i} = 0, (i=1,2,\cdots,n) \\
-    &\mu_jg_j(x)=0, (j=1,2,\cdots,m) \\
-    &\mu_j \geqslant 0
-    \end{aligned}
-    \right.
-    $$
-    将不等式约束转化为：$min L(\omega)=\frac{1}{n} \sum \limits_{i=1}^{n}(f(x_{i})-y_{i})^2    s.t. ||\omega||_2^2 -m \leqslant 0$然后构造拉格朗日函数为$L(\omega)=\frac{1}{n} \sum \limits_{i=1}^{n}(f(x_{i})-y_{i})^2 + \lambda(||\omega||_2^2 -m)$。对应于KKT条件中的第一条就是对拉格朗日函数求偏导。这样就和添加正则项对应上了。
-
-   1. 正则化通过3和4中的说明，正则化和带约束条件求解等价(因为它们的解空间是一样的)。正则化带的隐含条件就是带约束。换句话说：**正则化等于带约束条件**。
+      $$
+      \left\{
+      \begin{aligned}
+      & min f(x) \\
+      & s.t. g_j(x)\leqslant 0(j=1,2,\cdots,m) \\
+      & h_k(x)=0(k=1,2,\cdots,l)
+      \end{aligned}
+      \right.
+      $$
+      KKT条件给出了判断，是否为最优解的必要条件，即解空间必然满足以下公式：
+      $$
+      \left\{
+      \begin{aligned}
+      &\frac{\partial f}{\partial x_i} + \sum \limits_{j=1}^{m}\mu_j\frac{\partial g_j}{\partial x_i} + \sum \limits_{k=1}^{l}\lambda_k\frac{\partial h_k}{\partial x_i} = 0, (i=1,2,\cdots,n) \\
+      &\mu_jg_j(x)=0, (j=1,2,\cdots,m) \\
+      &\mu_j \geqslant 0
+      \end{aligned}
+      \right.
+      $$
+      将不等式约束转化为：$min L(\omega)=\frac{1}{n} \sum \limits_{i=1}^{n}(f(x_{i})-y_{i})^2    s.t. ||\omega||_2^2 -m \leqslant 0$然后构造拉格朗日函数为$L(\omega)=\frac{1}{n} \sum \limits_{i=1}^{n}(f(x_{i})-y_{i})^2 + \lambda(||\omega||_2^2 -m)$。对应于KKT条件中的第一条就是对拉格朗日函数求偏导。这样就和添加正则项对应上了。
+   5. 正则化通过3和4中的说明，正则化和带约束条件求解等价(因为它们的解空间是一样的)。正则化带的隐含条件就是带约束。换句话说：**正则化等于带约束条件**。
 8. “为什么$L_1$正则具有稀疏性？”这个问题等价于“为什么$L_1$可以使得很多参数变为0？”L1和L2正则相比较为什么更容易使得某些参数为0的图示说明![L1和L2正则相比较为什么更容易使得某些参数为0的图示说明](../../pictures/CompareL1andL2.png)。如图所示，可以看到在左侧的图中，L1容易在$w_i$的坐标轴上与损失函数相交，而在坐标轴上相交就意味着另外一个坐标轴上的值为零。如左图所示，相交于$w_2$轴上的点对应的$w_1$上的值为0。（但是这里没有说明更多的情况是如何变化的，或者说这里只做了一个点的筛选，其他的点并不知道）。对应的右侧的图，$L_2$与损失函数的交点不在坐标轴上，那么$w_1, w_2$都会有值。
 9. 对应于贝叶斯的解释留到之后再说明。
