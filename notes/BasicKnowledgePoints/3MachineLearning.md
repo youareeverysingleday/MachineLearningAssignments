@@ -1,7 +1,9 @@
 # 机器学习
 
-一些基本概念。只做参考。
+一些基本概念。只做参考。可以快速的过一遍。
 这门课内容是按照周志华《机器学习》来讲的。
+
+1. 所有没有理解的地方通过~~XXX~~进行了表示。
 
 ## 1. 机器学习概述
 
@@ -189,4 +191,160 @@
          |最大熵模型|极大似然估计|
          |交叉熵|逻辑回归损失函数|
 4. 剪枝与控制过拟合。
+   1. 剪枝和过拟合操作。
+      1. 定义：为了尽可能的正确分类训练样本，有可能造成分支过多，造成过拟合。**剪枝：通过主动去掉一些分支来降低过拟合的风险**。
+      2. 基本策略：预剪枝(pre-pruning)：提前终止某些分支的生长。后剪枝（post-pruning）:生成一颗完整树之后，再回头来剪枝。
+      3. 剪枝的基本原则：剪枝过程中需要评估剪枝前后决策树的优劣。一般使用留出法来进行评估。
+      4. 操作步骤：比如采用后剪枝。
+         1. 首先通过训练集生成完整的决策树。
+         2. 通过验证集对每个节点之后的精度进行计算。
+         3. 从底部开始向顶部进行剪枝。比较每个节点剪枝前后的精度，如果节点剪枝前后的精度下降，那么剪枝；如果升高了或者保持不变那么保留节点。
+   2. 预剪枝过程与示例。
+      1. 在决策树生成的过程中，基于信息增益准则，在划分节点时，若该节点的划分没有提高其在验证集上的准确率，则不进行划分。
+   3. 后剪枝与示例。
+   4. 预剪枝和后剪枝的对比：
+      1. 时间开销：预剪枝训练时间开销降低，测试时间开销降低。后剪枝训练时间开销增加，测试时间开销降低。
+      2. 过拟合风险：预剪枝过拟合凤冈县降低，欠拟合风险增加。后剪枝过拟合风险降低，欠拟合风险基本保持不变。
+      3. 泛化性能：后剪枝通常由于预剪枝。
 5. 数据案例讲解。
+
+   ```python
+   import pandas as pd
+   # import数据预处理和特征工程的库。
+   import sklearn import preprocessing
+   # import决策树的库。
+   from sklearn import tree
+
+   # ......
+
+   pandas.get_dummies(feature)
+   # 用于将数据特征中的不同类型转换为数值型的类型。
+   # 比如将白色人种、黄色人种、黑色人种、棕色人种，通过上面的函数转化为0,1,2,3这种形式。
+   clf = tree.DecisionTreeClassifier(criterion='entropy', max_depth=4)
+   # 这个函数有两个参数，第一个参数决定用什么来做分类属性；第二个参数设置决策树的最大深度是多少。
+   clf = clf.fit(features.values, label.values)
+
+   # ......
+
+   import pydotplus # 用于查看决策树的结构。
+   from IPython.display import display, Image
+   # ......
+   # 说明这里是做了一个对人的收入是否超过5万元的预测。所以在class_names=['<=50K', '>50K']这个参数的时候填写的类别的名称就是这个。
+   dot_data = tree.export_graphviz(clf,
+                                    out_file=None,
+                                    feature_names=features.colums,
+                                    class_names=['<=50K', '>50K'],
+                                    filled=True,
+                                    rounded=True)
+   graph = pydotplus.graph_from_dot_data(dot_data) #用来查看决策树的结构
+   display(Image(graph.create_png()))
+   ```
+
+## 4. 分类回归数和随机森林
+
+1. 连续值和缺省值的处理
+   1. 连续值的处理（这里是对于树模型而言的）。**核心思想是连续属性离散化**。常见的做法是二分法(bi-partition)。也就是在连续值之中找一个点，将其划分为2个部分。每个部分对应一种类型。（~~原话是：n个属性值可以形成n-1个候选划分，当做离散值来处理。这个确实没有理解~~）
+   2. 缺失值（missing）的处理。方法之一：仅使用无缺失值来判断样例的优劣。（~~这里出现了一种情况：某些特征上的样本会**同时**出现在多个分支上，而且按照例子进入多个分支上的样本的权重之和还为1。这个地方课程没有说清楚。~~）
+   3. 从树到规则的建立。一棵决策树对应于一个“规则集”，每个从根节点到叶节点的分支路径对应于一条规则。可以理解为多个if-else语句的合集。所以决策树的可解释性非常好。而且可以进一步提高泛化能力。
+2. 回归树模型及构建方法
+   1. 之前说的树结构都是用来做分类的。树结构也可以做回归。**回归树本质上是对空间的划分。也就是将特征空间切分成了不相交的子区域，每个区域预估成该区域样本的均值**。
+   2. 回归树和决策树操作步骤上是类似的。不同的地方在于使用RSS来代替了信息熵。$RSS=\sum\limits_{j=1}^{J}\sum\limits_{i\in R_j}(y_i-\widetilde{y}_{R_j})^2$。RSS的计算方法是自顶向下的贪婪式的递归方案。RSS最小化和探索的过程计算量非常巨大。一般采用探索式的递归二分来尝试解决这个问题。
+   3. 可以通过正则化项来进行过拟合控制。
+3. bagging和随机森林
+   1. bootstraping。bootstraping来自于成语“pull up by your own bootstrap”，意思是依靠你自己的资源，称为自助法。它是一种有放回的抽样方法。它是非参数同济中一种重要的估计统计量方差进而进行区间估计的统计方法。bootstrap是现代统计学较为流行的一种统计方法，在小样本时效果很好。通过方差的估计可以构造置信区间等，其运用范围得到进一步延伸。其核心思想和基本步骤如下：
+      1. 采用重抽样技术从原始样本中抽取一定数量（自己给定）的样本，此过程允许重复抽样。
+      2. 根据抽出的样本计算给定的统计量T。
+      3. 重复上述N次（一般大于1000），得到N个统计量T。
+      4. 计算上述N个统计量T的样本方差，得到统计量的方差。
+   2. bagging。bagging是bootstrap aggregating的缩写。使用了bootstraping的思想。bagging降低了过拟合风险，提高了泛化能力。
+
+      ```mermaid
+      graph LR
+         A[m个样本训练集]-->B[m个样本采样集1]
+         A-->C[m个样本采样集2]
+         A-.->SL1[......]
+         A-->D[m个样本采样集T]
+         B-->E[学习器1]
+         C-->F[学习器2]
+         SL1-.->SL2[......]
+         D-->G[学习器T]
+         E-->H[集成学习器]
+         F-->H
+         SL2-.->H
+         G-->H
+      ```
+
+      输入样本集$D=\{(x_1,y_1),(x_2,y_2),\cdots,(x_m,y_m)\}$，步骤如下：
+         1. 对于$t=1,2,\cdots,T$:
+            1. 对训练集进行第t次随机采样，共采集m次，得到包含m个样本的采样集$D_m$。
+            2. 用采样集$D_m$训练第t个基学习器$G_t(x)$
+         2. 分类场景，则T个学习器投出最多票数的类别为最终类别。回归场景，T个学习器得到的回归结果进行算术平均得到的值为最终的模型输出。
+   3. 随机森林（Random Forest）。是一种基于树模型的bagging的优化版本。核心思想依旧是bagging，但是做了一些独特的改进。RF使用CART决策树作为基学习器。对于样本集$D=\{(x_1,y_1),(x_2,y_2),\cdots,(x_m,y_m)\}$，具体的过程如下：
+      1. 对于$t=1,2,\cdots,T$:
+         1. 对训练集进行第t次随机采样，共采集m次，得到包含m个样本的采样集$D_m$。
+         2. 用采样集$D_m$训练第m个决策树模型$G_m(x)$，**在训练决策树模型的节点的时候，在节点上所有的样本特征中选择一部分样本特征，在这些随机选择的部分样本特征中选择一个最优的特征来做决策树的左右子树划分**。
+      2. 分类场景，则T个基模型（决策树）投出最多票数的类别为最终类别。回归场景，T个基模型（回归树）得到的回归结果进行算术平均得到的值为最终的模型输出。
+4. 数据案例讲解
+   1. 第一个示例
+
+      ```python
+      # 这个例子的代码是完整的。
+      import pandas as pd
+      import sklearn import preprocessing
+      import sklearn.ensemble import RandomForestRegressor
+      from sklearn.datasets import load_boston
+
+      boston_house = load_boston()
+
+      boston_feature_name = boston_house.feature_name
+      # 房屋的属性。
+      boston_feature = boston_house.data
+      # 房屋的价格。
+      boston_target = boston_house.target
+
+      # 显示数据集的相关信息
+      print(boston_house.DESCR)
+      
+      help(RandomForestRegressor)
+      # n_estimators表示本RF有几棵树，也就是树的数量。输入整数类型。可选参数。default = 10。。
+      # criterion本RF的优化目标是什么？也就是选择什么样的损失函数。输入字符串类型。可选参数。default = "mse"。
+
+      rgs = RandomForestRegressor(n_estimators=15)
+      rgs = rgs.fit(boston_features, boston_target)
+
+      # 进行预测。
+      rgs.predict(boston_features)
+      ```
+
+   2. 第二个示例，对连续值特征的数据进行分类（基于决策树）。对鸢（yuan1）尾花进行分类。通过鸢尾花的4个连续值属性来预测花属于哪一类。花的类别一共有3类。
+
+      ```python
+      import pandas as pd
+      import sklearn import preprocessing
+      import sklearn.ensemble import tree
+      from sklearn.datasets import load_iris
+
+      iris = load_iris()
+
+      iris_feature_name = iris.feature_names
+      iris_features = iris.data
+      iris_target_name = iris_target_names
+      iris_target = iris.target
+
+      # 构建决策树分类器。
+      clf = tree.DecisionTreeClassifier(max_depth=4)
+      clf = clf.fit(iris_features, iris_target)
+
+      import pydotplus # 用于查看决策树的结构。
+      from IPython.display import display, Image
+
+      dot_data = tree.export_graphviz(clf,
+                                    out_file=None,
+                                    feature_names=iris_feature_name,
+                                    class_names=iris_target_name,
+                                    filled=True,
+                                    rounded=True)
+      graph = pydotplus.graph_from_dot_data(dot_data) #用来查看决策树的结构
+      display(Image(graph.create_png()))
+
+      ```
