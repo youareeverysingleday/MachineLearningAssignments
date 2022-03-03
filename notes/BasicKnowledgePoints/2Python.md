@@ -34,3 +34,22 @@
    list(range(1, 10))
    list(range(1, 10, 2))
    ```
+
+7. 程序语句结构
+   1. 顺序结构
+   2. 选择结构
+   3. 循环结构
+8. if-else三元表达式
+
+   ```python
+   # 下面两个代码逻辑上等价
+   # 1. 这是三元表达式。
+   maxn = (n if n>m else m)
+
+   # 2. 这是if-else语句。
+   if n>m:
+      maxn = n
+   else:
+      maxn = m
+   ```
+

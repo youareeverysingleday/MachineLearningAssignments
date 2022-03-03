@@ -414,10 +414,13 @@
    3. Scikit-learn，python实现的、轻量级的、接口简单的库。支持线性、非线性、回归和分类数据需求。
 5. SVM对偶形式
    1. SVM的对偶形式
-      1. SVM约束优化问题
-      2. Lagrange乘子法
+      1. SVM约束优化问题。线性SVM的原问题（Primal Problem）是：目标是一个关于w的二次函数：$min\text{ }\frac{1}{2}|w|_2^2$，约束是关于w的线性函数：$s.t. \text{ }y_iw^Tx_i \leqslant 1, \forall i \in [n]$。核心是二次凸优化问题（Quadratic Programming）。光滑优化函数。局部最优值即全局最优值。
+         1. 凸集合，用描述化的语言表述为：**对于集合中任意两点的连线依然在集合内部**。 ![凸优化](../../pictures/SVMConvexOptimization.jpg)
+         2. 凸函数，用描述化的语言表述为：**定义域中任意两点连线组成的线段都在这两点的函数曲线（面）上方**。![凸函数](../../pictures/SVMConvexFunction.jpg)
+      2. Lagrange乘子法。![Lagrange乘子法](../../pictures/LagrangeMultiplierMethod.jpg)。这个部分需要进一步的了解一下。
       3. SVM的对偶形式
    2. 核函数以及核技巧
-      1. ![凸函数](../../pictures/SVMConvexFunction.jpg). ![凸优化](../../pictures/SVMConvexOptimization.jpg)  ![特征由低维向高维映射](../../pictures/SVMFeatureMapping.jpg)
+      1. 特征映射（这是非常重要的一个技巧）。**将输入数据从低维空间映射到高维空间的函数变换，使得变换后的数据更加容易（使用一个线性的关系）进行处理（分类/回归）**。![特征由低维向高维映射](../../pictures/SVMFeatureMapping.jpg) ![核函数](../../pictures/SVMCoreFunction.jpg)
+      2. 如何定义特征变换？**因为显式的定义特征变换显然会增加计算的复杂度**。比如原本是1000维的特征，通过一个二项式变换之后有了500,000个特征。为了解决这个问题引入了核函数，**其核心目的在于：我们不需要显式的计算特征映射，只关心的是变化后的特征的内积**。
    3. 非线性支持向量机
    4. 支持向量回归
