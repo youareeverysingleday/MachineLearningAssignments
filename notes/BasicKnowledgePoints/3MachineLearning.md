@@ -43,9 +43,12 @@
       1. 对于连续值：回归（）决策树，随机森林。
       2. 对于离散值（分类值，categorical）。
          1. 分类具体包含：KNN，Trees，Logistic Regression，Naive-Bayes，SVM。
-9. 一般选择模型的流程![GeneralProcessofModelSelection](../../pictures/GeneralProcessofModelSelection.jpg)：
+9. 一般选择模型的流程：
+   |![GeneralProcessofModelSelection](../../pictures/GeneralProcessofModelSelection.jpg "一般选择模型的流程")|
+   |:--:|
+   | *1.1* |
 
-    ```mermaid
+   ```mermaid
     graph TD
         A[start]-->B{数据量是否少于50}
         B-->|no|C[补充数据]
@@ -370,7 +373,10 @@
          2. 有监督多分类（线性/非线性）分类模型。
          3. 有监督线性回归模型（support vector regression, SVR）
          4. 基于核函数的SVM/SVR。
-   2. 最大间隔分类器。SVM和线性模型的区别。线性模型和SVM具体形式上都是通过一条线来对数据进行分类。那么形式上它们之间有什么区别呢？**其中核心思路就是：如何选择一条最合适的线来把这些数据分开？具体实现：最大间隔分类器，也就是说要求分类器距离数据最远。**。![最大间隔分类器](../../pictures/SVMMaximumIntervalClassifier.jpg)
+   2. 最大间隔分类器。SVM和线性模型的区别。线性模型和SVM具体形式上都是通过一条线来对数据进行分类。那么形式上它们之间有什么区别呢？**其中核心思路就是：如何选择一条最合适的线来把这些数据分开？具体实现：最大间隔分类器，也就是说要求分类器距离数据最远。**。
+      |![最大间隔分类器](../../pictures/SVMMaximumIntervalClassifier.jpg "最大间隔分类器")|
+      |:--:|
+      | *Figure 5.1* |
       1. 离数据最远的线性分类器最安全。
       2. 离数据最远的线性分类器最容易泛化。
       3. SVM模型式线性模型的一种。
@@ -415,12 +421,271 @@
 5. SVM对偶形式
    1. SVM的对偶形式
       1. SVM约束优化问题。线性SVM的原问题（Primal Problem）是：目标是一个关于w的二次函数：$min\text{ }\frac{1}{2}|w|_2^2$，约束是关于w的线性函数：$s.t. \text{ }y_iw^Tx_i \leqslant 1, \forall i \in [n]$。核心是二次凸优化问题（Quadratic Programming）。光滑优化函数。局部最优值即全局最优值。
-         1. 凸集合，用描述化的语言表述为：**对于集合中任意两点的连线依然在集合内部**。 ![凸优化](../../pictures/SVMConvexOptimization.jpg)
-         2. 凸函数，用描述化的语言表述为：**定义域中任意两点连线组成的线段都在这两点的函数曲线（面）上方**。![凸函数](../../pictures/SVMConvexFunction.jpg)
-      2. Lagrange乘子法。![Lagrange乘子法](../../pictures/LagrangeMultiplierMethod.jpg)。这个部分需要进一步的了解一下。
+         1. 凸集合，用描述化的语言表述为：**对于集合中任意两点的连线依然在集合内部**。
+            |![凸集合](../../pictures/SVMConvexOptimization.jpg "凸集合")|
+            |:--:|
+            | *Figure 5.2* |
+         2. 凸函数，用描述化的语言表述为：**定义域中任意两点连线组成的线段都在这两点的函数曲线（面）上方**。
+            |![凸函数](../../pictures/SVMConvexFunction.jpg "凸函数")|
+            |:--:|
+            | *Figure 5.3* |
+      2. Lagrange乘子法。~~这个部分需要进一步的了解一下~~。
+         |![Lagrange乘子法](../../pictures/LagrangeMultiplierMethod.jpg "Lagrange乘子法")|
+         |:--:|
+         | *Figure 5.4* |
       3. SVM的对偶形式
    2. 核函数以及核技巧
-      1. 特征映射（这是非常重要的一个技巧）。**将输入数据从低维空间映射到高维空间的函数变换，使得变换后的数据更加容易（使用一个线性的关系）进行处理（分类/回归）**。![特征由低维向高维映射](../../pictures/SVMFeatureMapping.jpg) 
-      2. 如何定义特征变换？**因为显式的定义特征变换显然会增加计算的复杂度**。比如原本是1000维的特征，通过一个二项式变换之后有了500,000个特征。为了解决这个问题引入了核函数，**其核心目的在于：我们不需要显式的计算特征映射，只关心的是变化后的特征的内积**。![核函数](../../pictures/SVMCoreFunction.jpg)
-   3. 非线性支持向量机
-   4. 支持向量回归
+      1. 特征映射（这是非常重要的一个技巧）。**将输入数据从低维空间映射到高维空间的函数变换，使得变换后的数据更加容易（使用一个线性的关系）进行处理（分类/回归）**。
+         |![特征由低维向高维映射](../../pictures/SVMFeatureMapping.jpg "特征由低维向高维映射")|
+         |:--:|
+         | *Figure 5.4* |
+      2. 如何定义特征变换？**因为显式的定义特征变换显然会增加计算的复杂度**。比如原本是1000维的特征，通过一个二项式变换之后有了500,000个特征。为了解决这个问题引入了核函数，**其核心目的在于：我们不需要显式的计算特征映射，只关心的是变化后的特征的内积**。
+         |![核函数](../../pictures/SVMCoreFunction.jpg "核函数")|
+         |:--:|
+         | *Figure 5.5* |
+         ~~这个地方没有理解为什么只需要关心内积就可以了。~~**实际上核函数隐式的定义了特征映射的规则**。核函数的计算是在原空间，核函数的计算复杂度比较低。
+      3. 几种不同的核函数，每一种核函数对应的是一种不同的映射模式。
+         1. 线性核函数：$K(x, x')=x\cdot x'$。
+         2. 拉普拉斯Laplacian核函数：$K(x, x')=exp(-\lambda|x-x'|)$。
+         3. 高斯Gaussion核函数：$K(x, x')=exp(-\lambda|x-x'|^2)$。
+         4. 多项式核函数：$K(x, x')(x\cdot x'+c)^k,k\in N)$。
+         5. 条件密度核函数：$K(x, x')=E_c[p(x|c)\cdotp(x'|c)]$。
+      4. 常用的核函数是高斯核函数和多项式核函数。
+         1. **高斯核函数对应无穷维特征空间映射。在工程应用中，其中$\lambda$的选择至关重要**。
+         2. **多项式核函数对应有限维特征空间映射。在工程应用中，其中指数k的选择至关重要**。
+      5. 核技巧：将线性模型转换为非线性模型，将低维空间通过非线性映射到高维空间。这里需要看下面的部分做了解释：新模型在变化后的空间仍然是线性模型，新模型在原空间相对于x是非线性模型。
+   3. 非线性支持向量机。如何将线性SVM扩展为非线性SVM？
+      |![非线性映射的例子图示](../../pictures/SVMNolinearMapping.jpg "非线性映射的例子图示")| 
+      |:--:|
+      | *5.6* |
+      1. 通过将内积替换成核函数即可。
+      2. 新模型在变化后的空间仍然是线性模型。
+      3. 新模型在原空间相对于x是非线性模型。
+      4. 计算复杂度较小。只需要计算核矩阵$\boldsymbol{K}=\boldsymbol{K}_{ij}=\boldsymbol{K}(x_i,x_j)$。
+         1. 非线性的优化问题和线性的优化问题几乎是一样的，不同的地方在于把核函数换掉了。
+         2. 求凸二次规划问题。
+         3. 可以求得全局最优解（~~这个地方有问题啊，如果是非凸函数如何求得全局最优解？~~）。
+      5. 求解非线性支持向量机优化问题使用的算法是：SMO（Sequential minimal optimization, SMO）算法。SMO算法是Coordinate ascent算法的一个特例。另外一种算法是坐标上升法。
+         1. 坐标上升算法
+            1. 使用于光滑凸优化问题。
+            2. 优化多个变量。
+            3. 每次仅优化其中一个变量，固定其他所有变量不变，直至算法收敛。
+            4. 目前SVM求解的最快算法，也是LibSVM的默认实现算法，通常远快于梯度下降算法。
+         2. 坐标上升算法：目标$min \text{ }x_1^2+x_2^2$。步骤如下：
+            1. 随机初始化算法$(x_1,x_2)=(-3, -4)$。
+            2. 固定$x_2$，优化一维函数$x_1^2 + 16$
+            3. 求得最优解为$x_1=0$
+            4. 固定$x_1=0$，优化一维函数$0+x_2^2$
+            5. 求得最优解$x_2=0$
+            6. 再次固定$x_2=0$，优化一维函数$x_1^2+0$
+            7. 求得最优解$x_1=0$，与上一轮迭代值相同
+            8. 再次固定$x_1=0$，优化一维函数$0+x_2^2$
+            9. 求得最优解$x_2=0$，与上一轮迭代值相同
+            10. 算法收敛，停止，得到全局最优解$(x_1,x_2)=(0,0)$
+   4. 支持向量回归（实例）
+
+   ```python
+   # ......
+   from sklearn.svm import SVC
+   from sklearn import datasets
+   from matplotlib.pyplot as plt
+
+   # 固定随机种子，保证结果复现。
+   np.random.seed(42)
+
+   # 绘图设置
+   %matplotlib inline
+   plt.rcParams['axes.labelsize'] = 14
+   plt.rParams['xtick.labelsize'] = 12
+   plt.rParams['ytick.labelsize'] = 12
+   # ......
+
+   iris = datasets.load_iris()
+   X = iris["data"][:, (2, 3)] # petal length, petal width
+   y = iris["target"]
+
+   setosa_or_versicolor = (y==0) | (y==1)
+   X = X[setosa_or_versicolor]
+   y = y [setosa_or_versicolor]
+
+   # SVM classifier model
+   # 这里用的核函数是线性核函数，这里没有用高斯核和多项式核。
+   svm_clf = SVC(kernel="linear", C=float("inf"))
+   svm_clf.fit(X,y)
+
+   # 注意C这个参数，这个是容错的范围。在实际工程环境中一定要有C这个参数。
+   SVC(C=inf, kernel="linear")
+
+   x0 = np.linspace(0, 5.5, 200)
+   pred_1 = 5 * x0 - 20
+   pred_2 = x0 - 1.8
+   pred_3 = 0.1 * x0 + 0.5
+
+   # 画出决策边界
+   def plot_svc_decision_boundary(svm_clf, xmin, xmax):
+      w = svm_clf.coef_[0]
+      b = svm_clf.intercept_[0]
+
+      # 决策边界 w0 * x0 + w1 * x1 + b = 0
+      # => x1=-w0/w1 * x0 - b/w1
+      x0 = np.linspace(xmin, xmax, 200)
+      decision_boundary = -w[0]/w[1] * x0 - b/w[1]
+
+      margin = 1/w[1]
+      gutter_up = decision_boundary + margin
+      gutter_down = decision_boundary - margin
+
+      svs = svm_clf.support_vectors_
+      plt.scatter(svs[:, 0], svs[:, 1], s=180, facecolors='#FFAAAA')
+      plt.plot(x0, decision_boundary, "k-", linewidth=2)
+      plt.plot(x0, gutter_up, "k--", linewidth=2)
+      plt.plot(x0, gutter_down, "k--", linewidth=2)
+   
+   plt.figure(figsize=(12, 2.7))
+
+   plt.subplot(121)
+   plt.plot(x0, pred_1, "g--", linewidth=2)
+   plt.plot(x0, pred_2, "m-", linewidth=2)
+   plt.plot(x0, pred_3, "r-", linewidth=2)
+   plt.plot(X[:, 0][y==1], X[:, 1][y==1], "bs", label="Iris-Versicolor")
+   plt.plot(X[:, 0][y==0], X[:, 1][y==0], "yo", label="Iris-Setosa")
+   plt.xlabel("Petal length", fontsize=14)
+   plt.ylabel("Petal width", fontsize=14)
+   plt.legend(loc="upper left", fontsize=14)
+   plt.axis([0, 5.5, 0, 2])
+
+   plt.subplot(122)
+   plot_svc_decision_boundary(svm_clf, 0, 5.5)
+   plt.plot(X[:, 0][y==1], X[:, 1][y==1], "bs")
+   plt.plot(X[:, 0][y==0], X[:, 1][y==0], "yo")
+   plt.xlabel("Petal length", fontsize=14)
+   plt.axis([0, 5.5, 0, 2])
+
+   plt.savefig("large_margin_classification_plot")
+   plt.show()
+   ```
+
+   1. 注意事项：
+      1. SVM对特征幅度敏感，注意scaling（归一化）。这个的意思就是特征的多个维度的数据最好是在一个量级里面，这样做出的决策边界才比较合理。举例，比如$x_1$的范围是在$(100,1000)$这个范围，而$x_2$的范围是在$(0,10)$这个范围，那么在做决策的时候会更偏向于$x_1$做决策。这个时候需要将$x_1$做一个scaling缩小，或者将$x_2$放大。
+      2. 对异常值非常敏感。SVM是期望将所有的值都涵盖在模型里面，也就是对所有的模型都能进行分类。由于在实际数据中难以避免存在异常值，所以采用了一种容错机制。看下面的第3点。
+      3. 最大容错和间隔。可以理解为增加简单正则化的概念。
+
+      ```python
+      import numpy as np
+      from sklearn import datasets
+      from sklearn.pipeline import Pipeline
+      from sklearn.preprocessing import StandardScaler
+      from sklearn.svm import LinearSVC
+
+      iris = datasets.load_iris()
+      X = iris["data"][:, (2, 3)] # petal length, petal width
+      y = (iris["target"] == 2).astype(np.float64) # Iris-Virginica
+
+      # sklearn.pipeline的用法是将多个处理步骤组合成成一个流程，这样做了封装之后方便使用。[pipeline参考](https://juejin.cn/post/7029482491694022670)
+      svm_clf = Pipeline([
+                        ("scaler", StandardScaler()),
+                        ("linear_svc", LinearSVC(C=1, loss="hinge", random_state=42))
+                        ])
+      svm_clf.fit(X, y)
+
+      # 对数据进行预测。
+      svm_clf.predict([[5.5, 1.7]])
+      ```
+
+      ```python
+      # 不同的正则强度。
+      scaler = StandardScaler()
+      svm_clf1 = LinearSVC(C=1, loss="hinge", random_state=42)
+      svm_clf2 = LinearSVC(C=100, loss="hinge", random_state=42)
+
+      scaled_svm_clf1 = Pipeline([
+                        ("scaler", scaler),
+                        ("linear_svc", svm_clf1)
+                        ])
+      scaled_svm_clf2 = Pipeline([
+                        ("scaler", scaler),
+                        ("linear_svc", svm_clf2)
+                        ])
+      scaled_svm_clf1.fit(X, y)
+      scaled_svm_clf2.fit(X, y)
+
+      # Convert to unscaled parameters
+      b1 = svm_clf1.decision_function([-scaler.mean_/scaler.scale_])
+      b2 = svm_clf2.decision_function([-scaler.mean_/scaler.scale_])
+      w1 = svm_clf1.coef_[0] / scaler.scale_
+      w2 = svm_clf2.coef_[0] / scaler.scale_
+      svm_clf1.intercept_ = np.array([b1])
+      svm_clf2.intercept_ = np.array([b2])
+      svm_clf1.coef_ = np.array([w1])
+      svm_clf2.coef_ = np.array([w2])
+
+      # Find support vectors (LinearSVC does not do this automatically)
+      t = y * 2 - 1
+      support_vectors_idx1 = (t * (x.dot(w1) + b1) < 1).ravel()
+      support_vectors_idx2 = (t * (x.dot(w2) + b2) < 1).ravel()
+      svm_clf1.support_vectors_ = X[support_vectors_idx1]
+      svm_clf2.support_vectors_ = X[support_vectors_idx2]
+
+      plt.figure(figsize=(12, 3.2))
+      plt.subplot(121)
+      plt.plot(X[:, 0][y==1], X[:, 1][y==1], "g^", label="Iris-Virginica")
+      plt.plot(X[:, 0][y==0], X[:, 1][y==0], "bs", label="Iris-Versicolor")
+      plot_svc_decision_boundary(svm_clf1, 4, 6)
+      plt.xlabel("Petal length", fontsize=14)
+      plt.ylabel("Petal width", fontsize=14)
+      plt.legend(loc="upper left", fontsize=14)
+      plt.title("$C={}$".format(svm_clf1.C), fontsize=16)
+      plt.axis([4, 6, 0.8, 2.2])
+
+      plt.subplot(121)
+      plt.plot(X[:, 0][y==1], X[:, 1][y==1], "g^", label="Iris-Virginica")
+      plt.plot(X[:, 0][y==0], X[:, 1][y==0], "bs", label="Iris-Versicolor")
+      plot_svc_decision_boundary(svm_clf2, 4, 6)
+      plt.xlabel("Petal length", fontsize=14)
+      plt.legend(loc="upper left", fontsize=14)
+      plt.title("$C={}$".format(svm_clf2.C), fontsize=16)
+      plt.axis([4, 6, 0.8, 2.2])
+      plt.savefig("regularization_plot")
+
+      ```
+
+   2. 非线性分类
+      1. 非线性示例1
+
+         ```python
+         X1D = np.linspace(-4, 4, 9).reshape(-1, 1)
+         X2D = np.c_[X1D, X1D**2]
+         y= np.array([0, 0, 1, 1, 1, 1, 1, 0, 0])
+
+         plt.figure(figsize=(11, 4))
+
+         plt.subplot(121)
+         plt.grid(True. which='both')
+         plt.plot(X1D[:, 0][y==0], np.zeros(4), "g^")
+         plt.plot(X1D[:, 0][y==1], np.zeros(5), "bs")
+         plt.gca().get_yaxis().set_ticks([])
+         plot_svc_decision_boundary(svm_clf1, 4, 6)
+         plt.xlabel(r"$x_1$", fontsize=20)
+         plt.axis([-4.5, 4.5, -0.2, 0.2])
+
+         plt.subplot(122)
+         plt.grid(True. which='both')
+         plt.axhline(y=0, color='k')
+         plt.axvline(x=0, color='k')
+         plt.plot(X2D[:, 0][y==0], X2D[:, 1][y==0], "bs")
+         plt.plot(X2D[:, 0][y==1], X2D[:, 1][y==1], "g^")
+         plt.xlabel(r"$x_1$", fontsize=20)
+         plt.ylabel(r"$x_2$", fontsize=20, rotation=0)
+         plt.gca().get_yaxis().set_ticks([0, 4, 8, 12, 16])
+         plt.plot([-4.5, 4.5], [6.5, 6.5], "r--", linewidth=3)
+         plt.axis([-4.5, 4.5, 1, 17])
+
+         plt.subplots_adjust(right=1)
+         plt.savefig("higher_dimensions_plot", tight_layout=False)
+         plt.show()
+         ```
+
+      2. 非线性示例2
+
+         ```python
+         ```
