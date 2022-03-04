@@ -488,7 +488,7 @@
    # ......
    from sklearn.svm import SVC
    from sklearn import datasets
-   from matplotlib.pyplot as plt
+   import matplotlib.pyplot as plt
 
    # 固定随机种子，保证结果复现。
    np.random.seed(42)
@@ -660,16 +660,15 @@
          plt.figure(figsize=(11, 4))
 
          plt.subplot(121)
-         plt.grid(True. which='both')
-         plt.plot(X1D[:, 0][y==0], np.zeros(4), "g^")
-         plt.plot(X1D[:, 0][y==1], np.zeros(5), "bs")
+         plt.grid(True, which='both')
+         plt.plot(X1D[:, 0][y==0], np.zeros(4), "bs")
+         plt.plot(X1D[:, 0][y==1], np.zeros(5), "g^")
          plt.gca().get_yaxis().set_ticks([])
-         plot_svc_decision_boundary(svm_clf1, 4, 6)
          plt.xlabel(r"$x_1$", fontsize=20)
          plt.axis([-4.5, 4.5, -0.2, 0.2])
 
          plt.subplot(122)
-         plt.grid(True. which='both')
+         plt.grid(True, which='both')
          plt.axhline(y=0, color='k')
          plt.axvline(x=0, color='k')
          plt.plot(X2D[:, 0][y==0], X2D[:, 1][y==0], "bs")
@@ -678,7 +677,7 @@
          plt.ylabel(r"$x_2$", fontsize=20, rotation=0)
          plt.gca().get_yaxis().set_ticks([0, 4, 8, 12, 16])
          plt.plot([-4.5, 4.5], [6.5, 6.5], "r--", linewidth=3)
-         plt.axis([-4.5, 4.5, 1, 17])
+         plt.axis([-4.5, 4.5, -1, 17])
 
          plt.subplots_adjust(right=1)
          plt.savefig("higher_dimensions_plot", tight_layout=False)
@@ -686,6 +685,4 @@
          ```
 
       2. 非线性示例2
-
-         ```python
-         ```
+         详见[非线性示例2](../../codes/4BasicKnowledgePoints/1SVMNonlinearClassification.ipynb)。
