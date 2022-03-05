@@ -704,7 +704,7 @@
       3. 计算$P(y_1|x), P(y_2|x), \cdots, P(y_n|x)$。
       4. 如果$P(y_k|x)=max\{P(y_1|x), P(y_2|x), \cdots, P(y_n|x)\},x\in y_k$。~~这个地方有问题吧~~
    4. 朴素贝叶斯的例子。如图所示的例子。通过天气、湿度、风级来判断是否适合去打球。一共14条数据，其中5条是不适合打球，9条适合打球。在不知道天气、湿度、风级3个信息的情况下，能打球的的概率是$\frac{9}{14}$，这个概率就是先验概率。然后知道3个信息的情况下再计算是否能打球的概率，这就是后验概率。![朴素贝叶斯的例子](../../pictures/NaiveBayesExample.jpg "朴素贝叶斯的例子")
-   5. 常见的应用场景：简单的文件的判断，垃圾邮件的判断等。
+   5. **常见的应用场景：简单的文件的判断，垃圾邮件的判断等**。
 2. 贝叶斯网络和有向分离
    1. 贝叶斯网络(bayesian network)，又称为信念网络（Belief Network），或有向无环图模型（directed acyclic graphical model），是一种概率图模型。它是一种模拟人类推理过程中因果关系的不确定性处理模型，其网络拓扑结构是一个有向无环图（DAG）。贝叶斯网络的邮箱芜湖安图的节点表示随机变量${x_1, x_2, x_3, \cdots, x_n}$，它们可以是可观察到的变量，或隐变量、未知参数等。认为有因果关系（或非条件独立）的变量或明天则用箭头来连接。若两个节点间以一个单箭头连接在一起，表示其中一个节点是“因（parents）”，另一个是“果（children）”，两个节点就会产生一个条件概率值。总而言之，连接两个节点的箭头代表此两个随机变量是具有因果关系，或非条件独立。![贝叶斯网络](../../pictures/BayesianNetwork.jpg "贝叶斯网络")
    2. 有向分离（D-Separation）是一种用来判断变量是否条件独立的图形化方法。换而言之，对于一个DAG，有向分离方法可以快速的判断出两个节点之间是否是条件独立的。更具贝叶斯的3种形式来做讲解：
@@ -713,4 +713,164 @@
       3. head-to-tail：要考虑c已知和未知2种情况。c未知的时候，a,b不独立。c已知的时，a,b独立。所以在c给定的情况下，a,b被阻断，是独立的，称之为head-to-tail条件独立。![head-to-tail](../../pictures/BayesDSeparationHeadtoTail.jpg "head-to-tail")
 3. 实例。[参考代码](../../codes/4BasicKnowledgePoints/2NaiveBayesClassification.ipynb)。
 
-## 7. 主题模型
+## 7. 主题模型（另外一种概率模型）
+
+1. [主题模型理论](https://www.cnblogs.com/luckyplj/p/12718922.html "主题模型理论")
+   1. 常用场景（和朴素贝叶斯类似）：通常会用于文本分类。**理解的核心思想是：通过样本特征的概率分布来对其进行分类**![主题模型的用途之一：文本分类](../../pictures/PurposeofTopicModel.jpg "主题模型的用途之一：文本分类")。
+   2. 主题模型中最著名的就是：隐含狄利克雷分布(LDA, Latent Dirichlet Allocation)无监督的贝叶斯模型。**提出，用来推测文档的主题分布。它可以将文档集中每篇文档的主题以概率分布的形式给出，从而通过分析一些文档抽取出它们的主题分布后，便可以根据主题分布进行主题聚类或文本分类**。在训练中仅仅只需要2样：样本数据和指定分类的类别数量。同时LDA的另一个优点是对每一主题均可以找出一些词来描述它。它是一种典型的词袋模型，**它认为一篇文档是由一组词构成的一个集合，词与词之间没有顺序关系**。一篇文档可以包含多个主题，文档中每一个词都有其中的一个主题生成。![PLSA潜在语义模型的一个用法简单示例](../../pictures/TopicModelPLSA.jpg "PLSA潜在语义模型的一个用法简单示例")
+   3. 目的主题模型要干的事就是：**根据给定的一篇文档，反推其主题分布。主题模型 就是一种自动分析每个文档，统计文档中的词语，根据统计的信息判断当前文档包含哪些主题以及各个主题所占比例各为多少**。
+2. 主题模型算法
+   1. 生成过程（generative process），~~这个步骤说明也太含糊了~~。![主题模型LDA的生成过程，这个过程描述的不清楚](../../pictures/TopicModel.jpg "主题模型LDA的生成过程，这个过程描述的不清楚")，详细的看下面一点的。
+      1. 对每一篇文档，从主题分布中抽取一个主题。
+      2. 从抽出的主题所对应的单词分布中抽取一个词。
+      3. 重复上述过程直到生成一个“符合这个主题的文档”。
+   2. 详细生成过程：
+      1. 从狄利克雷分布$\alpha$中取样生成文档$i$的主题多项式分布$\theta_i$；
+      2. 从主题的多项式分布$\theta_i$中取样生成文档$i$第$j$个词的主题$z_{i,j}$；
+      3. 从狄利克雷分布$\beta$中取样生成主题$z_{i,j}$对应的词分布$\phi_{z_{i,j}}$；
+      4. 从词语的多项式分布$\phi_{z_{i,j}}$中采样最终生成词语$w_{i,j}$。
+   3. 主题作为中间层反应了文档和单词之间的概率关系。~~没理解~~
+3. [实战案例](https://github.com/NLP-LOVE/ML-NLP/blob/master/Machine%20Learning/5.3%20Topic%20Model/HillaryEmail.ipynb)
+
+## 8. 特征工程
+
+1. 特征工程概述和意义：
+   1. 从数据中抽取对结果预测有用的信息。**特征提取高度依赖于对业务场景的理解**。![特征处理示例](../../pictures/FeatureProcessExample.jpg "特征处理示例")
+   2. 特征工程是使用专业背景知识和技巧处理数据，使得特征能在机器学习算法上发挥更好作用的过程。
+   3. 都是sklearn库里面的功能。
+2. 基本数据处理
+   1. 数据清洗和采样。
+   2. 样本均衡。对于一类样本远远大于另一类样本，且总样本数很大的情况下，可以采取下采样的方式来解决。对于一类样本远远大于另一类样本，且总样本数不大的情况下，对于这种问题的解决办法有3种方法：
+      1. 补充数据。
+      2. 过采样。
+      3. 调整损失函数。
+3. 特征工程
+   1. 数值型
+      1. 幅度调整/归一化：
+         1. 幅度缩放scaling。from sklearn.preprocessing import MinMaxScaler
+         2. 标准化standardization。将数据的分布都变为均值为0，方差为1的数据。from sklearn.preprocessing import MinMaxScaler
+         3. 归一化normalization
+      2. 计算对数值等变化
+      3. 统计max,min,mean,std等
+      4. **离散化**。比如年龄划分阶段。pandas.cut()和pandas.qcut()。qcut是等频切分。
+      5. 高次与四则运算。提高数据的维度。from sklearn.preprocessing import PolynomialFeatures
+      6. 数值型转变为类别型
+   2. 类别型
+      1. one-hot编码和哑变量。pandas.get_dummies()
+      2. hash与聚类处理。
+      3. 统计类别比例，转成数值型。
+   3. 时间类，可以看成连续值，也可以看成离散值。要具体问题具体分析。
+   4. 文本型
+      1. 词袋。from sklearn.feature_extraction.text import CountVectorizer
+      2. TF-IDF特征，单词对于文本的权重。from sklearn.feature_extraction.text import TfidfVectorizer
+      3. word2vec，单词转化为向量。
+   5. 统计型
+      1. 加减平均
+      2. 分位线
+      3. 次序型
+      4. 比例类
+   6. 组合特征
+      1. 拼接型
+      2. 模型特征组合
+4. 特征选择
+   1. 意义：
+      1. 冗余：部分特征的相关度太高了，消耗计算性能。
+      2. 噪声：部分特征是对预测结果有负影响。
+   2. 特征选择与降维的区别
+      1. 特征选择：剔除原本特征里和结果预测关系不大的，后者做降维操作，但是保存大部分信息。
+      2. SVD或者PCA确实也能解决一定的高维度问题。
+   3. 分类
+      1. 过滤式（filter）特征选择
+         1. 评估单个特征与结果值之间的相关程度，排序留下相关度高的特征。
+         2. 评价方法通过皮尔森（Pearson）相关系数来衡量。互信息，距离相关度。
+         3. 缺点：**没有考虑到特征之间的关联作用，可能把有用的关联特征误删除了。也就是说几个特征组合在一起就会对结果产生重要影响，但是单独一个特征对结果并没有影响，利用这种评估很可能剔除组合特征中的一个**。
+         4. 常用的库
+
+            ```python
+            from sklearn.feature_selection import SelectKBest
+            from sklearn.feature_selection import chi2
+            ```
+
+      2. 包裹式（wrapper）特征选择
+         1. 把特征选择看做一个特征子集搜索问题，筛选各种特征子集，用模型评估效果。
+         2. 典型的包裹式算法为“递归特征删除算法（Recursive feature elimination algorithm）”。
+         3. 步骤，也是一个逐步搜索的过程。也就是通过不停尝试删除少量特征来观察预测性能的变化情况，如果性能劣化的厉害了就停止删除特征。
+            1. 用全量特征跑一个模型。
+            2. 根据线性模型的系数（体现相关性），删掉5%-10%的弱特征，观察准确率/AUC的变化。
+            3. 逐步进行，直至准确率/AUC出现大的下滑情况，则停止。
+         4. 常用库
+
+            ```python
+            # R
+            from sklearn.feature_selection import RFE
+            ```
+
+      3. 嵌入式（embedded）特征选择
+         1. 根据模型来分析特征的重要性。
+         2. 最常见的方式是通过LR+L1或者L1正则化的方式来做特征选择。
+         3. 实例
+
+            ```python
+            from sklearn.svm import linearSVC
+            from sklearn.datasets import load_iris
+            from sklearn.feature_selection import SelectFromModel
+
+            iris = load_iris()
+            X, y = iris.data, iris.target
+            print(X.shape)
+
+            lsvc = linearSVC(C=0.01, penalty="l1", dual=False).fit(X, y)
+            model = SelectFromModel(lsvc, prefit=True)
+            X_new = model.transform(X)
+            print(X_new.shape)
+            ```
+
+## 9. 模型调优和融合
+
+1. 数据预处理、建模与调参。网络搜索+交叉验证=候选参数集中最佳参数。
+   1. k折交叉验证
+   2. 调参：网格搜索。sklearn.model_selection.GridSearchCV
+2. 模型状态和调优。
+   1. 模型有两种状态：过拟合和欠拟合。
+   2. 通过学习曲线来判断模型的状态。通过训练准确率、期望的准确率和验证准确率，3者的位置来判断，如图所示。![通过学习曲线来判断模型是否处于过拟合或欠拟合状态](../../pictures/LearningCurve.jpg "通过学习曲线来判断模型是否处于过拟合或欠拟合状态")
+      1. 解决过拟合的方法
+         1. 找更多的数据来学习
+         2. 增大正则化系数
+         3. 减少特征个数（不推荐），注意不要以为降维可以解决过拟合问题。
+      2. 解决欠拟合的方法
+         1. 找更多的特征
+         2. 减少正则化系数
+   3. 线性模型的权重分析
+      1. 过线性或者线性kernel的model
+         1. linear regression
+         2. logistic regression
+         3. linearSVM
+      2. 对权重绝对值高/低的特征
+         1. 做更细的工作
+         2. 特征组合
+   4. bad-case分析：要对是模型性能劣化的问题进行分析。
+      1. 分类问题
+         1. 哪些训练样本分错了
+         2. 哪些特征使得模型做出了错误的判断
+         3. 这些bad case有没有共性
+         4. 是否有还没有挖掘的特征
+      2. 回归问题
+         1. 哪些样本预测结果差距大，为什么？
+3. 模型融合（model ensemble），如果一个模型无法解决问题的时候，通过多个模型的组合来解决问题。
+   1. bagging模型（是随机森林的优化版本）、voting模型、随机森林。思路：多个模型同时预测，然后按照规则输出结果。sklearn.ensemble.VotingClassifier和sklearn.ensemble.BaggingClassifier。
+   2. 模型stacking（把上层模型的结果作为下层模型的输入）、blending（是stacking的优化版本，上层模型的结果做加权之后再输出下层模型）。**思路：让前面模型的结果作为下一个模型的输入，让模型组成一个序列**。
+   3. boosting。**结合adaboost模型的特性，那么是不是就可以将多个模型（分类器）组合之后再输出**？[adaboost的参考代码](../../MLA/MLA_1.ipynb "adaboost的参考代码")。思路：某一个模型不够好，那么就用新模型将错误的题再重做一遍，最后让老模型和新模型组合起来。
+   4. bagging和boostin的比较。bagging中上层模型训练的都是部分数据，主要关注降低**方差**，可以并行。boosting每个子分类器训练的都是全部数据，主要关注降低**偏差**，只能串行。区别如下图所示。![bagging和boostin的比较](../../pictures/BaggingvxBoosting.jpg "bagging和boostin的区别")
+   5. 通常情况下把多种方法都试一试，找出最好的方法然后进行融合。
+
+## 10. 机器学习的工作流程
+
+1. 数据清理和格式化
+2. 探索性数据分析
+3. 特征工程和特征选择
+4. 基于性能指标比较几种机器学习模型
+   1. 可以开始的时候选择一个基础的模型做一个测试，然后以该模型的结果作为基线（baseline）。如果结果没有超过这个模型那么可能选择有问题，可能无法有效的解决问题。
+5. 对最佳模型执行超参数调整
+6. 在测试集上评估最佳模型
+7. 解释模型结果
+8. 得出结论
