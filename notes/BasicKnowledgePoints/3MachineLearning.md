@@ -711,6 +711,6 @@
       1. head-to-head：在c未知的情况下，a、b被阻断（blocked），是独立的。称之为head-to-head条件独立。![head-to-head](../../pictures/BayesDSeparationHeadtoHead.jpg "head-to-head")
       2. tail-to-tail：需要考虑c已知和未知2种情况。c未知的时候，a,b不独立。c已知的时，a,b独立。所以在c给定的情况下，a,b被阻断，是独立的，称之为tail-to-tail条件独立。![tail-to-tail](../../pictures/BayesDSeparationTailtoTail.jpg "tail-to-tail")
       3. head-to-tail：要考虑c已知和未知2种情况。c未知的时候，a,b不独立。c已知的时，a,b独立。所以在c给定的情况下，a,b被阻断，是独立的，称之为head-to-tail条件独立。![head-to-tail](../../pictures/BayesDSeparationHeadtoTail.jpg "head-to-tail")
-3. 实例。[参考代码](../../codes/4BasicKnowledgePoints/1SVMNonlinearClassification.ipynb)。
+3. 实例。[参考代码](../../codes/4BasicKnowledgePoints/2NaiveBayesClassification.ipynb)。
 
 ## 7. 主题模型
