@@ -703,14 +703,14 @@
       2. 有类别集合$C=\{y_1, y_2, \cdots , y_n\}$。
       3. 计算$P(y_1|x), P(y_2|x), \cdots, P(y_n|x)$。
       4. 如果$P(y_k|x)=max\{P(y_1|x), P(y_2|x), \cdots, P(y_n|x)\},x\in y_k$。~~这个地方有问题吧~~
-   4. 朴素贝叶斯的例子。如图所示的例子。通过天气、湿度、风级来判断是否适合去打球。一共14条数据，其中5条是不适合打球，9条适合打球。在不知道天气、湿度、风级3个信息的情况下，能打球的的概率是$\frac{9}{14}$，这个概率就是先验概率。然后知道3个信息的情况下再计算是否能打球的概率，这就是后验概率。
+   4. 朴素贝叶斯的例子。如图所示的例子。通过天气、湿度、风级来判断是否适合去打球。一共14条数据，其中5条是不适合打球，9条适合打球。在不知道天气、湿度、风级3个信息的情况下，能打球的的概率是$\frac{9}{14}$，这个概率就是先验概率。然后知道3个信息的情况下再计算是否能打球的概率，这就是后验概率。![朴素贝叶斯的例子](../../pictures/NaiveBayesExample.jpg "朴素贝叶斯的例子")
    5. 常见的应用场景：简单的文件的判断，垃圾邮件的判断等。
 2. 贝叶斯网络和有向分离
-   1. 贝叶斯网络(bayesian network)，又称为信念网络（Belief Network），或有向无环图模型（directed acyclic graphical model），是一种概率图模型。它是一种模拟人类推理过程中因果关系的不确定性处理模型，其网络拓扑结构是一个有向无环图（DAG）。贝叶斯网络的邮箱芜湖安图的节点表示随机变量${x_1, x_2, x_3, \cdots, x_n}$，它们可以是可观察到的变量，或隐变量、未知参数等。认为有因果关系（或非条件独立）的变量或明天则用箭头来连接。若两个节点间以一个单箭头连接在一起，表示其中一个节点是“因（parents）”，另一个是“果（children）”，两个节点就会产生一个条件概率值。总而言之，连接两个节点的箭头代表此两个随机变量是具有因果关系，或非条件独立。
+   1. 贝叶斯网络(bayesian network)，又称为信念网络（Belief Network），或有向无环图模型（directed acyclic graphical model），是一种概率图模型。它是一种模拟人类推理过程中因果关系的不确定性处理模型，其网络拓扑结构是一个有向无环图（DAG）。贝叶斯网络的邮箱芜湖安图的节点表示随机变量${x_1, x_2, x_3, \cdots, x_n}$，它们可以是可观察到的变量，或隐变量、未知参数等。认为有因果关系（或非条件独立）的变量或明天则用箭头来连接。若两个节点间以一个单箭头连接在一起，表示其中一个节点是“因（parents）”，另一个是“果（children）”，两个节点就会产生一个条件概率值。总而言之，连接两个节点的箭头代表此两个随机变量是具有因果关系，或非条件独立。![贝叶斯网络](../../pictures/BayesianNetwork.jpg "贝叶斯网络")
    2. 有向分离（D-Separation）是一种用来判断变量是否条件独立的图形化方法。换而言之，对于一个DAG，有向分离方法可以快速的判断出两个节点之间是否是条件独立的。更具贝叶斯的3种形式来做讲解：
-      1. head-to-head：在c未知的情况下，a、b被阻断（blocked），是独立的。称之为head-to-head条件独立。
-      2. tail-to-tail：需要考虑c已知和未知2种情况。c未知的时候，a,b不独立。c已知的时，a,b独立。所以在c给定的情况下，a,b被阻断，是独立的，称之为tail-to-tail条件独立。
-      3. head-to-tail：要考虑c已知和未知2种情况。c未知的时候，a,b不独立。c已知的时，a,b独立。所以在c给定的情况下，a,b被阻断，是独立的，称之为head-to-tail条件独立。
+      1. head-to-head：在c未知的情况下，a、b被阻断（blocked），是独立的。称之为head-to-head条件独立。![head-to-head](../../pictures/BayesDSeparationHeadtoHead.jpg "head-to-head")
+      2. tail-to-tail：需要考虑c已知和未知2种情况。c未知的时候，a,b不独立。c已知的时，a,b独立。所以在c给定的情况下，a,b被阻断，是独立的，称之为tail-to-tail条件独立。![tail-to-tail](../../pictures/BayesDSeparationTailtoTail.jpg "tail-to-tail")
+      3. head-to-tail：要考虑c已知和未知2种情况。c未知的时候，a,b不独立。c已知的时，a,b独立。所以在c给定的情况下，a,b被阻断，是独立的，称之为head-to-tail条件独立。![head-to-tail](../../pictures/BayesDSeparationHeadtoTail.jpg "head-to-tail")
 3. 实例。[参考代码](../../codes/4BasicKnowledgePoints/1SVMNonlinearClassification.ipynb)。
 
 ## 7. 主题模型
