@@ -6,6 +6,9 @@ Learn the relative content of Machine Learning.
 
 You must finish the following work quickly. If you encounter some problems, record it first.
 
+<!-- section read book
+    机器学习-周志华 chapter 3 :done, rb1, 2022-02-25, 7d -->
+
 ```mermaid
 gantt
     title learning task
@@ -13,15 +16,13 @@ gantt
     %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
     axisFormat %m-%d
 
-    section read book
-    机器学习-周志华 chapter 3 :active, rb1, 2022-02-25, 7d
-
-    section read 2/100 papers
-    2NeuralGraphCollaborativeFiltering :crit, active, rp1, 2022-02-25 , 3d
-    one paper of recommendation system :crit, active, after rp1, 3d
+    section read 3/100 papers
+    2NeuralGraphCollaborativeFiltering :crit, active, rp1, 2022-03-06 , 3d
+    one paper of recommendation system :crit, active, rp2, after rp1, 3d
 
     section watch video
-    跟李沐学AI 斯坦福21秋季1.1:crit, active, w1, 2022-02-25, 3d
+    python lesson:crit, active, wv1, after rp2, 2d
+    跟李沐学AI 斯坦福21秋季1.1:crit, active, wv2, after wv1, 3d
 ```
 
 ## 1. Machine Learning Assignment
