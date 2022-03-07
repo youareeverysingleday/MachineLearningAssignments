@@ -17,7 +17,7 @@ gantt
     axisFormat %m-%d
 
     section read 3/100 papers
-    2NeuralGraphCollaborativeFiltering :crit, active, rp1, 2022-03-06 , 3d
+    2NeuralGraphCollaborativeFiltering :crit, dome, rp1, 2022-03-06 , 3d
     one paper of recommendation system :crit, active, rp2, after rp1, 3d
 
     section watch video
