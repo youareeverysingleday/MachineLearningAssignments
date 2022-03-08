@@ -6,9 +6,6 @@ Learn the relative content of Machine Learning.
 
 You must finish the following work quickly. If you encounter some problems, record it first.
 
-<!-- section read book
-    机器学习-周志华 chapter 3 :done, rb1, 2022-02-25, 7d -->
-
 ```mermaid
 gantt
     title learning task
@@ -17,7 +14,7 @@ gantt
     axisFormat %m-%d
 
     section read 3/100 papers
-    2NeuralGraphCollaborativeFiltering :crit, dome, rp1, 2022-03-06 , 3d
+    2NeuralGraphCollaborativeFiltering :crit, done, rp1, 2022-03-06 , 3d
     one paper of recommendation system :crit, active, rp2, after rp1, 3d
 
     section watch video
