@@ -284,8 +284,6 @@ You are every single day.
 4. 如何方便的观察群的性质方法：乘法表。也就是将两两元素之间的运算通过一张表来表示出来，通过观察表的形状来观察群的性质。
 5. 重排定理Rearrangement Theorem。这个定理有点神奇，只要满足群定义的都会满足这个定理。它的证明过程是：1. 先证明一次计算中所有元素都有；2. 再通过反证法证明每个元素只出现了一次。
 
-
-
 群论相关的参考书：
 ![References of Group Theory](../pictures/GroupTheoryReferencespng.png)
 
