@@ -341,6 +341,12 @@ You are every single day.
    2. 泰勒展开在$\boldsymbol{x_0}$处的一阶近似：$\boldsymbol{f}(\boldsymbol{x})=\boldsymbol{f}(\boldsymbol{x_0})+\boldsymbol{J}(\boldsymbol{x}-\boldsymbol{x_0})+o(||\boldsymbol{x}-\boldsymbol{x_0}||)$。
    3. 海森矩阵就是梯度的雅可比矩阵：$\boldsymbol{H}(\boldsymbol{f}(\boldsymbol{x}))=\boldsymbol{J}(\nabla\boldsymbol{f}(\boldsymbol{x}))$。
 
+## 5. 组合数学
+
+1. 鸽笼原理
+   1. 只能对存在性进行证明。
+   2. 需要构造合适的鸽子和笼子。
+
 ## 5. 其他
 
 1. 图灵的停机问题说明了计算机程序不可能完成所有的功能。说明了希尔伯特关于数学完备性、一致性、可判定性三个不可能同时在一个计算机程序上完成。
