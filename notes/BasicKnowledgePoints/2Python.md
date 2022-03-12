@@ -244,3 +244,92 @@
       'name' in D2   # 返回True
       'gender' in D2 # 返回False
       ```
+
+## 3. 高级概念
+
+1. 函数
+   1. 两种声明方式def和lambda。
+   2. 函数调用
+      1. 形式参数
+      2. 实际参数
+   3. 作用域
+      1. 局部变量
+      2. 全局变量：[使用global的示例](../../codes/4BasicKnowledgePoints/4BasicPython.ipynb)。在函数内部只能读取全局变量的值，不能修改全局变量的值。
+   4. 函数参数
+      1. 参数传递
+         1. 对于非对象参数，传递的参数是实参的值，也就是说形参创建了一个新的参数，然后将实参的值赋值给了形参。
+         2. 对于对象参数，传递的参数是实参的指针。也就是说修改形参实际上是修改了实参的值。
+            |对象类型|分类|可变性|传值类型|
+            |---|---|---|---|
+            |数字|数值|不可变|值传递|
+            |字符串|序列|不可变|值传递|
+            |列表|序列|可变|引用传递|
+            |字典|映射|可变|引用传递|
+            |元组|序列|不可变|值传递|
+            |文件|扩展|不由python改变|引用传递|
+            |集合|集合|可变|引用传递|
+      2. 位置参数
+      3. 关键字参数。就是将定义时的形参的名字来指定对应的值。默认值参数需要放到所有形参之后。
+      4. 参数默认值
+      5. 任意参数收集器和提取器
+      6. lambda表达式。定义形式：lambda arg1,arg2,...,argN:使用冒号前面参数的表达式
+         1. 也称为匿名函数。
+         2. 只适合表达简单逻辑的函数。
+         3. lambda之后的冒号表示return的值。也就是说lambda类似于有return的函数。
+   5. 函数结果返回return和yield
+      1. return表达式：用于返回表达式的值，并且函数退出。
+      2. yield表达式：用户产生一个生成器对象，迭代方位生成器对象，可依次生成所有的数据。一个带有yield的函数就是一个generator，它和普通函数不同，生成一个generator看起来像函数调用，但不会执行任何函数代码，直到对其调用next()（在for循环中会自动调用next()）才开始执行。虽然执行流程仍按函数的流程执行，但每执行到一个yield语句就会中断，并返回一个迭代值，下次执行时从yield的下一个语句继续执行。看起来就好像一个函数在正常执行的过程中被yield中断了数次，每次中断都会通过yield返回当前的迭代值。yield的好处是显而易见的，把一个函数改写为一个generator就获得了迭代能力，比起用类的实例保存状态来计算下一个next()的值，不仅代码简洁，而且执行流程异常清晰。如何判断一个函数是否是一个特殊的 generator 函数？可以利用 isgeneratorfunction 判断。[参考详细说明网址](https://www.runoob.com/w3cnote/python-yield-used-analysis.html)。**在调用生成器函数的过程中，每次遇到 yield 时函数会暂停并保存当前所有的运行信息（保留局部变量），返回yield的值, 并在下一次执行next()方法时从当前位置继续运行，直到生成器被全部遍历完**。![return和yield的区别](../../pictures/PythonBasisReturnandYield.jpg "return和yield的区别。下面的流程图没有画好，只有引用图片了。")。
+
+         ```mermaid
+         graph LR
+            A[def]-->B[函数]
+            B-->C[return x]
+            B-->D[yield x]
+            C-->|返回所有值|E[零时变量]
+            D-->|保留|E
+            E-->|遍历|F[next或者循环]
+            F-->|判断是否取完|D
+            D-->|取下一个|F
+         ```
+
+         ```python
+            def simpleGenerator():
+               x = 1
+               yield x
+               yield x + 1
+               yield x + 2
+               
+            gen_obj = simpleGenerator()
+
+            # 这个是generator
+            print(type(gen_obj))
+            # 这个是function
+            print(type(simpleGenerator))
+            # 这个是generator
+            print(type(simpleGenerator()))
+
+            from inspect import isgeneratorfunction 
+            # 这个返回False
+            print(isgeneratorfunction(gen_obj))
+            # 这个返回True
+            print(isgeneratorfunction(simpleGenerator))
+            # 这个返回False
+            print(isgeneratorfunction(simpleGenerator()))
+
+            print(next(gen_obj))
+            print(next(gen_obj))
+            print(next(gen_obj))
+
+            print("------")
+            # 在前面的next将gen_obj执行完成之后，gen_obj无法再执行。
+            for x in gen_obj:
+               print("======")
+               print(x)
+         ```
+
+         1. yield生成的是一个可迭代对象。
+         2. **yield被执行完了之后就无法再执行一遍**。
+         3. 注意区分"functino"和"generator"的区别。[参考代码，详见“return和yield”部分](../../codes/4BasicKnowledgePoints/4BasicPython.ipynb)
+2. 包与模块
+3. 文件与目录
+  
