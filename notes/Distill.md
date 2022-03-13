@@ -31,6 +31,7 @@
     3. 特征映射（将低维空间中不易使用线性分类的数据映射到高维空间进行线性分类）。
 12. 贝叶斯模型的是一种概率模型。通过计算条件概率来进行分类。**对于一个未知的分布，先假设其服从先验分布（来源于以前做试验数据计算得到，或来自于人们的主观经验），通过观测到的数据，根据贝叶斯规则计算对应的后验分布**。
 13. 推荐系统是一个系统工程，不是一个单一算法可以解决的。其中对包括对获取信息的难易程度、数据的处理、对信息的挖掘、算法在不同场景和环境下的选择都会极大的影响最终的结果。[详见](RecommendationSystem/1RecommendationSystem.md)。
+14. [室内位置定位](https://www.kaggle.com/c/indoor-location-navigation/discussion/240176)。[代码](https://github.com/ttvand/Indoor-Location-Navigation-Public)kaggle的竞赛名称：Indoor Location & Navigation,具体要求是：Identify the position of a smartphone in a shopping mall。
 
 ## 2. paper topic
 

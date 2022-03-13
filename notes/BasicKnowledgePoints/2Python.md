@@ -331,5 +331,166 @@
          2. **yield被执行完了之后就无法再执行一遍**。
          3. 注意区分"functino"和"generator"的区别。[参考代码，详见“return和yield”部分](../../codes/4BasicKnowledgePoints/4BasicPython.ipynb)
 2. 包与模块
+   1. 任何一个以扩展名.py结尾的源文件都可以称为模块。
+   2. 包是包含了模块的目录。
+   3. Python的核心思想：程序架构基于包和模块的模型。
+   4. 有一个顶层文件称为模块的入口。
+   5. 导入的过程就是将模块中所有的代码执行一遍存在内存中。
+   6. 重载。
+   7. 导入方法
+      1. import 模块名1[, 模块名2, 模块名3,.......]
+         1. 使用的时候是：模块名.对象名
+      2. import  模块名1 as 别名
+         1. 使用的时候是：别名.对象名
+      3. from 模块名 import 对象名1[, 对象名2, 对象名3,.......]
+         1. 使用的时候是：对象名
+      4. import 包名
+         1. 必须根据__init__.py制定的导入规则来导入包。
+         2. 使用的时候是：包名.模块名.对象名
+      5. import 包名.模块名
+         1. 导入包里面的某一个模块。
 3. 文件与目录
-  
+   1. 相对路径
+   2. 绝对路径
+   3. 操作文件的位置
+      1. seek()设置操作文件指针的位置。一般操作完文件后指针位置在文件结尾的地方。如果需要其他操作的时候，通过seek()函数来调整指针的位置。
+      2. 只有当文件句柄被close只有操作文件的内容才能写入文件中。
+
+## 4. Pandas
+
+1. pandas简介：是一个分析结构化数据的工具集。使用基础是numpy。
+   1. DataFrame是pandas中的一个表格型的数据结构，包含有一组有序的序列，每列可以是不同的值类型（数值型、字符串、布尔型等），DataFrame即有行索引也有列索引，可以被看做是有**Series组成的字典**。
+   2. Series是一种类似于一维数组的对象，是由一组数据（各种numpy数据类型）以及一组与之相关的数据标签（即索引）组成。仅由一组数据也可以产生简单的Series对象。**实质是按照pandas要求进行了一个功能性封装的一维数组**。
+   3. numpy是pandas的依赖库。
+2. pandas数据结构
+   1. Series简介及创建
+      1. 一维数据结构
+      2. 按列方式组织![Series的结构]( "Series的结构")
+         1. 轴：index。也就是每一列对应的索引，有默认值也可以设定。
+         2. 列名：name。
+         3. 一列数据
+      3. 用法：
+         1. pandas.Series(data, [index=index], [name=name])
+         2. data：可以是任何可迭代对象或标量。
+         3. index：可以是任何可迭代对象，**如给定需要与data的长度一致**。
+         4. name：是字符串对象。
+
+            ```python
+            pd.Series([1, 2, 3, 4, 5], index=['a', 'b', 'c', 'd', 'e'], name='col')
+            pd.Series({'a':1, 'b':2, 'c':3, 'd':4, 'e':5}, name='col')
+            ```
+
+   2. 获取Series对象中的单个值。有点和list类似，不同的地方在于Series的索引值可以自己设定。
+      1. s[index] # index缺失的时候会报错
+      2. s.get(index)   # index缺失的时候不会报错，返回空
+
+         ```python
+         s[0]  # 获取第一个值
+         s[-1] # 获取最后一个值
+         s['a']   # 获取index标签为'a'的值
+         s.get(0) # 获取第一个值
+         s.get(-1)   # 获取最后一一个值
+         ```
+
+      3. 指定区间的值，和list中分片的操作一样。
+         1. 语法：s[start_index: end_index, step]
+         2. 示例：
+
+            ```python
+            s[:]  # 取整个series对象。
+            s[0:3]   # 取series对象中index值在0-2的3个值。
+            s[::-1]  # 反向取出整个Serier对象。
+            ```
+
+   3. Series对象的运算
+      1. 可以和标量、Series对象、DataFrame对象结合各种运算符进行运算，也可以通过对象的方法进行计算。
+
+         ```python
+         s + s # Series中每个元素依次相加。
+         s - 2 # 将Series对象中每个元素减去2
+         s * 3 # 将Series对象中每个元素乘以3
+         s.add(s) # 与s + s对应，但是可以设定轴。
+         s.sub(2) # 与s - 2对应，但是可以设定轴。
+         s.mul(3) # 与s * 3对应，但是可以设定轴。
+         ```
+
+   4. 属性共有3个：values, index, name
+      1. values获取所有值，以numpy数组类型返回。
+      2. index获取所有索引，以index类型返回。
+      3. name获取列名，由于Series只有一列，因此返回一个string类型。
+   5. 删除元素
+      1. s.pop(index)
+         1. 返回值是在原始Series中index对应的值。
+         2. **会改变原始数据**。
+         3. 只能删除一个元素。
+      2. s.drop([index1, index2, ...])
+         1. 返回值为Series类型。
+         2. 并不会改变原始数据。
+         3. Series有索引label时，只能使用索引label删除。
+         4. Series没有索引label时，则可以使用整数索引删除。
+         5. 可以删除多个元素。
+   6. DataFrame：DataFrame可以看做是由多个Series对象构成的。
+      1. DataFrame创建。DataFrame是二维数据对象，具有2个轴：index(y轴)和columns(x轴)。
+      2. 语法：pandas.DataFrame(data, [index=index], [columns=columns])
+         1. data能够接受很多种形式。
+         2. index需要与data的行数一致。
+         3. columns需要和data的列数一致。
+      3. 列的添加、选取和删除
+
+         ```python
+         df["one"]   # 取出列名为one的列。
+         df['three'] = df['one'] + df['two'] # 将one列和two列相加，赋值给新增three列中。
+         df.insert(1, 'pointhalf', df['one'] * df['two'])   # 将one列和two列相乘的结果插入到索引值为1处，即第2列。注意插入并不是替换原来位置的列。
+         del df['three']   # 删除列名为three的列。会影响原始数据。
+         df.pop("pointhalf")  # 取出列名为pointhalf的列，并删除。会影响原始数据。
+         df.drop('one', axis=1)  # 删除列名为one的列。不会影响到原始数据。在axis参数没有填的时候，drop默认是按行操作的。
+         ```
+
+   7. 索引的操作。注意loc和iloc的区别：loc是用来取字符型标签的行的，iloc是用来取数值型（DataFrame默认值）的标签行。
+      |操作|语法|结果|
+      |---|---|---|
+      |选择列|df['one']|Series对象|
+      |选择行，通过label|df.loc["a"]|Series对象|
+      |选择列，通过label|df.loc[:, "a"]|Series对象|
+      |选择行，通过整数索引|df.iloc[0]|Series对象|
+      |选择列，通过整数索引|df.iloc[:, 0]|Series对象|
+      |通过分片选择多行|df[1:2]|DataFrame对象|
+      |通过布尔向量选择多行|df[[True, False, True, False]]|DataFrame对象|
+
+   8. 表达式的筛选
+      1. 语法：df[df 关系运算符 数值]。筛选出df中符合表达式要求的值，不符合的以NaN显示。
+      2. 语法：df.loc[筛选行的条件, 要显示的列]。筛选出符合条件的行，并指定要显示那些列。
+
+      ```python
+      df[df<0]
+      df.loc[df['b']>0, ['b', 'd']]
+      df.loc[(df['b']>0)&(df['d']>0)]
+      ```
+
+   9. DataFrame的转置：**注意行和列的索引都会随之一起改变**。
+   10. numpy中的log, log10, log2, exp, sqrt等都可以对DataFrame中的每个元素其作用。
+
+         ```python
+         np.log(df)  # 是对df中每一个元素进行操作
+         ```
+
+   11. 可以通过列名对列进行访问。
+
+         ```python
+            df.ColumnsName  # 是对df中每一个元素进行操作，返回Series。
+         ```
+
+   12. pandas.read_csv()参数
+       1. path：指定csv文件路径。
+       2. header：指定第几行作为标题。
+       3. names：设置自定义标题，即DataFrame的columns。
+       4. index_col：设置那一列作为index。
+       5. usecols：设置需要读取那些列。
+       6. encoding：设置编码格式。
+       7. nrows=整数值：
+
+3. pandas重要的基本功能
+4. 操作csc和excel文件
+5. Scrapy
+
+completed.
