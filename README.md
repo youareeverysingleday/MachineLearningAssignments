@@ -19,9 +19,10 @@ gantt
     section read 3/100 papers
     2NeuralGraphCollaborativeFiltering :crit, done, rp1, 2022-03-06 , 3d
     one paper of recommendation system :crit, active, rp2, after rp1, 3d
+    Learning Graph-based POI Embedding for location-based Recommendation: crit, active, rpPL1, 2022-03-14, 3d
 
     section watch video
-    python lesson:crit, active, wv1, after rp2, 2d
+    python lesson:crit, done, wv1, after rp2, 2d
     跟李沐学AI 斯坦福21秋季1.1:crit, active, wv2, after wv1, 3d
 ```
 
