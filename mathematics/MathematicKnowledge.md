@@ -204,7 +204,7 @@ You are every single day.
 3. 随机事件：样本空间的子集，即试验结果称为随机事件，称为事件。
 4. 基本事件：一个样本点组成的单点集，称为基本事件。
 5. 必然事件：$\Omega$每次试验中一定发生的事件。
-6. 不可能事件：$\emptyset$每次试验中一定不发生的事件。
+6. 不可能事件：$\varnothing$每次试验中一定不发生的事件。
 
 ##### 事件的关系及其运算
 
@@ -216,13 +216,33 @@ You are every single day.
    3. $A\subset A \cup B, B\subset A \cup B.$
    4. $A\cap(A \cup B)=A, B \cap (A \cup B)=B.$
    5. $A \cup A = A$
+4. 事件$A\cap B=\{\omega: \omega \in A \text{且}\omega \in B\}$称为事件A与事件B的积事件（或交事件）。
+5. 差事件：事件$A-B=\{\omega: \omega \in A \text{且}]\omega \notin B\}$称为事件A与事件B的差事件。而且差事件可以表示为：$A-B = A\cap \overline{B}=A\overline{B}$。
+6. **互不相容**：如果$A \cap B =\varnothing$，那么称为事件A与事件B互不相容（或互斥）。它的含义是：事件A与事件B在1次试验后不会同时发生。如果一组事件（可以由无限个事件组成）中任意两个时间都互不相容，那么称这组事件**两两互不相容**。
+7. 集合论中的运算规律：
+   1. 交换律：$A \cup B = B \cup A, A \cap B = B \cap A$
+   2. 结合律：$A \cup (B \cup C) = (A \cup B) \cup C, A \cap (B \cap C) = (A \cap B) \cap C$
+   3. 分配率：$A \cup (B \cap C) = (A \cup B)\cap (A \cup C), A \cap (B \cup C) = (A \cap B)\cup (A \cap C)$
+   4. 摩根法则：$\overline{A \cup B}=\overline{A}\cap \overline{B}, \overline{A\cap B}=\overline{A} \cup \overline{B}$
+8. 其他计算规律
+   1. $AB \cap A\overline{B} = \varnothing$
+   2. $AB \cup A\overline{B} = A$
+   3. $ABC \cap AB\overline{C} = \varnothing$
+   4. $ABC \cup AB\overline{C} = AB$
 
 ##### 概率的定义
 
 1. 概率的定义。设随机实验E的样本空间为$\Omega$，则称满足下列条件的事情集上的函数$P()$为概率：
    1. 对于任意事件A，$P(A)\geq 0$（非负性）；
-   2. 对于必然事件$\Omega, P(\Omega)=1$；
-   3. 设$A_1,A_2,\cdots,A_n,\cdots$为两两互不相容的时间，即$A_iA_j=\emptyset(i\not ={j},i,j=1,2,\cdots)$则$P(\bigcup \limits_{k=1}^{\infty}A_k)=\sum \limits_{k=1}^{\infty}P(A_k)$。
+   2. 对于必然事件$\Omega, P(\Omega)=1$（规范性）；
+   3. 设$A_1,A_2,\cdots,A_n,\cdots$为**两两互不相容**的事件，即$A_iA_j=\varnothing(i\not ={j},i,j=1,2,\cdots)$则$P(\bigcup \limits_{k=1}^{\infty}A_k)=\sum \limits_{k=1}^{\infty}P(A_k)$（可加性）。
+2. 重要性质
+   1. $P(\varnothing)=0$。
+   2. 有限可加性：$P(A_1 \cup \cdots \cup A_n)=P(a_1) + \cdots + P(A_n)$。
+   3. 对于任意一个事件A，$P(\overline{A}) = 1 - P(A)$。
+   4. 当事件A,B满足$A \subset B$时，$P(B-A) = P(B) - P(A), P(A)\leqslant P(B)$。
+   5. 对于任意事件A，$P(A)\leqslant 1$。
+   6. **加法公式**，这也是相容性条件：对于任意两个事件A和B：$P(A \cup B) = P(A) + P(B) - P(AB)$。
 
 ##### 重要概型
 
