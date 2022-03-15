@@ -1,0 +1,115 @@
+
+# 概率
+
+## 基本概念
+
+1. 排列：从n个不同元素中，任取m(m≤n,m与n均为自然数,下同）个**不同的元素**按照一定的顺序排成一列，叫做从n个不同元素中取出m个元素的一个排列；从n个不同元素中取出m(m≤n）个元素的所有排列的个数，叫做从n个不同元素中取出m个元素的排列数，用符号$A(n,m)$或$A_n^m$表示。其中定义$0!=1$。
+   $$A_n^m=n(n-1)(n-2)\cdots(n-m+1)=\frac{n!}{(n-m)!}$$
+    从n个不同元素中全部取出的排列称为全排列，其排列的种数记为：
+    $$A_n=n(n-1)(n-2)\cdots1=n!$$
+
+2. 组合：从n个不同元素中，任取m(m≤n）个元素并成一组，叫做从n个**不同元素**中取出m个元素的一个组合；从n个不同元素中取出m(m≤n）个元素的所有组合的个数，叫做从n个不同元素中取出m个元素的组合数。用符号 C(n,m) 表示。
+   $$\begin{aligned}
+      &C_n^m=\frac{A_n^m}{m!}=\frac{n!}{m!(n-m)!}\\
+      &C_n^m=C_n^{n-m}\\
+      &C_n^m=C_{n-1}^m+C_{n-1}^{m-1}
+      &\text{其中}n\geq m
+   \end{aligned}
+   $$
+
+## 1 随机事件和概率
+
+### 1.1 随机试验和随机事件概念
+
+1. 随机事件：满足以下3个条件称为随机试验：
+   1. 可在相同的条件下重复进行；
+   2. 每次试验的结果不止一个；
+   3. 试验之前不能确定哪一个结果会发生，但所有的结果是明确可知的。
+2. 样本空间：随机试验的所有可能结果所组成的集合称为样本空间，常记为$\Omega$，$\Omega$中的元素称为样本点。
+3. 随机事件：样本空间的子集，即试验结果称为随机事件，称为事件。
+4. 基本事件：一个样本点组成的单点集，称为基本事件。
+5. 必然事件：$\Omega$每次试验中一定发生的事件。
+6. 不可能事件：$\varnothing$每次试验中一定不发生的事件。
+
+#### 事件的关系及其运算
+
+1. 事件的包含：弱事件A发生必然导致事件B发生，则称事件B包含A（或A包含于B），记为$B\supset A$。
+2. 事件相等：若$A\supset B$且$B\supset A$，则称事件A与B相等，记为A=B。
+3. 事件A和B的和（并）：$A\cup B$或者A+B表示事件A与B至少有一个发生。也就是表示A和B的并集。
+   1. $\bigcup \limits_{k=1}^{n}A_k$表示n个事件$A_1,A_2,\cdots,A_n$至少有一个发生。
+   2. $\bigcup \limits_{k=1}^{\infty}A_k$表示$A_1,A_2,\cdots,A_k,\cdots$至少一个发生。
+   3. $A\subset A \cup B, B\subset A \cup B.$
+   4. $A\cap(A \cup B)=A, B \cap (A \cup B)=B.$
+   5. $A \cup A = A$
+4. 事件$A\cap B=\{\omega: \omega \in A \text{且}\omega \in B\}$称为事件A与事件B的积事件（或交事件）。
+5. 差事件：事件$A-B=\{\omega: \omega \in A \text{且}]\omega \notin B\}$称为事件A与事件B的差事件。而且差事件可以表示为：$A-B = A\cap \overline{B}=A\overline{B}$。
+6. **互不相容**：如果$A \cap B =\varnothing$，那么称为事件A与事件B互不相容（或互斥）。它的含义是：事件A与事件B在1次试验后不会同时发生。如果一组事件（可以由无限个事件组成）中任意两个时间都互不相容，那么称这组事件**两两互不相容**。
+7. 集合论中的运算规律：
+   1. 交换律：$A \cup B = B \cup A, A \cap B = B \cap A$
+   2. 结合律：$A \cup (B \cup C) = (A \cup B) \cup C, A \cap (B \cap C) = (A \cap B) \cap C$
+   3. 分配率：$A \cup (B \cap C) = (A \cup B)\cap (A \cup C), A \cap (B \cup C) = (A \cap B)\cup (A \cap C)$
+   4. 摩根法则：$\overline{A \cup B}=\overline{A}\cap \overline{B}, \overline{A\cap B}=\overline{A} \cup \overline{B}$
+8. 其他计算规律
+   1. $AB \cap A\overline{B} = \varnothing$
+   2. $AB \cup A\overline{B} = A$
+   3. $ABC \cap AB\overline{C} = \varnothing$
+   4. $ABC \cup AB\overline{C} = AB$
+
+#### 概率的定义
+
+1. 概率的定义。设随机实验E的样本空间为$\Omega$，则称满足下列条件的事情集上的函数$P()$为概率：
+   1. 对于任意事件A，$P(A)\geq 0$（非负性）；
+   2. 对于必然事件$\Omega, P(\Omega)=1$（规范性）；
+   3. 设$A_1,A_2,\cdots,A_n,\cdots$为**两两互不相容**的事件，即$A_iA_j=\varnothing(i\not ={j},i,j=1,2,\cdots)$则$P(\bigcup \limits_{k=1}^{\infty}A_k)=\sum \limits_{k=1}^{\infty}P(A_k)$（可加性）。
+2. 重要性质
+   1. $P(\varnothing)=0$。
+   2. 有限可加性：$P(A_1 \cup \cdots \cup A_n)=P(a_1) + \cdots + P(A_n)$。
+   3. 对于任意一个事件A，$P(\overline{A}) = 1 - P(A)$。
+   4. 当事件A,B满足$A \subset B$时，$P(B-A) = P(B) - P(A), P(A)\leqslant P(B)$。
+   5. 对于任意事件A，$P(A)\leqslant 1$。
+   6. **加法公式**，这也是相容性条件：对于任意两个事件A和B：$P(A \cup B) = P(A) + P(B) - P(AB)$。
+
+#### 重要概型
+
+1. 古典概型：如果随机试验E满足下面条件即称为古典概型：
+   1. 试验的样本空间$\Omega$的元素只有有限个。
+   2. 样本空间中每个元素，即基本事件发生的可能性相同，则称此试验为古典概型。对于古典概型，事件A的概率有下列计算公式：
+   $$P(A)=\frac{A\text{中基本事件数}}{\Omega\text{中基本事件总数}}$$
+2. 几何概型：如果随机试验E的样本空间$\Omega$为欧氏空间中的一个区域，且每个样本点的出现具有等可能性，则称此试验为几何概型。对于几何概型，事件A的概率有下列计算公式：
+   $$P(A)=\frac{A的度量(长度,面积,体积)}{\Omega 的度量(长度,面积,体积)}$$
+3. 贝努利(Bernoulli)概型：如果试验E的结果只有两个：$A\text{与}\overline{A}$，则称此试验为贝努利概型（试验）。若贝努利试验独立重复n次，则称为n重贝努利概型，简称贝努利概型，若$P(A)=p$，则n次试验中时间A发生k次的概率为：
+   $$P_n(k)=C_n^kp^k(1-p)^{n-k},k=0,1,\cdots,n$$
+
+#### 条件概率和事件的独立性
+
+1. 条件概率
+   设A,B是两个事件，且P(A)>0，称
+   $$P(B|A)=\frac{P(AB)}{P(A)}, \text{其中}AB=A\cap B$$
+   为在事件A发生的条件下事件B发生的条件概率。
+
+
+## 2 随机变量及其分布
+
+## 3 随机变量的数字特征
+
+## 4 大数定理和中心极限定理
+
+## 5 数理统计的基本概念
+
+## 6 参数估计
+
+## 7 假设检验
+
+## 8 回归分析与方差分析
+
+## 9 其他模型
+
+### 高斯混合模型
+
+[参考视频](https://www.bilibili.com/video/BV13b411w7Xj?p=2&spm_id_from=pageDriver)
+
+1. 从几何角度来看，它是多个高斯分布通过加权平均叠加而成的。形式化的表示如下公式：$p(x)=\sum\limits_{k=1}^{K} \alpha_k N(x|\mu_k,\sum_k), \sum\limits_{k=1}^K \alpha_k =1$。其中$\alpha_k$表示多个高斯的加权值，在这个公式里面还不知道这个值是多少。$N(x|\mu_k,\sum_k)$表示特定高斯分布的参数：期望和方差。
+   1. 对高斯混合模型有两种视角来说明，一种是几何角度来解释；另一种是通过混合模型的角度来解释。
+2. 对应于一个特定样本点，不能简单的说这个样本属于那个高斯分布。正确且准确的说法是：该样本属于某个高斯分布的概率是多少，同时属于另一个高斯分布的概率是多少。
+3. 直接对GMM使用MLE（Maximum Likelihood Estimate， 极大似然估计）
+4. 似然和概率的区别：简单来讲，似然与概率分别是针对不同内容的估计和近似。概率(密度)表达给定$\theta$下样本随机向量$\boldsymbol{X}=\boldsymbol{x}$的可能性，而似然表达了给定样本$\boldsymbol{X}=\boldsymbol{x}$下参数$\boldsymbol{\theta}=\boldsymbol{\theta}_1$(相对于另外的参数取值$\boldsymbol{\theta}_2$)为真实值的可能性.换言之, 似然函数的形式是$\boldsymbol{L}(\theta | x)$,其中"|"代表的是条件概率或者条件分布,因此似然函数是在"已知"样本随机变量$\boldsymbol{X}=\boldsymbol{x}$的情况下,估计参数空间中的参数$\theta$的值. 因此似然函数是关于参数$\theta$的函数,即给定样本随机变量$\boldsymbol{x}$后,估计能够使$\boldsymbol{X}$的取值成为$\boldsymbol{x}$的参数$\theta$的可能性; 而概率密度函数的定义形式是$f(x|\theta)$, 即概率密度函数是在"已知"$\theta$的情况下,去估计样本随机变量$\boldsymbol{x}$出现的可能性。**似然估计能够使$\boldsymbol{X}$的取值成为$\boldsymbol{x}$的参数$\theta$的可能性**[参考](https://blog.csdn.net/songyu0120/article/details/85059149)。
