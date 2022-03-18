@@ -34,6 +34,7 @@
 14. [室内位置定位](https://www.kaggle.com/c/indoor-location-navigation/discussion/240176)。[代码](https://github.com/ttvand/Indoor-Location-Navigation-Public)kaggle的竞赛名称：Indoor Location & Navigation,具体要求是：Identify the position of a smartphone in a shopping mall。
 15. 冷启动在协同过滤推荐系统中是不会仅依赖于行为数据来解决的。这个仅依赖于行为数据是无法解决冷启动的问题的。在冷启动的场景中往往采用其他的方式来解决冷启动的问题，比如热门推荐等。
 16. 梯度就是在多维空间中对每个维度求的偏导数组成的向量。
+17. 在实时下一个POI位置推荐中，最重要的是如何度量用户的偏好。也就是如何通过公式表达用户的偏好。
 
 ## 2. paper topic
 
@@ -58,6 +59,7 @@
       2. 基于多模态数据。
       3. 使用注意力机制的预测。
       4. 异构信息网络（HIN）嵌入。这个还不理解。
+
 
 ## 3. problems
 
