@@ -16,13 +16,12 @@ gantt
     %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
     axisFormat %m-%d
 
-    section read 3/100 papers
-    2NeuralGraphCollaborativeFiltering :crit, done, rp1, 2022-03-06 , 3d
-    one paper of recommendation system :crit, active, rp2, after rp1, 3d
-    Learning Graph-based POI Embedding for location-based Recommendation: crit, active, rpPL1, 2022-03-14, 3d
+    section read 5/100 papers
+    5Context-aware Attention-based Data Augmentation for POI Recommendation :crit, active, rp1, 2022-03-20 , 3d
+    9Theoretical impediments to machine learning :crit, active, rp2, after rp1, 3d
 
     section watch video
-    python lesson:crit, done, wv1, after rp2, 2d
+    write a PPT:crit, active, wv1, after rp2, 2d
     跟李沐学AI 斯坦福21秋季1.1:crit, active, wv2, after wv1, 3d
 ```
 
