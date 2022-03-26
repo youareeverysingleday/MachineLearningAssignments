@@ -3,9 +3,11 @@
 1. 题目：Effective fine-grained location prediction based on user check-in pattern in LBSNs
 基于上下文感知和注意的数据增强的POI推荐
 
-|number|title of paper|internet source|local source|correlative field|illustration|
-|---|---|---|---|---|---|
-|1|Learning Graph-based POI Embedding for Location-based Recommendation|<https://sci-hub.ee/10.1016/j.jnca.2018.02.007>|/|location prediction|distll|
+   |number|title of paper|internet source|local source|correlative field|illustration|
+   |---|---|---|---|---|---|
+   |1|Learning Graph-based POI Embedding for Location-based Recommendation|<https://sci-hub.ee/10.1016/j.jnca.2018.02.007>|/|location prediction|distll|
+
+2. 这篇论文可以复现。说得非常具体而言有操作性。
 
 ## 问题
 
@@ -111,6 +113,11 @@
 1. 这个问题定义为经典的二分类模型。
 2. 首先是将数据划分为训练集和测试集。
 3. 按照8:1:1的比例把数据集划分为D1,D2,D3三个部分。**注意以下所有的操作只给定了用户，需要注意的是并不给定特定时间**。
-   1. 对于用户$u_i$在D1中的每个check-in记录，如果在D2中他有一个相应的check-in地点（在D2中的相同地点），我们将通过计算m个特征值获取一个正样本，并给这个样本赋值正标签+1（+1和-1表示的是正负样本）。
-   2. 然后我们对于$u_i$其他所有在D2中没有访问的check-in记录定义为负样本，并给这些样本赋值为父标签-1。
-   3. 需要注意，负样本的选择必须在用户$u_i$的候选地点列表中（也就是说定义了一个样本空间，是不是可以理解为在数据集中$u_i$所有访问的地点作为样本空间。而不是将所有POI地点作为样本空间）。
+   1. 训练集
+      1. 对于用户$u_i$在D1中的每个check-in记录，如果在D2中他有一个相应的check-in地点（在D2中的相同地点），我们将通过计算m个特征值获取一个正样本，并给这个样本赋值正标签+1（+1和-1表示的是正负样本）。
+      2. 然后我们对于$u_i$其他所有在D2中没有访问的check-in记录定义为负样本，并给这些样本赋值为父标签-1。
+      3. 需要注意，负样本的选择必须在用户$u_i$的候选地点列表中（也就是说定义了一个样本空间，是不是可以理解为在数据集中$u_i$所有访问的地点作为样本空间。而不是将所有POI地点作为样本空间）。
+      4. 所有D1中产生
+   2. 测试集
+
+--END--
