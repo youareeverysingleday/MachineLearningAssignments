@@ -168,3 +168,48 @@
    通过4中的思路，通过行与行的交换变成很多2*2的小块之后再进行计算。
 6. 范德蒙德（Vandermonder）行列式
    $$D=$$
+
+## 2. 矩阵运算
+
+### 2.1 矩阵加法
+
+1. $\boldsymbol{A} + \boldsymbol{B} = \boldsymbol{B} + \boldsymbol{A}$
+2. $(\boldsymbol{A} + \boldsymbol{B}) + \boldsymbol{C} = \boldsymbol{A} + (\boldsymbol{B}) + \boldsymbol{C})$
+
+### 2.2 矩阵减法
+
+1. $\boldsymbol{A} - \boldsymbol{B} = \boldsymbol{A} + \boldsymbol{B} \times (-1)$
+2. $\boldsymbol{A} - \boldsymbol{A} = \boldsymbol{O}$
+
+### 2.3 矩阵乘法
+
+在矩阵之间的乘法时，默认矩阵之间的行和列是满足矩阵乘法的要求的。
+
+1. $(\lambda \mu)\boldsymbol{A} = \lambda (\mu \boldsymbol{A})$
+2. $(\lambda + \mu)\boldsymbol{A} = \lambda \boldsymbol{A} + \mu \boldsymbol{A}$
+3. $\lambda(\boldsymbol{A} + \boldsymbol{B}) = \lambda \boldsymbol{A} + \lambda \boldsymbol{B}$
+4. $(\boldsymbol{A} \boldsymbol{B})\boldsymbol{C} = \boldsymbol{A} (\boldsymbol{B} \boldsymbol{C})$
+5. $\lambda(\boldsymbol{A} \boldsymbol{B}) = (\lambda \boldsymbol{A}) \boldsymbol{B} = \boldsymbol{A} (\lambda \boldsymbol{B})$
+6. $\boldsymbol{A} (\boldsymbol{B} + \boldsymbol{C}) = \boldsymbol{A} \boldsymbol{B} + \boldsymbol{A} \boldsymbol{C}\\
+(\boldsymbol{B} + \boldsymbol{C}) \boldsymbol{A}  = \boldsymbol{B} \boldsymbol{A} + \boldsymbol{C} \boldsymbol{A}$
+
+### 2.4 矩阵的转置
+
+1. $(\boldsymbol{A}^T)^T = \boldsymbol{A}$
+2. $(\boldsymbol{A} + \boldsymbol{B})^T = \boldsymbol{A}^T + \boldsymbol{B}^T$
+3. $(\lambda \boldsymbol{A})^T = \lambda \boldsymbol{A}^T$
+4. $(\boldsymbol{A} \boldsymbol{B})^T = \boldsymbol{B}^T \boldsymbol{A}^T$
+
+### 2.5 矩阵的逆
+
+下面不专门强调，在做逆运算的时候默认认为运算对象矩阵是可逆的。
+
+1. 条件：能求逆的矩阵必须是方阵。
+2. $|\boldsymbol{A}| \not ={0} \Leftrightarrow \boldsymbol{A}\text{可逆。}$
+3. $\boldsymbol{A} \boldsymbol{B} = \boldsymbol{B} \boldsymbol{A} = \boldsymbol{E}$则称$\boldsymbol{A}$可逆，$\boldsymbol{A}$的逆矩阵就是$\boldsymbol{B}$。记为$\boldsymbol{A}^{-1}$。
+4. $\boldsymbol{A}^{-1}$唯一。
+5. 如果$\boldsymbol{A}$可逆，那么$\boldsymbol{A}^{T}$也可逆。且$(\boldsymbol{A}^{T})^{-1} = (\boldsymbol{A}^{-1})^{T}$。
+6. $(\boldsymbol{A}^{-1})^{-1} = \boldsymbol{A}$
+7. $k \not ={0}, (k \boldsymbol{A})^{-1} = \frac{1}{k}\boldsymbol{A}^{-1}$
+8. $|\boldsymbol{A}^{-1}| = \frac{1}{|\boldsymbol{A}|}$
+9. $\boldsymbol{A}^{-1} = \frac{1}{|\boldsymbol{A}|} \boldsymbol{A}^{*}$
