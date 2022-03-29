@@ -253,7 +253,7 @@ c & d
         \vdots &   & \vdots & \vdots &  & \vdots\\
         c_{n1} & \cdots & c_{nk} & b_{n1} & \cdots & b_{nn}
         \end{vmatrix}
-        ---
+
     $$\boldsymbol{D}=\begin{vmatrix}
         a_{11} & a_{12} & \cdots & a_{1n} \\
         \vdots & \vdots & \ddots & \vdots \\
