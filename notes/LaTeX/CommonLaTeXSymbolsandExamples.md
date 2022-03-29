@@ -1,6 +1,7 @@
-# 常用Latex符号或举例
 
 [TOC]
+
+# 常用Latex符号或举例
 
 ## 1. 参考
 
@@ -8,6 +9,7 @@
 |---|---|
 |1|手册，重要参考<https://www.zybuluo.com/codeep/note/163962>|
 |2|一些重要字符速查<https://blog.csdn.net/katherine_hsr/article/details/79179622>|
+|3|一些复杂矩阵的书写<https://zhuanlan.zhihu.com/p/266267223?utm_source=wechat_session>|
 
 ## 2. 常用符号速查表
 
@@ -172,31 +174,36 @@
 
 1. 更改文字颜色：
     $$\color{red}{Latex \quad color \quad of \quad word}$$
+    将color后面的颜色替换即可。
 
     |编号|符号|Latex代码|说明|
     |---|---|---|---|
-    |1|$\color{black}{Latex \quad color \quad of \quad word}$|||
-    |2|$\color{silver}{Latex \quad color \quad of \quad word}$|||
-    |3|$\color{maroon}{Latex \quad color \quad of \quad word}$|||
-    |4|$\color{yellow}{Latex \quad color \quad of \quad word}$|||
-    |5|$\color{olive}{Latex \quad color \quad of \quad word}$|||
-    |6|$\color{teal}{Latex \quad color \quad of \quad word}$|||
-    |7|$\color{blue}{Latex \quad color \quad of \quad word}$|||
-    |8|$\color{purple}{Latex \quad color \quad of \quad word}$|||
-    |9|$\color{grey}{Latex \quad color \quad of \quad word}$|||
-    |10|$\color{white}{Latex \quad color \quad of \quad word}$|||
-    |11|$\color{red}{Latex \quad color \quad of \quad word}$|||
-    |12|$\color{lime}{Latex \quad color \quad of \quad word}$|||
-    |13|$\color{green}{Latex \quad color \quad of \quad word}$|||
-    |14|$\color{auqa}{Latex \quad color \quad of \quad word}$|||
-    |15|$\color{navy}{Latex \quad color \quad of \quad word}$|||
-    |16|$\color{fuchsia}{Latex \quad color \quad of \quad word}$|||
+    |1|$\color{black}{Latex \quad color \quad of \quad word}$|black||
+    |2|$\color{silver}{Latex \quad color \quad of \quad word}$|silver||
+    |3|$\color{maroon}{Latex \quad color \quad of \quad word}$|maroon||
+    |4|$\color{yellow}{Latex \quad color \quad of \quad word}$|yellow||
+    |5|$\color{olive}{Latex \quad color \quad of \quad word}$|olive||
+    |6|$\color{teal}{Latex \quad color \quad of \quad word}$|teal||
+    |7|$\color{blue}{Latex \quad color \quad of \quad word}$|blue||
+    |8|$\color{purple}{Latex \quad color \quad of \quad word}$|purple||
+    |9|$\color{grey}{Latex \quad color \quad of \quad word}$|grey||
+    |10|$\color{white}{Latex \quad color \quad of \quad word}$|white||
+    |11|$\color{red}{Latex \quad color \quad of \quad word}$|red||
+    |12|$\color{lime}{Latex \quad color \quad of \quad word}$|lime||
+    |13|$\color{green}{Latex \quad color \quad of \quad word}$|green||
+    |14|$\color{auqa}{Latex \quad color \quad of \quad word}$|auqa||
+    |15|$\color{navy}{Latex \quad color \quad of \quad word}$|navy||
+    |16|$\color{fuchsia}{Latex \quad color \quad of \quad word}$|fuchsia||
 
 2. 在\text{}中可以再插入公式。
-$$ f(n)= \begin{cases} n/2, & \text {if $n$ is even} \\ 3n+1, & \text{if $n$ is odd} \end{cases} $$
+$$f(n)= \begin{cases} n/2, & \text {if $n$ is even} \\ 3n+1, & \text{if $n$ is odd} \end{cases}
+$$
+
+    代码：f(n)= \begin{cases} n/2, & \text {if $n$ is even} \\ 3n+1, & \text{if $n$ is odd} \end{cases}
 
 3. 公式编号，注意只能在行间公式中使用，不能在行内公式中使用。
 $$x+y = z \tag{1.1}$$
+    代码：x+y = z \tag{1.1}
 
 4. 数据表，没有具体含义：
 $$
@@ -208,13 +215,24 @@ a_{n1} & a_{n2} & \cdots & a_{nn}
 \end{matrix}
 $$
 
+    代码：
+    \begin{matrix}
+    a_{11} & a_{12} & \cdots & a_{1n} \\
+    a_{21} & a_{22} & \cdots & a_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{n1} & a_{n2} & \cdots & a_{nn}
+    \end{matrix}
 5. 注意在{array}后面有个{l}是必须的。
 $$
 \begin{array}{l}
 a & b \\
 c & d
 \end{array}$$
-
+    代码：
+        \begin{array}{l}
+        a & b \\
+        c & d
+        \end{array}
 6. 行列式：
     $$
     \boldsymbol{D}=\begin{vmatrix}
@@ -226,7 +244,16 @@ c & d
         c_{n1} & \cdots & c_{nk} & b_{n1} & \cdots & b_{nn}
         \end{vmatrix}
     $$
-
+    代码：
+        \boldsymbol{D}=\begin{vmatrix}
+        a_{11} & \cdots & a_{1k} &   &   &   \\
+        \vdots &   & \vdots &   & 0 &   \\
+        a_{k1} & \cdots & a_{kk} &   &   &   \\
+        c_{11} & \cdots & c_{1k} & b_{11} & \cdots & b_{1n}\\
+        \vdots &   & \vdots & \vdots &  & \vdots\\
+        c_{n1} & \cdots & c_{nk} & b_{n1} & \cdots & b_{nn}
+        \end{vmatrix}
+        ---
     $$\boldsymbol{D}=\begin{vmatrix}
         a_{11} & a_{12} & \cdots & a_{1n} \\
         \vdots & \vdots & \ddots & \vdots \\
@@ -235,13 +262,25 @@ c & d
         a_{n1} & a_{n2} & \cdots & a_{nn}
         \end{vmatrix}
     $$
-
+    代码：
+        \boldsymbol{D}=\begin{vmatrix}
+        a_{11} & a_{12} & \cdots & a_{1n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a^{'}_{i1} & a^{'}_{i2} & \cdots & a^{'}_{in} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{n1} & a_{n2} & \cdots & a_{nn}
+        \end{vmatrix}
 7. 矩阵：
 $$\boldsymbol{D}=
 \begin{bmatrix}
 a & b \\
 c & d
 \end{bmatrix}$$
+    代码：\boldsymbol{D}=
+        \begin{bmatrix}
+        a & b \\
+        c & d
+        \end{bmatrix}
 
 8. 多行公式：
 $$L(Y,f(x))=
@@ -249,3 +288,8 @@ $$L(Y,f(x))=
 1, Y!=f(x) \\
 0, Y = f(x)
 \end{cases}$$
+    代码：L(Y,f(x))=
+        \begin{cases}
+        1, Y!=f(x) \\
+        0, Y = f(x)
+        \end{cases}
