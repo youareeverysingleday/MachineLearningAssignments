@@ -168,13 +168,13 @@
 ||$\scr{WORD STYLE}$|\scr{Word Style}|手写体，不支持，**仅大写可用**|
 ||$\boldsymbol{D}$|\boldsymbol{D}|**表示向量或者矩阵的加粗斜体**|
 ||$\color{red}{Latex}$|\color{red}{Latex}|给文字添加颜色，相关颜色详见下面的例子|
+||$A \overset{some sentence}{=} B$|\overset{some sentence}{=}||
 ||$$|||
 
 ## 3. 重要例子和不方便在表格中显示的公式
 
-1. 更改文字颜色：
-    $$\color{red}{Latex \quad color \quad of \quad word}$$
-    将color后面的颜色替换即可。
+1. 更改文字颜色，将\\color{}大括号中的颜色替换即可。：
+    代码：\color{red}{Latex \quad color \quad of \quad word}
 
     |编号|符号|Latex代码|说明|
     |---|---|---|---|
@@ -195,13 +195,13 @@
     |15|$\color{navy}{Latex \quad color \quad of \quad word}$|navy||
     |16|$\color{fuchsia}{Latex \quad color \quad of \quad word}$|fuchsia||
 
-2. 在\text{}中可以再插入公式。
+2. 在\text{}中可以再插入公式。**这种写法可以在行间公式中使用，在行内公式中无法正确显示**。
 $$f(n)= \begin{cases} n/2, & \text {if $n$ is even} \\ 3n+1, & \text{if $n$ is odd} \end{cases}
 $$
 
     代码：f(n)= \begin{cases} n/2, & \text {if $n$ is even} \\ 3n+1, & \text{if $n$ is odd} \end{cases}
 
-3. 公式编号，注意只能在行间公式中使用，不能在行内公式中使用。
+3. 公式编号，**注意只能在行间公式中使用，不能在行内公式中使用**。
 $$x+y = z \tag{1.1}$$
     代码：x+y = z \tag{1.1}
 
@@ -244,7 +244,7 @@ c & d
         c_{n1} & \cdots & c_{nk} & b_{n1} & \cdots & b_{nn}
         \end{vmatrix}
     $$
-    代码：
+        代码：
         \boldsymbol{D}=\begin{vmatrix}
         a_{11} & \cdots & a_{1k} &   &   &   \\
         \vdots &   & \vdots &   & 0 &   \\
@@ -262,7 +262,7 @@ c & d
         a_{n1} & a_{n2} & \cdots & a_{nn}
         \end{vmatrix}
     $$
-    代码：
+        代码：
         \boldsymbol{D}=\begin{vmatrix}
         a_{11} & a_{12} & \cdots & a_{1n} \\
         \vdots & \vdots & \ddots & \vdots \\
@@ -270,6 +270,7 @@ c & d
         \vdots & \vdots & \ddots & \vdots \\
         a_{n1} & a_{n2} & \cdots & a_{nn}
         \end{vmatrix}
+
 7. 矩阵：
 $$\boldsymbol{D}=
 \begin{bmatrix}

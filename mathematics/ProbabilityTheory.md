@@ -1,5 +1,49 @@
 # 概率
 
+## 几个重要知识点
+
+1. 常用统计变量
+   1. 样本均值：$E(X) = \overline{X} = \frac{1}{n} \sum \limits_{i=1}^{n}x_i$
+   2. 样本方差
+      1. 概率密度函数：$D(X) = S^2 = \frac{1}{n-1} \sum \limits_{i=1}^{n}(x_i - \overline{X})^2 = \frac{1}{n-1} \sum \limits_{i=1}^{n}(x_i^2 - n\overline{X})$
+      2. 含义：**与均值的偏离程度**。
+      3. 之所以除以的是(n-1)是因为要做方差的极大似然估计。具体的含义以后再说明。
+   3. 标准差
+      1. 概率密度函数：$\sqrt{D(X)}=\sqrt{\frac{1}{n-1} \sum \limits_{i=1}^{n}(x_i - \overline{X})^2}$
+      2. 实际就是将方差开了根号。也就是说从也是表示与均值的偏离程度。
+2. 常见概率分布
+   1. 均匀分布
+      1. 概率密度函数：$f(x)=\frac{1}{b-a},\, a<x<b$
+      2. 含义：在a到b的范围能，概率一样。
+   2. 正态分布（高斯分布）
+      1. 概率密度函数：$f(x) = \frac{1}{\sqrt{2 \pi}\sigma} exp(-\frac{(x-\mu)^2}{2\sigma^2})$
+      2. 其中参数的含义：$\mu$表示的是均值的位置，$\sigma$表示的是样本方差。
+      3. 在说$\sigma$的时候，表示的含义都是在$\mu \pm \sigma$的范围内样本所占的比重。也就是表示对应在的均值左右一个方差的范围内样本数量占样本空间数量的比例。以此类推，可以求$\mu \pm 2\sigma$的范围内样本所占的比重。
+   3. 指数分布
+      1. 概率密度函数：$\begin{cases} \lambda e^{-\lambda x}, & \text {x} \geqslant 0 \\ 0, & \text{x<0} \end{cases}$
+3. 重要概率公式
+   1. 条件概率
+      1. $P(B|A)=\frac{P(AB)}{P(A)}$
+      2. $P(B|A)$在A发生情况下B发生的概率。$P(AB)$表示A和B同时发生的概率。$P(A)$独立发生的概率。
+   2. 全概率公式
+      1. $P(B)=P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + \cdots + P(B|A_n)P(A_n) = \sum\limits_{i=1}^n(P(B|A_i)P(A_i))$
+      2. 含义：也就是将B发生的概率分为了多种情况。每种情况（$A_i$）与B的交集的全集就是B。![全概率公式](../pictures/TotalProbabilityFormula.jpg "全概率公式")。全概率公式表示的
+   3. 贝叶斯公式
+      1. $P(A_i|B)=\frac{P(A_i)P(B|A_i)}{\sum\limits_{j=1}^n(P(B|A_j)P(A_j))} \overset{\text{分母用全概率公式}}{=} \frac{P(A_i)P(B|A_i)}{P(B)} \overset{\text{分子用条件概率公式}}{=} \frac{P(A_i B)}{P(B)}\overset{\text{事件两两相互独立}}{=} P(A_i),\quad i=1,2,\cdots, n.$
+      2. 含义：已知每个条件（每个条件本身是一个事件）本身发生的概率，并且B事件真的发生，然后求属于哪一类？
+      3. 举例：![朴素贝叶斯的例子](../pictures/NaiveBayesExample.jpg "朴素贝叶斯的例子")。**这个例子要说清楚**！通过天气、湿度、风级来判断是否适合去打球。一共14条数据，其中5条是不适合打球，9条适合打球。在不知道天气、湿度、风级3个信息的情况下，能打球的的概率是$\frac{9}{14}$，这个概率就是先验概率。然后知道3个信息的情况下再计算是否能打球的概率，这就是后验概率。[重要-参考讲解视频](https://www.bilibili.com/video/BV1a4411B7B4?spm_id_from=333.337.search-card.all.click)
+      4. 这个实质是先验概率和后验概率的问题。贝叶斯公式是通过先验概率求后验概率。
+      5. 贝叶斯公式是乘法公式的转换。如果现在多条件变为只有一个条件，那么贝叶斯公式就是乘法公式。$P(B)=P(B|A)P(A)=P(A|B)P(B),\quad P(B|A)=\frac{P(AB)}{P(A)},\quad P(A|B)=\frac{P(AB)}{P(B)}, \quad P(B|A)+P(\overline{B}|A)=1$
+4. 事件独立。当多个事件之间是独立的有以下性质：
+   1. 事件相互独立时以下四个命题等价：
+      1. 事件A与B相互独立；
+      2. 事件A与$\overline{B}$相互独立；
+      3. 事件$\overline{A}$与B相互独立；
+      4. 事件$\overline{A}$与$\overline{B}$相互独立；
+   2. $P(A_1A_2\cdots A_n)=\prod \limits_{i=1}^n P(A_i)=\prod \limits_{i=1}^n p_i$
+      1. 含义：$\color{red}{各个独立事件之间交集发生的概率等于各个独立事件发生概率之积}$。这一点非常重要！
+   3. 互不相容说的是样本之间，互相独立说的是样本发生的概率之间。**A和B相互独立，不能说明A和B之间是否共有样本点**。
+
 ## 基本概念
 
 1. 排列：从n个不同元素中，任取m($m \leqslant n$,m与n均为自然数,下同）个**不同的元素**按照一定的顺序排成一列，叫做从n个不同元素中取出m个元素的一个排列；从n个不同元素中取出m($m \leqslant n$）个元素的所有排列的个数，叫做从n个不同元素中取出m个元素的排列数，用符号$A(n,m)$或$A_n^m$表示。其中定义$0!=1$。
@@ -125,3 +169,6 @@
 2. 对应于一个特定样本点，不能简单的说这个样本属于那个高斯分布。正确且准确的说法是：该样本属于某个高斯分布的概率是多少，同时属于另一个高斯分布的概率是多少。
 3. 直接对GMM使用MLE（Maximum Likelihood Estimate， 极大似然估计）
 4. 似然和概率的区别：简单来讲，似然与概率分别是针对不同内容的估计和近似。概率(密度)表达给定$\theta$下样本随机向量$\boldsymbol{X}=\boldsymbol{x}$的可能性，而似然表达了给定样本$\boldsymbol{X}=\boldsymbol{x}$下参数$\boldsymbol{\theta}=\boldsymbol{\theta}_1$(相对于另外的参数取值$\boldsymbol{\theta}_2$)为真实值的可能性.换言之, 似然函数的形式是$\boldsymbol{L}(\theta | x)$,其中"|"代表的是条件概率或者条件分布,因此似然函数是在"已知"样本随机变量$\boldsymbol{X}=\boldsymbol{x}$的情况下,估计参数空间中的参数$\theta$的值. 因此似然函数是关于参数$\theta$的函数,即给定样本随机变量$\boldsymbol{x}$后,估计能够使$\boldsymbol{X}$的取值成为$\boldsymbol{x}$的参数$\theta$的可能性; 而概率密度函数的定义形式是$f(x|\theta)$, 即概率密度函数是在"已知"$\theta$的情况下,去估计样本随机变量$\boldsymbol{x}$出现的可能性。**似然估计能够使$\boldsymbol{X}$的取值成为$\boldsymbol{x}$的参数$\theta$的可能性**[参考](https://blog.csdn.net/songyu0120/article/details/85059149)。
+
+
+
