@@ -64,8 +64,6 @@ POI推荐已经成为了推荐系统研究中日益重要的子领域，并且PO
 |1|Accelerated proximal gradient (APG) algorithm|加速近端梯度算法|/|
 |2|exploit|动词，剥削、开发、利用|/|
 |3|explicit|形容词，明确的、清晰的|/|
-|4|||/|
-|5|||/|
 
 我们通过将全局和局部正则化放在一起来构造目标函数。为了有效的解决优化问题的，我们提出了一个交替优化方法，该方法将目标函数分解为两个部分，并带有一个辅助变量。Accelerated proximal gradient (APG) algorithm被用于优化这个问题的$l_2 -regularized$部分。
 
@@ -81,3 +79,47 @@ POI推荐已经成为了推荐系统研究中日益重要的子领域，并且PO
 
 ### 3.1 问题定义
 
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|set of indices|索引集|/|
+|2|transaction|名词，处理、交易|/|
+|3|geographical coordinates|地理的坐标|/|
+|4|setting|名词，环境|/|
+|5|serves as|作为|/|
+|6|convenience|名词，方便|/|
+|7|represented|动词，代表;作为…的代言人;维护…的利益;等于;相当于|/|
+
+假设在推荐任务中用户的总数为m，POI的总数是n。设$U=\{u_1, u_2, \cdots, u_m\}$为用户集，设$V=\{v_1, v_2, \cdots, v_n\}$，设$P_u$是用户$u(u \in U)$访问的POI的索引集。给定过去的check-in业务历史$D$，POI推荐的任务是将POI推荐给每个用户u，一个新的POI索引集$\hat{P}_u, \quad (P_u \bigcap \hat{P}_u = \emptyset)$来匹配他们的（用户的）偏好。check-in业务历史$D$是用户和他们访问过的POI的元组，比如$D=\{(u, v)| u \in U,\, v \in V\}$。用户（比如社交关系）和POI（比如地理坐标）的上下文信息可以被推荐系统使用来生成推荐。在典型的有监督学习环境中，$D$作为训练集。一组额外的业务集$D^{Te}$，包含推荐系统中生成的不被每个用户可见的check-in数据，它服务于测试集。设$P_u^{Te}$表示为在测试集中由用户u访问过的POI的索引集。推荐的质量可以通过$\hat{P}_u$和$P_u^{Te}$之间交叉的大小来衡量。为了方便，业务历史集$D$也是一个评分矩阵（rating matrix）$Y,\; Y_{ij}=1 \quad if(u_i, v_j) \in D \quad \text{and} (Y)_{ij}=0 \quad if(u_i, v_j)\notin D$。
+
+### 3.2 图拉普拉斯正则
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|weighted undirected graph|加权无向图|/|
+|2|vertex|名词，顶点|/|
+|3|symmetric matrix|对称矩阵|/|
+|4|diagonal matrix|对角矩阵|/|
+|5|degree matrix|次数矩阵|/|
+|6|$diag(d_1, d_2, \cdots, d_{|V|})$|/|表示一个对角矩阵，对角线上的元素是$(d_1, d_2, \cdots, d_{|V|})$|
+|7|real-valued function|实值函数|/|
+|8|quadratic form|二次型|/|
+|9|applying function|应用函数|/|
+|10|formed by|由...形成的|/|
+
+设$G$是一个加权无向图，其中$V=\{v_1, v_2, \cdots, v_{|V|}\}$是它的顶点集，并且它的权重矩阵是$\boldsymbol{W}=[W_{ij}]_{i,j=1,2,\cdots,|V|}$，其中$W_{ij}$表示在$v_i$和$v_j$之间边的权重。因为$G$是一个无向的，所以$\boldsymbol{W}$是一个对称矩阵，比如$W_{ij} = W_{ji}$。G的次数矩阵（degree matrix）$\boldsymbol{D}$是一个对称矩阵，$diag(d_1, d_2, \cdots, d_{|V|}),\; \text{其中}d_i=\sum\limits_{j=1}^{|V|}W_{ij}$。然后，G的规范化拉普拉斯矩阵被定义为$\boldsymbol{L}=\boldsymbol{I} - \boldsymbol{D}^{-\frac{1}{2}}\boldsymbol{W}\boldsymbol{D}^{-\frac{1}{2}}$。设$f:V\rightarrow \mathbb{R}$是一个定义在顶点空间$V$上的实值函数。在图$G$中$f$规范化拉普拉斯正则化定义为二次型：
+$$\boldsymbol{L}_f= f(V)^T \boldsymbol{L}f(V) \tag{1}$$
+其中，$f(V)=[f(v_1),f(v_2), \cdots, f(v_{|V|})]^{\top}$是通过在顶点空间$V$上的应用函数$f$而形成的向量。
+
+## 4 建议的推荐模型
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|represent|动词，表示，代表|/|
+|2|infer|动词，推断、推理|/|
+|3|carry out|执行、完成、展开|/|
+
+本节说明了建议的推荐模型框架的细节。我们模型的目标是通过优化一个目标函数来预测一个评分矩阵$\boldsymbol{R} \in \mathbb{R}^{m \times n}$。在$\boldsymbol{R}$中的每个元素$R_{i,j}$表示用户$u_i$对于POI $v_j$的推断偏好。对于用户$u_i$而言会基于$R_{i,1},R_{i,2}, \cdots, R_{i,n}$的值推荐一些新的POI。目标函数包含3个在$\boldsymbol{R}$中的正则项，并且每个正则项都将会各自（respectively）显式地利用基于用户的全局上下文信息、基于POI的全局上下文信息和局部上限为信息。最终，我们说明了不同的正则化项是如何组合在一起的，以及如何进行优化的。
+
+### 4.1 使用全局上下文信息
+
+基于用户的上下文：

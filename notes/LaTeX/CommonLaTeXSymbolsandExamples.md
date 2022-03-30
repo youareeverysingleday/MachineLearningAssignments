@@ -144,7 +144,7 @@
 ||$\boldsymbol{X}$|\boldsymbol{X}|加粗，表示向量或者矩阵|
 ||$\mathbf{X}$|\mathbf{X}|加粗，表示向量或者矩阵|
 ||$\pmb{C}$|\pmb{C}|加粗|
-||$\mathbb{R^{n\times 1}}$|\mathbb{R^{n\times 1}}|实数集|
+||$\mathbb{R}^{m\times n}$|\mathbb{R}^{m\times n}|实数集|
 ||$\ddots$|\ddots|斜着三点，注意没有反斜线的三点|
 ||$\cdots$|\cdots|横着三点|
 ||$\vdots$|\vdots|竖着三点|
