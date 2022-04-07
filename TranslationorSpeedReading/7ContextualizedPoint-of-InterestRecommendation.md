@@ -122,4 +122,50 @@ $$\boldsymbol{L}_f= f(V)^T \boldsymbol{L}f(V) \tag{1}$$
 
 ### 4.1 使用全局上下文信息
 
-基于用户的上下文：
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|incorporate|动词，合并、包含、将…包括在内、吸收。|这里使用包含比较合适|
+|2|particular|形容词，专指的，特指的(与泛指相对);不寻常的;格外的;特别的;讲究;挑剔|/|
+|3|||/|
+|4|||/|
+|5|||/|
+|6|||/|
+|7|||/|
+|8|||/|
+|9|||/|
+|10|||/|
+|||||
+
+基于用户的上下文：在我们的框架中包含了基于用户的全局上下文信息，我们假设对一个特定POI类似的用户有类似的评分。通过基于用户的全局上下文信息来计算用户的相似性（比如：用户之间的社交关系信息）。设$G_{user}$是一个带权值的无向图，其中顶点集是用户集$U$。通过一个对称权值矩阵（symmetric weight matrix）来给定边的权重$\boldsymbol{W}_{user}=[W_{ij}^{user}]_{i,j=1,2,\cdots ,m}$，其中$W_{ij}^{user}$表示了用户i和用户j之间的相似性。这里我们假设$W_{ij}^{user}$是给定的，并且如何通过基于用户的全局上下文信息的特定类型来构建$W_{ij}^{user}$的详细说明将在第4.3节中说明。正如3.2节中所述，$G_{user}$的次数矩阵是$\boldsymbol{D}_user=diag(d_1^{user},d_2^{user}, \cdots , d_m^{user})$并且$G_{user}$的归一化拉普拉斯矩阵是$\boldsymbol{L}_{user}=\boldsymbol{I}-\boldsymbol{D}_{user}^{-\frac{1}{2}}\boldsymbol{W}_{user}\boldsymbol{D}_{user}^{-\frac{1}{2}}$。假设评分矩阵$\boldsymbol{R} \in \mathbb{R}^{m \times n}$，其中$R_{ij}$表示的是用户$u_i$在POI$v_j$上的评分。对于一个特定的POI$v_j$，我们在$G_{user}$上$\boldsymbol{R}$的归一化图拉普拉斯正则化定义为$\mathcal{L}_{user}(\boldsymbol{R}_{:,j})=\boldsymbol{R}_{:,j}^{\top}\boldsymbol{L}_{user}\boldsymbol{R}_{:,j}$，其中“:”表示获取行/列的所有项，然后我们有
+$$\mathcal{L}_{user}(\boldsymbol{R}_{:,j})=\sum\limits_{i=1}^{m}\sum\limits_{k=1}^{m}W_{ik}^{user}[\frac{R_{ij}}{\sqrt{d_{i}^{user}}}-\frac{R_{ik}}{\sqrt{d_{k}^{user}}}]^2 , \tag{2}$$
+
+从等式(2)中可以清晰的看到我们将$\mathcal{L}_{user}(\boldsymbol{R}_{:,j})$纳入损失函数中，它将促进更多的相似用户在POI$v_j$上有相似的评分。从这个中观察到，我们对于在图$G_{user}$上的所有的POI的$\boldsymbol{R}$的归一化图拉普拉斯正则化项求和，得到
+$$\mathcal{L}_{user}(\boldsymbol{R})=\sum\limits_{j=1}^{n}\mathcal{L}_{user}(\boldsymbol{R}_{:,j}) = trace(\boldsymbol{R}^{\top}\boldsymbol{L}_{user}\boldsymbol{R}), \tag{3}$$
+
+它可以用作评分矩阵$\boldsymbol{R}$的基于用户的拉普拉斯正则化项。等式(3)明确的使用上下文信息来促进在所有的POI上相似的用户有相似的评分。
+
+基于POI的全局上下文：基于POI全局上下文信息的使用方式与它对应的基于用户上下文信息类似。对于基于POI全局上下文信息，我们可以像为用户所做的那样，在POI空间中构建类似的图。我们能通过相同的方式来定义$G_{poi}, \boldsymbol{W}_{poi}, \boldsymbol{D}_{poi} \text{和}\boldsymbol{L}_{poi}$。对于一个给定的评分矩阵$\boldsymbol{R}$，在$G_{poi}$上对于一个特定用户$u_i$它的归一化拉普拉斯正则化项是$\mathcal{L}_{poi}(\boldsymbol{R}_{i,:}) = \boldsymbol{R}_{i,:}\boldsymbol{L}_{poi}\boldsymbol{R}_{i,:}^{\top}$。与等式(3)相同，对于所有用户而言基于POI的拉普拉斯正则项为
+$$\mathcal{L}_{poi}(\boldsymbol{R}) = \sum\limits_{i=1}^{m}\mathcal{L}_{poi}(\boldsymbol{R}_{i,:})=trace(\boldsymbol{R}\boldsymbol{L}_{poi}\boldsymbol{R}^{\top}), \tag{4}$$
+
+作为评分矩阵R的基于POI的拉普拉斯正则化项。这个拉普拉斯正则化明确促进所有用户对类似的POI进行类似的评级。
+
+### 4.2 使用局部上下文信息
+
+|编号|英语|中文|理解|
+|---|---|---|---|
+|1|explicitly|副词，明白地，明确地|/|
+|2|exploit|动词，开发，利用，剥削，发挥|/|
+|3|enumerated|动词，列举、枚举|/|
+|4|take into account|考虑到|/|
+|5|assumption|名词，假设、假定|/|
+|6|denote ... as ...|将...表示为...|/|
+|7|lasso|Least absolute shrinkage and selection operator最小绝对收缩和选择算子|/|
+|8|||/|
+|9|||/|
+|10|||/|
+
+在4.1节的介绍中正则项能有效的利用用户和POI之间的全局上下文信息。我们能通过等式(2)来理解“全局”的含义，其中**对**用户都被列举出来，它们的平方差会求和，并且通过任何用户对之间存在的全局性相似性评分$\boldsymbol{W}_{ik}^{user}$进行调整。在这一节中，我们介绍另一个类型的正则化器，这个正则化器考虑到用户和POI之间的局部上下文信息。这个局部正则化器也是基于相似用户对对相似POI有相似的评分。但局部正则化器将用户分离到组中，因此导致相似性时“局部的”。为了将相似的用户分配到组中，我们在用户相似性图($G_{user}$)的拉普拉斯矩阵($\boldsymbol{L}_user$)上使用了谱聚类（spectral clustering）[Von Luxburg, 2007]。假设cluster的总数是$G$。我们通过在第g个cluster的用户的POI$v_j$的评分表示为$\boldsymbol{R}_{(g),j}$。局部正则化器$\mathcal{J}(\boldsymbol{R})$定义如下：
+
+$$\mathcal{J}(\boldsymbol{R}) = \sum\limits_{g=1}^{G}\sum\limits_{j=1}^{n}\omega_g||\boldsymbol{R}_{(g),j}||_2 , \tag{5}$$
+
+其中$\omega_g = \sqrt{n_g}$，并且$n_g$是在cluster$g$中用户的数量。这个正则化器是一个$\it{group\;lasso\;regularizer}$
