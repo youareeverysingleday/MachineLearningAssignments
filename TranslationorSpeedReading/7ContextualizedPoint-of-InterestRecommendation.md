@@ -126,15 +126,6 @@ $$\boldsymbol{L}_f= f(V)^T \boldsymbol{L}f(V) \tag{1}$$
 |---|---|---|---|
 |1|incorporate|动词，合并、包含、将…包括在内、吸收。|这里使用包含比较合适|
 |2|particular|形容词，专指的，特指的(与泛指相对);不寻常的;格外的;特别的;讲究;挑剔|/|
-|3|||/|
-|4|||/|
-|5|||/|
-|6|||/|
-|7|||/|
-|8|||/|
-|9|||/|
-|10|||/|
-|||||
 
 基于用户的上下文：在我们的框架中包含了基于用户的全局上下文信息，我们假设对一个特定POI类似的用户有类似的评分。通过基于用户的全局上下文信息来计算用户的相似性（比如：用户之间的社交关系信息）。设$G_{user}$是一个带权值的无向图，其中顶点集是用户集$U$。通过一个对称权值矩阵（symmetric weight matrix）来给定边的权重$\boldsymbol{W}_{user}=[W_{ij}^{user}]_{i,j=1,2,\cdots ,m}$，其中$W_{ij}^{user}$表示了用户i和用户j之间的相似性。这里我们假设$W_{ij}^{user}$是给定的，并且如何通过基于用户的全局上下文信息的特定类型来构建$W_{ij}^{user}$的详细说明将在第4.3节中说明。正如3.2节中所述，$G_{user}$的次数矩阵是$\boldsymbol{D}_user=diag(d_1^{user},d_2^{user}, \cdots , d_m^{user})$并且$G_{user}$的归一化拉普拉斯矩阵是$\boldsymbol{L}_{user}=\boldsymbol{I}-\boldsymbol{D}_{user}^{-\frac{1}{2}}\boldsymbol{W}_{user}\boldsymbol{D}_{user}^{-\frac{1}{2}}$。假设评分矩阵$\boldsymbol{R} \in \mathbb{R}^{m \times n}$，其中$R_{ij}$表示的是用户$u_i$在POI$v_j$上的评分。对于一个特定的POI$v_j$，我们在$G_{user}$上$\boldsymbol{R}$的归一化图拉普拉斯正则化定义为$\mathcal{L}_{user}(\boldsymbol{R}_{:,j})=\boldsymbol{R}_{:,j}^{\top}\boldsymbol{L}_{user}\boldsymbol{R}_{:,j}$，其中“:”表示获取行/列的所有项，然后我们有
 $$\mathcal{L}_{user}(\boldsymbol{R}_{:,j})=\sum\limits_{i=1}^{m}\sum\limits_{k=1}^{m}W_{ik}^{user}[\frac{R_{ij}}{\sqrt{d_{i}^{user}}}-\frac{R_{ik}}{\sqrt{d_{k}^{user}}}]^2 , \tag{2}$$
@@ -160,7 +151,7 @@ $$\mathcal{L}_{poi}(\boldsymbol{R}) = \sum\limits_{i=1}^{m}\mathcal{L}_{poi}(\bo
 |5|assumption|名词，假设、假定|/|
 |6|denote ... as ...|将...表示为...|/|
 |7|lasso|Least absolute shrinkage and selection operator最小绝对收缩和选择算子|/|
-|8|||/|
+|8|argument|名词，论点;争论;论据;辩论;争吵;争辩;理由|/|
 |9|||/|
 |10|||/|
 
@@ -168,4 +159,4 @@ $$\mathcal{L}_{poi}(\boldsymbol{R}) = \sum\limits_{i=1}^{m}\mathcal{L}_{poi}(\bo
 
 $$\mathcal{J}(\boldsymbol{R}) = \sum\limits_{g=1}^{G}\sum\limits_{j=1}^{n}\omega_g||\boldsymbol{R}_{(g),j}||_2 , \tag{5}$$
 
-其中$\omega_g = \sqrt{n_g}$，并且$n_g$是在cluster$g$中用户的数量。这个正则化器是一个$\it{group\;lasso\;regularizer}$
+其中$\omega_g = \sqrt{n_g}$，并且$n_g$是在cluster$g$中用户的数量。这个正则化器是一个$\it{group\;lasso\;regularizer}$，在[Yuan and Lin, 2006]中说明$\it{group\;lasso\;regularizer}$，并且非常广泛的应用[Jenatton et al., 2010; Kim and Xing, 2010;Kolar et al., 2009]。相同的观点
