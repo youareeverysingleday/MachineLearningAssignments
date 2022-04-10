@@ -63,8 +63,22 @@
 
 5. 推荐使用的查看GPU状态代码<http://t.zoukankan.com/Renyi-Fan-p-13461855.html>
 
-```Python
-gpus = tf.config.list_physical_devices(device_type='GPU')
-cpus = tf.config.list_physical_devices(device_type='CPU')
-print(gpus, cpus)
-```
+    ```Python
+    gpus = tf.config.list_physical_devices(device_type='GPU')
+    cpus = tf.config.list_physical_devices(device_type='CPU')
+    print(gpus, cpus)
+    ```
+
+6. 这个视频好像不对。需要使用tensorflow来对矩阵进行分解。具体使用[参考视频，从第32分钟之后开始看。](https://www.bilibili.com/video/BV1Cq4y1K7yV?spm_id_from=333.337.search-card.all.click)
+
+    ```pyhont
+    # 在jupyter中执行的代码
+
+    # cell_1
+    !nvcc -V
+
+    # cell_2
+    !nvidia-smi
+    ```
+
+    这两个代码执行成功之后说明cuda和python相关的环境就配置成功了。
