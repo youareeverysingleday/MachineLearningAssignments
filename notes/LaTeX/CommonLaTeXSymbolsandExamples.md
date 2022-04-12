@@ -168,7 +168,8 @@
 ||$\scr{WORD STYLE}$|\scr{Word Style}|手写体，不支持，**仅大写可用**|
 ||$\boldsymbol{D}$|\boldsymbol{D}|**表示向量或者矩阵的加粗斜体**|
 ||$\color{red}{Latex}$|\color{red}{Latex}|给文字添加颜色，相关颜色详见下面的例子|
-||$A \overset{some sentence}{=} B$|\overset{some sentence}{=}||
+||$A \overset{some sentence}{=} B$|\overset{some sentence}{=}|文字在等号上面|
+||$A \underset{some sentence}{=} B$|\overset{some sentence}{=}|文字在等号下面|
 ||$$|||
 
 ## 3. 重要例子和不方便在表格中显示的公式

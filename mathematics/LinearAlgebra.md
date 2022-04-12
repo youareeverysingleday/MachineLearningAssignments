@@ -213,3 +213,9 @@
 7. $k \not ={0}, (k \boldsymbol{A})^{-1} = \frac{1}{k}\boldsymbol{A}^{-1}$
 8. $|\boldsymbol{A}^{-1}| = \frac{1}{|\boldsymbol{A}|}$
 9. $\boldsymbol{A}^{-1} = \frac{1}{|\boldsymbol{A}|} \boldsymbol{A}^{*}$
+
+## 重要知识点
+
+1. 实对称矩阵就是关于主对角线的所有元素一一对称。也就是$\boldsymbol{A} = \boldsymbol{A}^T$。
+   1. 要证明一个矩阵是实对称矩阵，就是需要证明$(\boldsymbol{A} \boldsymbol{A}^T)^T = \boldsymbol{A} \boldsymbol{A}^T$即可。
+
