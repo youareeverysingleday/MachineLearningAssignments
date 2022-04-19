@@ -40,7 +40,6 @@
 ||$\circ$|\circ||
 ||$180^\circ$|180^\circ|表示摄氏度|
 ||$\bigodot$|\bigodot||
-||$\equiv$|\equiv|恒等|
 ||$\bigotimes$|\bigotimes|克罗内克积|
 ||$\pm$|\pm|正负号|
 ||$\div$|\div|一般除号|
@@ -51,8 +50,17 @@
 ||$\leq$|\leq|大于等于|
 ||$\geq$|\geq|小于等于|
 ||$\neq$|\neq|不等于|
+||$\equiv$|\equiv|恒等|
+||$\coloneqq$|\coloneqq|定义|
 ||$\not ={}$|\not ={}|不等于|
 ||$\approx$|\approx|约等于|
+||$\sim$|\sim|约等于|
+||$\propto$|\propto|正比于|
+||$\widehat{=}$|\widehat{=}|相关于|
+||$\lfloor$|\lfloor|下界|
+||$\rfloor$|\rfloor|下界|
+||$\lceil$|\lceil|上界|
+||$\rceil$|\rceil|上界|
 ||$\prod$|\prod|连乘|
 ||$\prod \limits_{i=1}^n$|\prod \limits_{i=1}^n|连乘示例|
 ||$\coprod$|\coprod|N元余积|
@@ -71,7 +79,9 @@
 ||$\not>$|\not>|不大于|
 ||$\not<$|\not<|不小于|
 ||$\in$|\in|属于|
+||$\ni$|\ni|属于|
 ||$\notin$|\notin|不属于|
+||$\not\ni$|\not\ni|不属于|
 ||$\emptyset$|\emptyset|空集|
 ||$\subset$|\subset|子集|
 ||$\not\subset$|\not\subset|非子集|
@@ -144,7 +154,12 @@
 ||$\boldsymbol{X}$|\boldsymbol{X}|加粗，表示向量或者矩阵|
 ||$\mathbf{X}$|\mathbf{X}|加粗，表示向量或者矩阵|
 ||$\pmb{C}$|\pmb{C}|加粗|
+||$\mathbb{N}$|\mathbb{N}|自然数集|
+||$\mathbb{Z}$|\mathbb{Z}|整数集|
+||$\mathbb{Q}$|\mathbb{Q}|有理数|
 ||$\mathbb{R}^{m\times n}$|\mathbb{R}^{m\times n}|实数集|
+||$\mathbb{A}$|\mathbb{A}|无理集|
+||$\mathbb{C}$|\mathbb{C}|复数集|
 ||$\ddots$|\ddots|斜着三点，注意没有反斜线的三点|
 ||$\cdots$|\cdots|横着三点|
 ||$\vdots$|\vdots|竖着三点|

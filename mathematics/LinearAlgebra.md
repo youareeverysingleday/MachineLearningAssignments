@@ -213,6 +213,7 @@
 7. $k \not ={0}, (k \boldsymbol{A})^{-1} = \frac{1}{k}\boldsymbol{A}^{-1}$
 8. $|\boldsymbol{A}^{-1}| = \frac{1}{|\boldsymbol{A}|}$
 9. $\boldsymbol{A}^{-1} = \frac{1}{|\boldsymbol{A}|} \boldsymbol{A}^{*}$
+10. 可逆矩阵乘以可逆矩阵，结果依然可逆。可逆矩阵加上可逆矩阵，结果不一定可逆。
 
 ## 重要知识点
 
