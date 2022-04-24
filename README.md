@@ -9,7 +9,8 @@ You must finish the following work quickly. If you encounter some problems, reco
 <!-- section read book
     机器学习-周志华 chapter 3 :done, rb1, 2022-02-25, 7d -->
 
-```mermaid
+1. 学完一个教程https://zh-v2.d2l.ai/。这个感觉是最快的了。
+<!-- ```mermaid
 gantt
     title learning task
     dateFormat YYYY-MM-DD
@@ -23,7 +24,7 @@ gantt
     section watch video
     write a PPT:crit, active, wv1, after rp2, 2d
     跟李沐学AI 斯坦福21秋季1.1:crit, active, wv2, after wv1, 3d
-```
+``` -->
 
 ## 1. Machine Learning Assignment
 
