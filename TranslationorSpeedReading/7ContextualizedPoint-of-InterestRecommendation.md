@@ -2,6 +2,10 @@
 
 1. 题目：Contextualized Point-of-Interest Recommendation
 基于上下文感知和注意的数据增强的POI推荐
+2. 相关知识点
+   1. [拉普拉斯矩阵和拉普拉斯矩阵正则化](https://blog.csdn.net/weixin_42973678/article/details/107190663)
+   2. [邻接矩阵](https://blog.csdn.net/weixin_42265429/article/details/90202076?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165059141216781683942108%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=165059141216781683942108&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-90202076.142^v9^control,157^v4^control&utm_term=%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5&spm=1018.2226.3001.4187)
+   3. [谱聚类](https://zhuanlan.zhihu.com/p/29849122)谱聚类是从图论中演化出来的算法，后来在聚类中得到了广泛的应用。它的主要思想是把所有的数据看做空间中的点，这些点之间可以用边连接起来。距离较远的两个点之间的边权重值较低，而距离较近的两个点之间的边权重值较高，**通过对所有数据点组成的图进行切图，让切图后不同的子图间边权重和尽可能的低，而子图内的边权重和尽可能的高，从而达到聚类的目的**。
 
    |number|title of paper|internet source|local source|correlative field|illustration|
    |---|---|---|---|---|---|
@@ -41,8 +45,7 @@ POI推荐已经成为了推荐系统研究中日益重要的子领域。之前�
 
 POI推荐已经成为了推荐系统研究中日益重要的子领域，并且POI推荐的目标在于为用户找到可能感兴趣的新位置。它能帮助用户找到兴趣点从而帮助他们在不熟悉的地域享受他们假期。同时POI推荐也可以通过吸引更多愿意花时间和金钱在商店的客户来增加店主们的收入。因此，在最近几年POI推荐变成了一个热门研究主题。然后，POI推荐中依然面临很多挑战，其中最重要的挑战就是数据稀疏性。
 
-为了解决这个问题，许多方法都通过不同的假设将上下文信息包含到推荐方法中。举例：IRenMF[Liu et al.,
-2014b]的假设用户将访问的新POI是他们之前访问的POI附近。并且他们通过添加对每个POI邻近POI的评分加权和建立了辅助的标签矩阵（auxiliary label matrix）。LTR[Gao et al., 2013]假设在不同的时间隙（time slot）中将会有不同的偏好模型，因此他们对不同的时间周期建立了不同的模型。虽然假设是多种多样的，共同的特征：类似的(similar)用户大都访问类似的POI，并且类似的POI都会被相同的(same)用户访问。这些假设之间唯一的不同在于构造相似性的方法，举例而言，IRenMF中使用的相似性时地理距离，LRT中使用的相似性是时间差。
+为了解决这个问题，许多方法都通过不同的假设将上下文信息包含到推荐方法中。举例：IRenMF[Liu et al.,2014b]的假设用户将访问的新POI是他们之前访问的POI附近。并且他们通过添加对每个POI邻近POI的评分加权和建立了辅助的标签矩阵（auxiliary label matrix）。LTR[Gao et al., 2013]假设在不同的时间隙（time slot）中将会有不同的偏好模型，因此他们对不同的时间周期建立了不同的模型。虽然假设是多种多样的，共同的特征：类似的(similar)用户大都访问类似的POI，并且类似的POI都会被相同的(same)用户访问。这些假设之间唯一的不同在于构造相似性的方法，举例而言，IRenMF中使用的相似性时地理距离，LRT中使用的相似性是时间差。
 
 虽然，它们在使用上下文信息的方式上有两个主要的缺点。其一它们通常只在一个实体中考虑一种类型的上下文信息，比如POI之间的地理距离或者用户之间的友谊。并且它们专门为特定的类型的场景设计模型，导致模型的可扩展性比较弱。另一个问题是它们没有准确的使用上下文信息，大多数模型关注于check-in的历史，导致上下文信息的使用只是作为目标函数的附属品（accessory component）。这样，就导致上下文信息作为POI推荐性能的关键点无法得到充分的使用。
 
@@ -155,8 +158,14 @@ $$\mathcal{L}_{poi}(\boldsymbol{R}) = \sum\limits_{i=1}^{m}\mathcal{L}_{poi}(\bo
 |9|||/|
 |10|||/|
 
-在4.1节的介绍中正则项能有效的利用用户和POI之间的全局上下文信息。我们能通过等式(2)来理解“全局”的含义，其中**对**用户都被列举出来，它们的平方差会求和，并且通过任何用户对之间存在的全局性相似性评分$\boldsymbol{W}_{ik}^{user}$进行调整。在这一节中，我们介绍另一个类型的正则化器，这个正则化器考虑到用户和POI之间的局部上下文信息。这个局部正则化器也是基于相似用户对对相似POI有相似的评分。但局部正则化器将用户分离到组中，因此导致相似性时“局部的”。为了将相似的用户分配到组中，我们在用户相似性图($G_{user}$)的拉普拉斯矩阵($\boldsymbol{L}_user$)上使用了谱聚类（spectral clustering）[Von Luxburg, 2007]。假设cluster的总数是$G$。我们通过在第g个cluster的用户的POI$v_j$的评分表示为$\boldsymbol{R}_{(g),j}$。局部正则化器$\mathcal{J}(\boldsymbol{R})$定义如下：
+在4.1节的介绍中正则项能有效的利用用户和POI之间的全局上下文信息。我们能通过等式(2)来理解“全局”的含义，其中**对**用户都被列举出来，它们的平方差会求和，并且通过任何用户对之间存在的全局性相似性评分$\boldsymbol{W}_{ik}^{user}$进行调整。在这一节中，我们介绍另一个类型的正则化器，这个正则化器考虑到用户和POI之间的局部上下文信息。这个局部正则化器也是基于相似用户对相似POI有相似的评分。但局部正则化器将用户分离到组中，因此导致相似性时“局部的”。为了将相似的用户分配到组中，我们在用户相似性图($G_{user}$)的拉普拉斯矩阵($\boldsymbol{L}_{user}$)上使用了谱聚类（spectral clustering）[Von Luxburg, 2007]。假设cluster的总数是$G$。我们通过在第g个cluster的用户的POI$v_j$的评分表示为$\boldsymbol{R}_{(g),j}$。局部正则化器$\mathcal{J}(\boldsymbol{R})$定义如下：
 
 $$\mathcal{J}(\boldsymbol{R}) = \sum\limits_{g=1}^{G}\sum\limits_{j=1}^{n}\omega_g||\boldsymbol{R}_{(g),j}||_2 , \tag{5}$$
 
 其中$\omega_g = \sqrt{n_g}$，并且$n_g$是在cluster$g$中用户的数量。这个正则化器是一个$\it{group\;lasso\;regularizer}$，在[Yuan and Lin, 2006]中说明$\it{group\;lasso\;regularizer}$，并且非常广泛的应用[Jenatton et al., 2010; Kim and Xing, 2010;Kolar et al., 2009]。相同的观点
+
+### 4.3 相似图构造
+
+物品相似图构造
+
+用户相似图构造
