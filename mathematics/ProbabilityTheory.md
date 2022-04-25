@@ -157,6 +157,35 @@
    1. 正态分布是关于$\mu$对称。
    2. 正态分布密度函数在$x = \mu$处取得最大值，$f(\mu) = \frac{1}{\sqrt{2\pi}\sigma}$。
    3. 当$|x|\rightarrow \infty$时，有$f(x)\rightarrow 0$。也就是说在$x = \mu$处取得最大值，向两边单调递减。
+7. 数学期望（掌握常用概型的数学期望，会推导）
+   1. 离散型的随机变量的数学期望
+      1. 要求级数绝对收敛。
+      2. $E(X)=\sum\limits_{k=0}^{n}xf(x)dx$
+   2. 连续型的随机变量的数学期望
+      1. 要求积分绝对收敛
+      2. $E(X)=\int_{-\infty}^{+\infty}xf(x)dx$
+   3. 需要掌握的知识点
+      1. 定义
+      2. 6个常用的分布的数学期望
+      3. 性质
+8. 泊松分布的期望
+   $$
+      \text{泊松分布的密度函数：}P(x=k)=\frac{\lambda^k}{k!}e^{-\lambda}\, , k=0,1,2,\cdots \\
+      E(P)=\sum\limits_{k=0}^{n} {xf(x)} {\rm d}x=\sum\limits_{k=0}^{n} (k\frac{\lambda^k}{k!}e^{-\lambda})\\
+      =e^{-\lambda}\sum\limits_{k=0}^{n}\frac{\lambda^k}{(k-1)!}\\
+      = e^{-\lambda}\sum\limits_{k=1}^{n}\frac{\lambda^{k-1}}{(k-1)!} \text{这里k的取值范围从0开始修改为了从1开始，可以理解为做了换元}\\
+      \because e^x = 1+x+\frac{x^2}{2!} + \frac{x^3}{3!} +\cdots +\frac{x^n}{n!}+C =\sum\limits_{i=0}^{n}\frac{x^i}{i!}\\
+      \therefore = e^{-\lambda}\lambda e^{\lambda}\\
+      = \lambda
+      $$
+   在取值范围上的奇函数的积分是等于0的。
+
+9. 期望的性质，$k,l,c$都是常数。
+   1. $E(c)=c$
+   2. $E(kX + c)=kE(X)+c$
+   3. $E(kX + lY)=kE(X)+lE(Y)$
+   4. $\text{X,Y相互独立时}E(XY)=E(X)E(Y)$
+   5. $E(g(x))=g(E(X))$
 
 ## 4 大数定理和中心极限定理
 

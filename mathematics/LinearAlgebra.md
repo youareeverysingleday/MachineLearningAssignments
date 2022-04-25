@@ -215,6 +215,17 @@
 9. $\boldsymbol{A}^{-1} = \frac{1}{|\boldsymbol{A}|} \boldsymbol{A}^{*}$
 10. 可逆矩阵乘以可逆矩阵，结果依然可逆。可逆矩阵加上可逆矩阵，结果不一定可逆。
 
+## 范数
+
+1. 定义。**非正式地说，一个向量的范数告诉我们一个向量有多大**。当然，定义大小有多种表达形式。在线性代数中，向量范数是将向量映射到标量的函数$f$。 给定任意向量$\boldsymbol{x}$，向量范数要满足一些属性。范数性质如下：
+   1. 绝对值缩放。如果我们按常数因子$\alpha$缩放向量的所有元素， 其范数也会按相同常数因子的绝对值缩放：：$f(\alpha x) = |\alpha|f(x)$
+   2. 三角不等式：$f(x+y)\leqslant f(x)+f(y)$
+   3. 非负性：$f(x)\geqslant 0$
+2. $L_2$范数定义。设n维向量$\boldsymbol{x}$中的元素分别是$x_1,x_2, \cdots , x_n$，那么定义$L_2$为$||x||_2 = \sqrt{\sum\limits_{i=1}^n x_i^2}$。
+3. $L_1$范数定义。设n维向量$\boldsymbol{x}$中的元素分别是$x_1,x_2, \cdots , x_n$，那么定义$L_1$为$||x||_1 = \sum\limits_{i=1}^n |x_i|$。
+4. $L_p$范数定义。设n维向量$\boldsymbol{x}$中的元素分别是$x_1,x_2, \cdots , x_n$，那么定义$L_p$为$||x||_p = (\sum\limits_{i=1}^n |x_i|^p)^{\frac{1}{p}}$。
+5. Frobenius范数。之前的范数都是基于向量的定义。可以类比于对于矩阵而言的$L_2$范数。矩阵$\boldsymbol{X} \in \mathbb{R}^{m \times n}$的Frobenius范数定义为：$||\boldsymbol{X}||_F = \sqrt{\sum\limits_{i=0}^m\sum\limits_{j=0}^n x_{ij}^2}$。
+
 ## 重要知识点
 
 1. 实对称矩阵就是关于主对角线的所有元素一一对称。也就是$\boldsymbol{A} = \boldsymbol{A}^T$。
