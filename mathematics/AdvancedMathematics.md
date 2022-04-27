@@ -67,4 +67,4 @@
 
 3. 链式法则
 
-   函数$y=f(u)$和$u=g(x)$都是可微的。
+   函数$y=f(u)$和$u=g(x)$都是可微的。$\frac{dy}{dx}=\frac{dy}{du}\frac{du}{dx}$
