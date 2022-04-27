@@ -42,6 +42,7 @@
 ||$\bigodot$|\bigodot||
 ||$\bigotimes$|\bigotimes|克罗内克积|
 ||$\pm$|\pm|正负号|
+||$\mp$|\mp|正负号|
 ||$\div$|\div|一般除号|
 ||$\mid$|\mid|竖线|
 ||$\bigoplus$|\bigoplus|异或|
@@ -65,7 +66,25 @@
 ||$\prod \limits_{i=1}^n$|\prod \limits_{i=1}^n|连乘示例|
 ||$\coprod$|\coprod|N元余积|
 ||$\cdots$|\cdots|3个点，表示省略|
+||$\log_{a}{x}$|\log{x}|以a为底的对数|
+||$\ln{x}$|\ln{x}|以e为底的对数|
+||$\lg{x}$||以10为底的对数|
+||$$|||
+||$\sin\theta$|\sin\theta|正弦|
+||$\cos\theta$|\cos\theta|余弦|
+||$\tan\theta$|\tan\theta|正切|
+||$\cot\theta$|\cot\theta|余切|
+||$\arctan\theta$|\tan\theta|反正切|
+||$\arcsin\frac{L}{r}$|\arcsin\frac{L}{r}|反正弦|
+||$\max H$|\max H|最大值|
+||$\log_\alpha x$|\log_\alpha x|以$\alpha$为底的对数|
+||$\gcd(T,U,V,W,X)$|\gcd(T,U,V,W,X)||
+||$\arg x$|\arg x||
+||$a \bmod b$|a \bmod b|求余|
 ||$\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}$|\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}|极限|
+||$\lim_{t\to n}T$|\lim_{t\to n}T|极限|
+||$\dot{a}$|\dot{a}|一阶导数，变量上加一个点|
+||$\ddot{a}$|\ddot{a}|二阶导数，变量上加两个点|
 ||$\int$|\int|积分|
 ||$\int_0^1 {x^2} \,{\rm d}x$|\int_0^1 {x^2} \,{\rm d}x|积分|
 ||$\iint$|\iint|双重积分|
@@ -149,8 +168,6 @@
 ||$\vec{a}$|\vec{a}|向量，变量上加箭头|
 ||$\widehat{a}$|\widehat{a}|(线性回归，直线方程) a尖，变量上加上三角|
 ||$\widetilde{a}$|\widetilde{a}|颚化符号  等价无穷小，变量上加波浪线|
-||$\dot{a}$|\dot{a}|一阶导数，变量上加一个点|
-||$\ddot{a}$|\ddot{a}|二阶导数，变量上加两个点|
 ||$\boldsymbol{X}$|\boldsymbol{X}|加粗，表示向量或者矩阵|
 ||$\mathbf{X}$|\mathbf{X}|加粗，表示向量或者矩阵|
 ||$\pmb{C}$|\pmb{C}|加粗|
