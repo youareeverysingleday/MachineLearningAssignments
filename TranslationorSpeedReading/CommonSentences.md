@@ -10,7 +10,3 @@
 |6|where $v_i$ is the embedding of POI $v_i$, $(u,v_i,\tau_i)$ is u’s check-in record in $D_u$ before time $\tau$ ; the later the POI is visited, the bigger the exponential is.|其中$vec{v}_i$是POI $v_i$的嵌入，$(u,v_i,\tau_i)$是在时间$\tau$之前在$D_u$中用户u的check-in记录；访问的POI越晚，那么指数越大。|用于描述一种随...变得...的情况。|
 |6|A lot of types of similarity can be computed by cosine similarity between feature vectors between two entities.|很多类型的相似性可以通过两个实体之间的特征向量的余弦相似性来计算。|重要的是两个实体之间的两个特征向量|
 |||||
-
-
-
-

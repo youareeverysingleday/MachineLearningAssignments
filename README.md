@@ -56,7 +56,7 @@ add learning section.
 |6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|[动手深度学习v2]07、[论文精读]GNN论文逐段精读(completed the reading of Transformer)|n|
 |7|Methods for nonlinear least squares|K. Madsen|machine learning|/|n|/|n|
 |8|老师的SVD课件|teacher|machine learning|/|n|/|n|
-|9|[机器学习](https://zh-v2.d2l.ai/)|李沐|machine learning|/|y|2.3|n|
+|9|[机器学习](https://zh-v2.d2l.ai/)|李沐|machine learning|/|y|2.6|n|
 
 other references
 
