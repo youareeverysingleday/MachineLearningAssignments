@@ -20,7 +20,7 @@
 
 ## 2.5 自动微分
 
-详见Tensorflow foundation求导部分的代码。
+详见[Tensorflow foundation](../../codes/8TensorFlowGuide/1TensorFlowFoundation.ipynb求导部分的代码。
 
 2.5.2 非标量变量的反向传播
 
@@ -34,3 +34,8 @@
 
     有时，我们希望将某些计算移动到记录的计算图之外。 例如，假设y是作为x的函数计算的，而z则是作为y和x的函数计算的。 想象一下，我们想计算z关于x的梯度，但由于某种原因，我们希望将y视为一个常数， 并且只考虑到x在y被计算后发挥的作用。
     在这里，我们可以分离y来返回一个新变量u，该变量与y具有相同的值， 但丢弃计算图中如何计算y的任何信息。 换句话说，梯度不会向后流经u到x。 因此，下面的反向传播函数计算z=u*x关于x的偏导数，同时将u作为常数处理， 而不是z=x*x*x关于x的偏导数。
+
+## 2.6 概率论
+
+1. 代码详见[tensorflow_probability](../../codes/8TensorFlowGuide/3TensorFlowProbability.ipynb部分的代码。本书：“**我们将考虑离散空间中的概率**”（并不考虑连续空间的概率，因为没有意义）。
+2. [理论部分详见](../../mathematics/ProbabilityTheory.md)。

@@ -11,6 +11,25 @@
 |7|algebra|名词|代数|
 |8|common|形容词|常用的，普通的|
 |9|survey|名词|综述，在文献的开头表示综述的意思。|
+|10|sampling|动词|抽样|
+|11|distribution|形容词|分布|
+|12|law of large numbers||大数定理|
+|13|event|名词|事件，描述概率中的独立事件。|
+|14|multinomial distribution||多项式分布|
+|15|sample space|样本空间||
+|16|outcome space|结果空间||
+|17|random variable|随机变量||
+|18|discrete||离散，discrete random variable离散随机变量|
+|19|continuous||连续，continuous random variable连续随机变量|
+|20|join probability||联合概率|
+|21|conditional probability||条件概率|
+|22|dependence|名词|依赖，该两种描述两个事件的一种关系。|
+|23|independence|名词|独立，该两种描述两个事件的一种关系。|
+|||||
+|||||
+|||||
+|||||
+|||||
 |||||
 |||||
 |||||

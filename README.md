@@ -46,17 +46,17 @@ you must need to learn knowledge is follows:
 ## 4. learning book/video
 
 add learning section.
-|number|book name|auther|correlative field|illustration|whether or not start|had learned chapter|isCompleted|
+|number|book name|auther|correlative field|illustration|learning state(start/suspend/completed)|had learned chapter|isCompleted|
 |---|---|---|---|---|---|---|---|
 |1|机器学习|周志华|machine learning|/|y|3.1|n|
-|2|李宏毅的视频|李宏毅|Deep learning|/|n|/|n|
-|3|吴恩达的100讲|吴恩达|machine learning|/|n|1|n|
+|2|李宏毅的视频|李宏毅|Deep learning|/|suspend|/|n|
+|3|吴恩达的100讲|吴恩达|machine learning|[地址](https://www.bilibili.com/video/BV164411b7dx?spm_id_from=333.337.search-card.all.click)]|underway|1.4|n|
 |4|统计学习方法|李航|machine learning and mathematics|/|n|/|n|
 |5|线性代数|3Blue1Brown|mathematics|[link](https://space.bilibili.com/88461692/?spm_id_from=333.999.0.0)|y|07|n|
-|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|y|[动手深度学习v2]07、[论文精读]GNN论文逐段精读(completed the reading of Transformer)|n|
+|6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|suspend|[动手深度学习v2]07、[论文精读]GNN论文逐段精读(completed the reading of Transformer)|n|
 |7|Methods for nonlinear least squares|K. Madsen|machine learning|/|n|/|n|
 |8|老师的SVD课件|teacher|machine learning|/|n|/|n|
-|9|[机器学习](https://zh-v2.d2l.ai/)|李沐|machine learning|/|y|2.6|n|
+|9|[机器学习](https://zh-v2.d2l.ai/)|李沐|machine learning|/|underway|2.6.2.5|n|
 
 other references
 

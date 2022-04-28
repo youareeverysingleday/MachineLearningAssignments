@@ -107,7 +107,7 @@
 ||$\subseteq$|\subseteq|真子集|
 ||$\supseteq$|\supseteq||
 ||$\top$|\top||
-||$\bot$|\bot||
+||$\bot$|\bot|两个几何概念互相垂直；或表示两个事件互相独立|
 ||$\complement$|\complement||
 ||$\bigcup$|\bigcup|并集|
 ||$\bigcap$|\bigcap|交集|
