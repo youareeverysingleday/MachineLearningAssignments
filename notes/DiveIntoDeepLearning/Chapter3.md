@@ -77,7 +77,7 @@
          & = \frac{1}{2} \nabla_B (\boldsymbol{B}^T (\boldsymbol{X}^T \boldsymbol{X})\boldsymbol{B} - \vec{y}^T(\boldsymbol{X}\boldsymbol{B})  - \vec{y}^T(\boldsymbol{X}\boldsymbol{B})) \\
          & = \frac{1}{2}(2(\boldsymbol{X}^T \boldsymbol{X})\boldsymbol{B}-2\vec{y}^T \boldsymbol{X})\\
          & = (\boldsymbol{X}^T \boldsymbol{X})\boldsymbol{B}-\vec{y}^T \boldsymbol{X}\\
-         & \text{To minimize L, we set its derivatives to zero, and obtain the normal equations:}\\
+         & \text{To minimize L, L is convex function, we set its derivatives to zero, and obtain the normal equations:}\\
          & (\boldsymbol{X}^T \boldsymbol{X})\boldsymbol{B} = \vec{y}^T\boldsymbol{X} = \boldsymbol{X}^T\vec{y}\\
          & \Rightarrow \boldsymbol{B} = (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T \vec{y} \\
          & \text{Proof complete.}

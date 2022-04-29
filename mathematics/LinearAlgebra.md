@@ -221,7 +221,7 @@
 11. 关于求逆的几个常用性质
     |1|2|3|
     |---|---|---|
-    |$(\boldsymbol{A}^{-1})^*=(\boldsymbol{A}^*)^{-1}$|$(\boldsymbol{A}^{-1})^T=(\boldsymbol{A}^{T})^{-1}$|$(\boldsymbol{A}^{*})^T=(\boldsymbol{A}^{T})^{*}$|
+    |$(\boldsymbol{A}^{-1})^{*}=(\boldsymbol{A}^{*})^{-1}$|$(\boldsymbol{A}^{-1})^T=(\boldsymbol{A}^{T})^{-1}$|$(\boldsymbol{A}^{*})^T=(\boldsymbol{A}^{T})^{*}$|
     |$(\boldsymbol{A}\boldsymbol{B})^{T}=\boldsymbol{B}^{T}\boldsymbol{A}^{T}$|$(\boldsymbol{A}\boldsymbol{B})^{*}=\boldsymbol{B}^{*}\boldsymbol{A}^{*}$|$(\boldsymbol{A}\boldsymbol{B})^{-1}=\boldsymbol{B}^{-1}\boldsymbol{A}^{-1}$|
 
 ## 范数

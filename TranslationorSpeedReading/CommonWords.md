@@ -25,28 +25,28 @@
 |21|conditional probability|/|条件概率|
 |22|dependence|名词|依赖，该两种描述两个事件的一种关系。|
 |23|independence|名词|独立，该两种描述两个事件的一种关系。|
-||expectation|n|期望|
-||average|n|平均值|
-||deviation|n|方差|
-||standard deviation|/|标准差|
-||offset|n|偏移量|
-||bias|n|偏置，偏好（含贬义）|
-||intercept|n|截距|
-||slope|n|斜率|
-||affine transformation|/|仿射变换|
-||linear transformation|/|线性变换|
-||translation|n|平移|
-||fit|v/n/adj|拟合/（衣服）合适，合身/健壮的，健康的|
-||analytical solution|/|解析解|
-||equation|n|等式|
-||equations|n|方程，可以理解为一组等式。|
-||symmetric|adj|对称的|
-||symmetric matrix|/|对称矩阵|
-||fact|n|结论|
-||derivative|n|导数|
-||proof|n|证明|
-|||||
-|||||
+|24|expectation|n|期望|
+|25|average|n|平均值|
+|26|deviation|n|方差|
+|27|standard deviation|/|标准差|
+|28|offset|n|偏移量|
+|29|bias|n|偏置，偏好（含贬义）|
+|30|intercept|n|截距|
+|31|slope|n|斜率|
+|32|affine transformation|/|仿射变换|
+|33|linear transformation|/|线性变换|
+|34|translation|n|平移|
+|35|fit|v/n/adj|拟合/（衣服）合适，合身/健壮的，健康的|
+|36|analytical solution|/|解析解|
+|37|equation|n|等式|
+|38|equations|n|方程，可以理解为一组等式。|
+|39|symmetric|adj|对称的|
+|40|symmetric matrix|/|对称矩阵|
+|41|fact|n|结论|
+|42|derivative|n|导数|
+|43|proof|n|证明|
+|44|convex function|/|凸函数|
+|45|concave function|/|凹函数|
 |||||
 |||||
 |||||
