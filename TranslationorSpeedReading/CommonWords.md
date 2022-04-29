@@ -32,6 +32,7 @@
 ||offset|n|偏移量|
 ||bias|n|偏置，偏好（含贬义）|
 ||intercept|n|截距|
+||slope|n|斜率|
 ||affine transformation|/|仿射变换|
 ||linear transformation|/|线性变换|
 ||translation|n|平移|
@@ -39,12 +40,11 @@
 ||analytical solution|/|解析解|
 ||equation|n|等式|
 ||equations|n|方程，可以理解为一组等式。|
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
+||symmetric|adj|对称的|
+||symmetric matrix|/|对称矩阵|
+||fact|n|结论|
+||derivative|n|导数|
+||proof|n|证明|
 |||||
 |||||
 |||||
