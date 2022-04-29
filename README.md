@@ -50,7 +50,7 @@ add learning section.
 |---|---|---|---|---|---|---|---|
 |1|机器学习|周志华|machine learning|/|y|3.1|n|
 |2|李宏毅的视频|李宏毅|Deep learning|/|suspend|/|n|
-|3|吴恩达的100讲|吴恩达|machine learning|[地址](https://www.bilibili.com/video/BV164411b7dx?spm_id_from=333.337.search-card.all.click)]|underway|1.4|n|
+|3|吴恩达的100讲|吴恩达|machine learning|[地址](https://www.bilibili.com/video/BV164411b7dx?spm_id_from=333.337.search-card.all.click)|underway|1.4|n|
 |4|统计学习方法|李航|machine learning and mathematics|/|n|/|n|
 |5|线性代数|3Blue1Brown|mathematics|[link](https://space.bilibili.com/88461692/?spm_id_from=333.999.0.0)|y|07|n|
 |6|读英文论文和动手deep learning|跟李沐学AI|deep learning|[link](https://space.bilibili.com/1567748478/?spm_id_from=333.999.0.0)|suspend|[动手深度学习v2]07、[论文精读]GNN论文逐段精读(completed the reading of Transformer)|n|

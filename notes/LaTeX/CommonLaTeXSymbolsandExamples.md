@@ -109,7 +109,7 @@
 ||$\top$|\top||
 ||$\bot$|\bot|两个几何概念互相垂直；或表示两个事件互相独立|
 ||$\complement$|\complement||
-||$\bigcup$|\bigcup|并集|
+||$\gcup$|\bigcup|并集|
 ||$\bigcap$|\bigcap|交集|
 ||$\bigvee$|\bigvee|逻辑或|
 ||$\bigwedge$|\bigwedge|逻辑与|
@@ -201,7 +201,7 @@
 ||$\boldsymbol{D}$|\boldsymbol{D}|**表示向量或者矩阵的加粗斜体**|
 ||$\color{red}{Latex}$|\color{red}{Latex}|给文字添加颜色，相关颜色详见下面的例子|
 ||$A \overset{some sentence}{=} B$|\overset{some sentence}{=}|文字在等号上面|
-||$A \underset{some sentence}{=} B$|\overset{some sentence}{=}|文字在等号下面|
+||$A \underset{some sentence}{=} B$|\underset{some sentence}{=}|文字在等号下面|
 ||$$|||
 
 ## 3. 重要例子和不方便在表格中显示的公式

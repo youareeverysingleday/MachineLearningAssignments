@@ -1,5 +1,9 @@
 # 线性代数
 
+## 线性代数公式
+
+[课程所有公式总结参考](https://www.renrendoc.com/paper/99978252.html)这个总结并不好。
+
 在机器学习中10个常用公式：
 
 1. $\vec{a}, \vec{x} \in \mathbb{R^{n\times 1}}, then \frac{d\vec{a}^T\vec{x}}{d\vec{x}}=\vec{a}, \frac{d\vec{x}^T\vec{a}}{d\vec{x}}=\vec{a}$
@@ -214,6 +218,11 @@
 8. $|\boldsymbol{A}^{-1}| = \frac{1}{|\boldsymbol{A}|}$
 9. $\boldsymbol{A}^{-1} = \frac{1}{|\boldsymbol{A}|} \boldsymbol{A}^{*}$
 10. 可逆矩阵乘以可逆矩阵，结果依然可逆。可逆矩阵加上可逆矩阵，结果不一定可逆。
+11. 关于求逆的几个常用性质
+    |1|2|3|
+    |---|---|---|
+    |$(\boldsymbol{A}^{-1})^*=(\boldsymbol{A}^*)^{-1}$|$(\boldsymbol{A}^{-1})^T=(\boldsymbol{A}^{T})^{-1}$|$(\boldsymbol{A}^{*})^T=(\boldsymbol{A}^{T})^{*}$|
+    |$(\boldsymbol{A}\boldsymbol{B})^{T}=\boldsymbol{B}^{T}\boldsymbol{A}^{T}$|$(\boldsymbol{A}\boldsymbol{B})^{*}=\boldsymbol{B}^{*}\boldsymbol{A}^{*}$|$(\boldsymbol{A}\boldsymbol{B})^{-1}=\boldsymbol{B}^{-1}\boldsymbol{A}^{-1}$|
 
 ## 范数
 
