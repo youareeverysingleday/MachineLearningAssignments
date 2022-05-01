@@ -195,12 +195,19 @@
       7. 字符串大小写转换：lower, upper, swapcase。swapcase的用途是将小写变为大写，大写变为小写。这里老师讲错了。
       8. 子串替换：replace。
       9. 去除空格：strip, lstrip, rstrip。
-      10. 字符串的格式化。两种形式，第一种类似于C语言中的形式，第二种是python的形式。推荐用第二种。
+      10. 字符串的格式化。两种形式，第一种类似于C语言中的形式，第二种是python的形式。推荐用第二种。第三种字符串格式化方法[python 3.6 之后的字符串格式化方法参考](https://geek-docs.com/python/python-tutorial/python-fstring.html#Python_f)
 
             ```python
             str1 = "Hello %s"%("python")
             # 推荐用第二种。
             str2 = "hello {}".format("python")
+            # python 3.6之后的最新字符串格式化写法
+            name = 'Peter'
+            age = 23
+
+            print('%s is %d years old' % (name, age))
+            print('{} is {} years old'.format(name, age))
+            print(f'{name} is {age} years old')
             ```
 
 4. 字典

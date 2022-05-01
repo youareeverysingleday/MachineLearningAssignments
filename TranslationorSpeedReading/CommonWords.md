@@ -16,6 +16,9 @@
 |12|law of large numbers|/|大数定理|
 |13|event|名词|事件，描述概率中的独立事件。|
 |14|multinomial distribution|/|多项式分布|
+||normal distribution|/|正态分布|
+||Gaussian distribution|/|高斯分布|
+||Gaussian|adj|高斯的；高斯发现的；高斯提出的|
 |15|sample space|/|样本空间|
 |16|outcome space|/|结果空间|
 |17|random variable|随机变量||
@@ -47,17 +50,16 @@
 |43|proof|n|证明|
 |44|convex function|/|凸函数|
 |45|concave function|/|凹函数|
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
+||hyperparameter|n|超参数|
+||hyperparameter tuning|/|调参|
+||batch size|/|批量大小|
+||learning rate|/|学习率|
+||validation dataset|/|验证数据集|
+||inference|n|推论;推理;推断|
+||prediction|n|预测|
+||generalization|n|泛化|
+||algorithm|n|算法|
+||objective function|/|目标函数|
 |||||
 |||||
 |||||
