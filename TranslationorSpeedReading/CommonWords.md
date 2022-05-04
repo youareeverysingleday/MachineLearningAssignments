@@ -64,8 +64,8 @@
 ||maximum|n/adj|最大量，最高限度/最高的，最多的，最大极限的|
 ||minimum|n/adj|最小值，最少量，最低限度/最小的，最低的，最低限度的|
 ||estimation|n|估计，评判|
-|||||
-|||||
+||feature dimensionality|/|特征维度|
+||dense|adj|稠密的|
 |||||
 |||||
 |||||
