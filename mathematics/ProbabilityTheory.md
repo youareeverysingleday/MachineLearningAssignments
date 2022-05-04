@@ -302,6 +302,7 @@ XXXX
 
    前提，MLP可以通过添加更多的层数来拟合任意概率模型的曲线。
    推导过程如下：
+
    $$
    \begin{equation}
    \begin{aligned}

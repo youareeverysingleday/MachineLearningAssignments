@@ -55,12 +55,32 @@
 ||batch size|/|批量大小|
 ||learning rate|/|学习率|
 ||validation dataset|/|验证数据集|
-||inference|n|推论;推理;推断|
+||inference|n|推论，推理，推断|
 ||prediction|n|预测|
 ||generalization|n|泛化|
 ||algorithm|n|算法|
 ||objective function|/|目标函数|
 ||likelihood|n|似然|
+||maximum|n/adj|最大量，最高限度/最高的，最多的，最大极限的|
+||minimum|n/adj|最小值，最少量，最低限度/最小的，最低的，最低限度的|
+||estimation|n|估计，评判|
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
+|||||
 |||||
 |||||
 |||||
