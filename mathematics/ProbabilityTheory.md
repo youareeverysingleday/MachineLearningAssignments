@@ -271,6 +271,7 @@ XXXX
       3. 对$\theta$求导数。$\frac{d\ln L(\theta)}{d\theta} = \frac{3}{\theta} - \frac{2}{1-\theta}$
       4. 求极值点，令$\frac{d\ln L(\theta)}{d\theta} = \frac{3}{\theta} - \frac{2}{1-\theta} = 0$。求得极值点为$\hat{\theta} = \frac{3}{5}$。
 3. 连续值的例子：
-   $X \sim U(0, a), \; \text{a is unknow.} \\ f(x)=\begin{cases} \frac{1}{a}, & \text{if a} \in (0,a) \\ 0, & \text{if a is others} \end{cases}$。抽取n个样本点，对应的事件分别是${X_1,X_2,\cdots,X_n}$，事件对应的样本点分别是${x_1, x_2, \cdots ,x_n}$，对应每个样本点的概率密度为$f(x_1), f(x_2), \cdots ,f(x_n)$。那么${X_1,X_2,\cdots,X_n}$的联合概率密度（联合概率就是多个事件同时发生时的概率）为$L(a) =f(x_1)f(x_2)\cdots f(x_n) = \frac{1}{a}\frac{1}{a}\cdots \frac{1}{a}=\frac{1}{a^n}$。
+
+   $X \sim U(0, a), \; \text{a is unknow.} \\ f(x)=\begin{cases} \frac{1}{a}, & \text{if a} \in (0,a) \\ 0, & \text{if a is others} \end{cases}$。抽取n个样本点，对应的事件分别是$\{X_1,X_2,\cdots,X_n\}$，事件对应的样本点分别是$\{x_1, x_2, \cdots ,x_n\}$，对应每个样本点的概率密度为$f(x_1), f(x_2), \cdots ,f(x_n)$。那么$\{X_1,X_2,\cdots,X_n\}$的联合概率密度（联合概率就是多个事件同时发生时的概率）为$L(a) =f(x_1)f(x_2)\cdots f(x_n) = \frac{1}{a}\frac{1}{a}\cdots \frac{1}{a}=\frac{1}{a^n}$。
    这里需要注意，不能再使用离散值时的例子了。因为先取对数$\ln L(a) = -n\ln a$，然后再求导$\frac{d\ln L(a)}{da}=\frac{-n}{a}$，然后令$\frac{d\ln L(a)}{da}=\frac{-n}{a} = 0$的条件是$a \rightarrow +\infty$。这显然是不合适的。\
-   所以这里采用了另外一种方法。为了使得$L(a)=\frac{1}{a^n}$取得最大值，就需要a尽可能的小。此时也就需要分析a的取值范围。因为a是一组已经抽样出来的点，而且a是在${x_1, x_2, \cdots ,x_n}$中的一个值。${x_1, x_2, \cdots ,x_n}$是已经存在的抽样样本，也就是已经是事实了。所以a只能取$max{x_1, x_2, \cdots ,x_n}$，这样就可以使得“已经是事实”的事件成立（如果取得值小于$x_n$，那么$x_n$是如何取得的呢？）。所以$\hat{a}=max{x_1, x_2, \cdots ,x_n}$。
+   所以这里采用了另外一种方法。为了使得$L(a)=\frac{1}{a^n}$取得最大值，就需要a尽可能的小。此时也就需要分析a的取值范围。因为a是一组已经抽样出来的点，而且a是在$\{x_1, x_2, \cdots ,x_n\}$中的一个值。$\{x_1, x_2, \cdots ,x_n\}$是已经存在的抽样样本，也就是已经是事实了。所以a只能取$max\{x_1, x_2, \cdots ,x_n\}$，这样就可以使得“已经是事实”的事件成立（如果取得值小于$x_n$，那么$x_n$是如何取得的呢？）。所以$\hat{a}=max\{x_1, x_2, \cdots ,x_n\}$。
