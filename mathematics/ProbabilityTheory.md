@@ -158,7 +158,6 @@ XXXX
    $$P(B|A)=\frac{P(AB)}{P(A)}, \text{其中}AB=A\cap B$$
    为在事件A发生的条件下事件B发生的条件概率。
 
-
 ## 2 随机变量及其分布
 
 1. 联合概率
@@ -244,11 +243,14 @@ XXXX
 
 ### 最大似然估计 Maximum Likilihood Estimation
 
-1. 参考
-   1. 文字参考<https://zhuanlan.zhihu.com/p/26614750>、<https://blog.csdn.net/u011508640/article/details/72815981>。
+1. 一句话总结：概率是已知模型和参数，推数据。统计是已知数据，推模型和参数。最大似然估计就是在估计模型的参数。也就是说**最大似然估计是一致模型和样本，来估计模型的参数**。
+2. 参考
+   1. 文字参考
+      1. [直接的说明](https://zhuanlan.zhihu.com/p/26614750)
+      2. [比较了概率和统计的区别，同时也说了最大似然估计的概念](https://blog.csdn.net/u011508640/article/details/72815981)。
    2. 视频讲解的例子参考<https://www.bilibili.com/video/BV1Hb4y1m7rE?spm_id_from=333.337.search-card.all.click>。
 
-2. 离散值的例子：
+3. 离散值的例子：
 
    设一个袋子里有非常多的小球（样本数量：非常大。也就忽略的放回抽样和不放回抽样），**极大似然估计中采样需满足一个重要的假设，就是所有的采样都是独立同分布的**。其中有两种样本，一种是白球，定义为样本1；一种是红球，定义为样本2。两种样本数量的比值如下表所示，其中$\theta$是未知的：
 
@@ -270,7 +272,7 @@ XXXX
       2. 等式两边同时求对数。对数函数有个性质，一方面可以将连乘转化为加减；另一方面对数函数不会改变原函数中点的相对大小，因为以e为底的对数函数是单增的。等式变为$\ln L(\theta) = \ln (\theta^3(1-\theta)^2) = 3\ln\theta + 2 \ln (1-\theta)$
       3. 对$\theta$求导数。$\frac{d\ln L(\theta)}{d\theta} = \frac{3}{\theta} - \frac{2}{1-\theta}$
       4. 求极值点，令$\frac{d\ln L(\theta)}{d\theta} = \frac{3}{\theta} - \frac{2}{1-\theta} = 0$。求得极值点为$\hat{\theta} = \frac{3}{5}$。
-3. 连续值的例子：
+4. 连续值的例子：
 
    $X \sim U(0, a), \; \text{a is unknow.} \\ f(x)=\begin{cases} \frac{1}{a}, & \text{if a} \in (0,a) \\ 0, & \text{if a is others} \end{cases}$。抽取n个样本点，对应的事件分别是$\{X_1,X_2,\cdots,X_n\}$，事件对应的样本点分别是$\{x_1, x_2, \cdots ,x_n\}$，对应每个样本点的概率密度为$f(x_1), f(x_2), \cdots ,f(x_n)$。那么$\{X_1,X_2,\cdots,X_n\}$的联合概率密度（联合概率就是多个事件同时发生时的概率）为$L(a) =f(x_1)f(x_2)\cdots f(x_n) = \frac{1}{a}\frac{1}{a}\cdots \frac{1}{a}=\frac{1}{a^n}$。
    这里需要注意，不能再使用离散值时的例子了。因为先取对数$\ln L(a) = -n\ln a$，然后再求导$\frac{d\ln L(a)}{da}=\frac{-n}{a}$，然后令$\frac{d\ln L(a)}{da}=\frac{-n}{a} = 0$的条件是$a \rightarrow +\infty$。这显然是不合适的。\
