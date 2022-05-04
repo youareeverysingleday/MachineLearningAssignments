@@ -303,7 +303,8 @@ XXXX
    前提，MLP可以通过添加更多的层数来拟合任意概率模型的曲线。
    推导过程如下：
    $$
-   \begin{cases}
+   \begin{equation}
+   \begin{aligned}
    & C_i\text{表示的是事件，}\theta\text{表示的是概率模型的参数，这里代指概率模型。}\\
    & P(C_1,C_2, \cdots, C_n |\theta)\\
    & y_i\text{表示的是标签，}\hat{y}_i\text{表示的是预测值，}\boldsymbol{W}, \boldsymbol{b}\text{表示的是MLP的参数，这里代指神经网络模型。}\\
@@ -325,7 +326,8 @@ XXXX
    & \text{目的是求上式的最大值：}max(\sum\limits_{i=1}^n (y_i\log(\hat{y}_i) + (1-y_i)\dot\log(1-\hat{y}_i)))\\
    & \text{一般习惯求最小值，所以上式变为：}min-(\sum\limits_{i=1}^n (y_i\log(\hat{y}_i) + (1-y_i)\dot\log(1-\hat{y}_i)))\\
    & \text{Completed.}
-   \end{cases}
+   \end{aligned}
+   \end{equation}
    $$
 
    下面是求$L(\theta)=\theta^3(1-\theta)^2$最大极值点的具体步骤：

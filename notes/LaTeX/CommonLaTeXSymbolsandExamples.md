@@ -310,20 +310,44 @@ $$\boldsymbol{D}=
 a & b \\
 c & d
 \end{bmatrix}$$
-    代码：\boldsymbol{D}=
+    代码：
+        \boldsymbol{D}=
         \begin{bmatrix}
         a & b \\
         c & d
         \end{bmatrix}
 
-8. 多行公式：
+8. 分段公式：
 $$L(Y,f(x))=
 \begin{cases}
 1, Y!=f(x) \\
 0, Y = f(x)
 \end{cases}$$
-    代码：L(Y,f(x))=
+    代码：
+        L(Y,f(x))=
         \begin{cases}
         1, Y!=f(x) \\
         0, Y = f(x)
         \end{cases}
+
+9. 多行公式，[参考](https://blog.csdn.net/hu3350261/article/details/104902011)：
+
+$$
+\begin{equation}
+\begin{aligned}
+    &\dot{\boldsymbol{x}}=A \boldsymbol{x}+B \boldsymbol{u}
+    , \quad 
+    \boldsymbol{x}(0)=\boldsymbol{x}_{0}\\
+    &y=C x+D u
+\end{aligned}
+\end{equation}
+$$
+    代码:
+    \begin{equation}
+    \begin{aligned}
+        &\dot{\boldsymbol{x}}=A \boldsymbol{x}+B \boldsymbol{u}
+        , \quad 
+        \boldsymbol{x}(0)=\boldsymbol{x}_{0}\\
+        &y=C x+D u
+    \end{aligned}
+    \end{equation}
