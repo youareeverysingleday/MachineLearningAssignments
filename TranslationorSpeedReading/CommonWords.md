@@ -60,7 +60,7 @@
 ||generalization|n|泛化|
 ||algorithm|n|算法|
 ||objective function|/|目标函数|
-|||||
+||likelihood|n|似然|
 |||||
 |||||
 |||||
