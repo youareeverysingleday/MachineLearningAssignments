@@ -39,17 +39,37 @@
 ## 模态对齐
 
 1. 定义：从来自同一个实例的两个甚至多个模态中寻找子成分之间的关系和联系。也就是找到两个模态实例某些子成分之间是否存在一些对应关系。
-2. 有两个研究方向
+2. 有两个方法
    1. 显示对齐explicit alignment
       1. 主要实现的方式：无监督的方式或者弱监督的方式。包括聚类、深度文本表示特征。the goal is to directly find correspondences between elements of different modalities.
       2. 难点
          1. 这种方式需要很多的数据，不然无法做无监督的学习。
          2. 模态之间的相似度如何进行定义。这个是很难定义的一件事情。
+         3. 存在多个可能的对齐方案，并且其中一个方案不可能是的一个模态表示向量中所有的元素能够和另一个模态中的所有元素都可以对应得上。
    2. 隐式对齐implicit alignment。可以使用图神经网络的方式来找寻不同元素之间的对应关系。uses internally latent alignment of modalities in order to better solve a different problem.
+3. 相关任务
+   1. 给定一张图片和图片的描述，找到图中的某个区域以及这个区域在描述中对应的表述
+   2. 图像语义分割image semantic segmentation
+   3. 将电影中的帧和字幕进行对应。
 
-## Multimodality Fusion多模态融合技术
+## Multimodality Fusion多模态融合
 
-1. 参考
+1. 定义：联合多个模态的信息，进行目标预测（分类或者回归），属于MMML最早的研究方向之一，也是目前应用最广的方向，它还存在其他常见的别名，例如多源信息融合multi-source information fusion、多传感器融合multi-sensor fusion。
+2. 分类，三个不同的阶段。在视频的21:40中详细说明了这个部分。![多模态融合按照融合类型分类说明图](../../pictures/MultiModalFusionCategory.png "多模态融合按照融合类型分类说明图")
+   1. pixel level对原始数据进行融合
+   2. feature level对特征进行融合
+   3. decision level对决策进行融合
+3. 按照融合的类型分类
+   1. 数据级别的融合。一般情况下效果可能比较差一点。
+   2. 判定级别的融合。工业界一般就采用这种融合方式。步骤：
+      1. 每个模态提取特征
+      2. 每个特征进入各自的模型，每个模型都会产生一个结果
+      3. 每个结果进行决策（比如投票决定使用那个结果）。投票结果合理，那么就要对该模态数据的权重进行增加。Decision fusion也可以使用模型来完成。
+   3. 组合融合
+      1. 举例：一个LSTM的结果需要和一个CNN的结果进行融合。这个时候LSTM的结果需要和CNN模型中的哪一层进行融合。
+      2. 这种融合的难度最高，可能效果也是最好的。需要对模型有非常好的理解。
+
+4. 参考
    1. 文档参考1，写得不够详细。<https://zhuanlan.zhihu.com/p/133990245>
    2. 视频参考1。<https://www.bilibili.com/video/BV1zh411Z78q?spm_id_from=333.337.search-card.all.click>
 
