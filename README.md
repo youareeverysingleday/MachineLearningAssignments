@@ -39,6 +39,7 @@ add translation section.
 you must need to learn knowledge is follows:
 
 1. least square method,
+   1. got it.
 2. Lagrange multiplier method,
 3. Taylor formula,
 4. Matrix.

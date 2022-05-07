@@ -115,6 +115,7 @@
 ## 3. problems
 
 1. 最大似然到对数损失。
+   1. got it.
 2. 信息熵information entropy。
 3. 二次规划。
 4. 核函数和内积。

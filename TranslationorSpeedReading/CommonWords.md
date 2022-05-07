@@ -66,7 +66,7 @@
 ||estimation|n|估计，评判|
 ||feature dimensionality|/|特征维度|
 ||dense|adj|稠密的|
-|||||
+||enhance|v|增强，提高|
 |||||
 |||||
 |||||
