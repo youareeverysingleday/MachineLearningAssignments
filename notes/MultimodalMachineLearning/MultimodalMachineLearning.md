@@ -68,6 +68,10 @@
    3. 组合融合
       1. 举例：一个LSTM的结果需要和一个CNN的结果进行融合。这个时候LSTM的结果需要和CNN模型中的哪一层进行融合。
       2. 这种融合的难度最高，可能效果也是最好的。需要对模型有非常好的理解。
+   4. 相关任务
+      1. 视觉-音频识别visual audio recognition
+      2. 多模态情感分析multimodal sentiment analysis
+      3. 手机身份识别mobile identity authentication
 
 4. 参考
    1. 文档参考1，写得不够详细。<https://zhuanlan.zhihu.com/p/133990245>
@@ -89,3 +93,22 @@
 10. 多模态数据中存在各种缺失。如何处理这种缺失是有技术含量的。
 11. 用最简洁的形式表示最全面的信息。
 12. 缺失的信息可以采用GAN的方式进行补全。也就是：面向缺失模态的生成对抗补全模型。补全的信息需要和类似模型的分布相似。
+
+## 协同学习 co-learning
+
+1. 定义：通过利用资源丰富（比如数据量大）的模态的知识来辅助资源稀缺（比如较小数据）的模态建立模型。
+   1. 迁移学习
+2. 根据数据形式划分：
+   1. parallel: Co-training, Transfer learning
+   2. Non-parallel: Transfer learning, concept grounding, zero-shot learning.
+   3. hybrid: bridging
+
+## 具体实践步骤
+
+1. concatenation是将多个向量自己拼成了一个向量。然后在通过attention提取每个元素之间的相关性。
+2. 不同模态的数据通过不同的模型生成各自对应的向量，然后通过concatenate之后形成一个向量，再通过一个attention或者分类器模型输出最后的结果。通过attention得到的不同的权重分布，然后再通过一个分类器输出结果。
+3. 图片的处理可以使用VGG-19模型。文本的处理先使用word-embadding，然后可以使用text-cnn模型。
+4. attention
+   1. 直接attention
+   2. 引导的（这个地方没有听清楚）attention
+   3. 直接添加分类器
