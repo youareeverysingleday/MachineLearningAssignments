@@ -69,7 +69,7 @@
 ||enhance|v|增强，提高|
 ||concatenation|n|一系列相关联的事物(或事件)|
 ||concatenate|v/adj|连接，使连续（衔接）起来，连锁，串级/连在一起的，连锁的|
-|||||
+||scalability|n|可扩展性|
 |||||
 |||||
 |||||
