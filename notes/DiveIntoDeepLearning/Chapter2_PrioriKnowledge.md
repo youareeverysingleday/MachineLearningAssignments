@@ -20,7 +20,7 @@
 
 ## 2.5 自动微分
 
-详见[Tensorflow foundation](../../codes/8TensorFlowGuide/1TensorFlowFoundation.ipynb求导部分的代码。
+详见[Tensorflow foundation](../../codes/8TensorFlowGuide/1TensorFlowFoundation.ipynb)求导部分的代码。
 
 2.5.2 非标量变量的反向传播
 
