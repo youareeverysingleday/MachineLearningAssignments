@@ -68,7 +68,8 @@
 ||$\cdots$|\cdots|3个点，表示省略|
 ||$\log_{a}{x}$|\log{x}|以a为底的对数|
 ||$\ln{x}$|\ln{x}|以e为底的对数|
-||$\lg{x}$||以10为底的对数|
+||$\lg{x}$|\lg{x}|以10为底的对数|
+||$\propto$|\propto|正比于|
 ||$$|||
 ||$\sin\theta$|\sin\theta|正弦|
 ||$\cos\theta$|\cos\theta|余弦|
