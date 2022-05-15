@@ -18,7 +18,29 @@ You are every single day.
 |---|---|
 |加法公式|$\sin (\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin\beta$|
 
+## 几种距离的定义
+
+1. 参考<https://blog.csdn.net/qq_36607894/article/details/109168401>
+2. L2范数和欧式距离的关系参考<https://www.cnblogs.com/lhfhaifeng/p/10671349.html>
+
 ## 最小二乘法
+
+### 0 定义及说明
+
+1. 参考<https://www.cnblogs.com/lhfhaifeng/p/10671349.html>
+2. 以下定义是一样的：欧式距离=欧式长度=L2范数=L2距离。
+3. 定义：
+   $$
+   \begin{aligned}
+   & \text{set :} \vec{a} = [4,3,1,3,5],\; \vec{b}=[3,2,4,3,1] \\
+   & \text{L2 范数可以记为以下几种形式：}||\vec{a}||, |\vec{a}|, |\vec{a}|_2 \\
+   & |\vec{a}|_2 = \sqrt{\sum\limits_i^n (a_i)^2} = \sqrt{a_1^2 + a_2^2 + \cdots + a_n^2} ,\; \text{n is dimension of vector a.}\\
+   & |\vec{a}|_2 = \sqrt{\sum\limits_i^n (a_i)^2} = \sqrt{4^2 + 3^2 + 1^2 + 3^2 + 5^2} = \sqrt{60}\\
+   & \text{对于两个向量$\vec{a}, \vec{b}$而言，它们的L2范数可以认为是两个点的距离。}\\
+   & |\vec{a}, \vec{b}|_2 = \sqrt{\sum\limits_i^n (a_i - b_i)^2} = \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2 + \cdots + (a_n-b_n)^2}\\
+   & |\vec{a}, \vec{b}|_2 = \sqrt{(4-3)^2 + (3-2)^2 + (1-4)^2 + (3-3)^2 + (5-1)^2} = 5\\
+   \end{aligned}
+   $$
 
 ### 1 最小二乘法的局限性
 
