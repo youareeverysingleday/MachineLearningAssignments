@@ -254,7 +254,7 @@ XXXX
 
 ### 3.4 相关系数
 
-1. 含义：协方差是把X,Y分别中心化后的$E(X_* Y_*)$，它的值受X与Y量纲大小的影响。为了消除这一影响，我们采用把X，Y标准化后的$E(X^*Y^*)$作为反映X与Y之间相互联系的数字特征。
+1. 含义：用于反应两个随机变量之间的线性关系和线性关系的程度。协方差是把X,Y分别中心化后的$E(X_* Y_*)$，它的值受X与Y量纲大小的影响。为了消除这一影响，我们采用把X，Y标准化后的$E(X^*Y^*)$作为反映X与Y之间相互联系的数字特征。
 2. 定义：设$(X,Y)$是一个随机变量，当$D(X)>0, D(Y)>0$时，称$E(X^*Y^*)$为X与Y的相关系数，记作$\rho (X,Y)$。$\rho (X,Y)\coloneqq E[\frac{X-E(X)}{\sqrt{D(X)}}\frac{Y-E(Y)}{\sqrt{D(Y)}}]=\frac{cov(X,Y)}{\sqrt{D(X)D(Y)}}$。
 3. 在相关系数的定义之下，$D(X \pm Y) = D(X)+D(Y) \pm 2\rho (X,Y) \sqrt{D(X)D(Y)}$。
 4. 性质。当$D(X)>0, D(Y)>0$时
@@ -281,6 +281,55 @@ XXXX
 ## 4 大数定理和中心极限定理
 
 大数定理描述了事件发生频率的稳定性。
+
+### 参考
+
+1. [重要参考，说得非常清晰](https://www.bilibili.com/video/BV14r4y1T7EN?spm_id_from=333.337.search-card.all.click)
+
+### 说明
+
+1. 林德伯格-列维中心极限定理
+   设$X_1,X_2,\cdots$为独立同分布的随机变量序列，$E(X_i)=\mu,D(X_i)=\sigma^2,i=1,2,3\cdots$则对任意实数$x$，有
+   $$
+   \begin{aligned}
+   & \lim_{n\rightarrow \infty}[\frac{\sum\limits_{i=1}^n X_i - n\mu}{\sqrt{n}\sigma} \leqslant x]=\Phi (x) =\frac{1}{\sqrt{2\pi}}\int_{-\infty}^x {x^2} \,{e^{-\frac{t^2}{2}} d}t\\
+   & \Phi (x) \text{是满足}\sim \mathcal{N}(0,1)\text{的高斯分布。}\\
+   \end{aligned}
+   $$
+
+2. Central Limit Theorem推导
+   $$
+   \begin{aligned}
+   & \text{the problem is 想知道学校学生的平均身高。}\\
+   & \text{采用的方法是对所有的学生进行抽样。一共抽取100组学生，每组30位学生。这就意味着}n=30\\
+   & \text{这个时候关心的是100组抽样分别得到的100组身高均值服从什么分布。（这也回答了这一组均值的中心、形状、分散度的情况）。得到的一组均值为：}\\
+   & \overline{X}_1, \overline{X}_2, \overline{X}_3,\cdots, \overline{X}_{100}\\
+   & \text{直觉上可以知道这一组均值的形状是非常紧凑的，都非常集中的集中在真实身高均值的附近。这组均值的集中度相对高，分散度相对小。}\\
+   & \text{假设真实数据的均值为175cm，那么这组100个均值的最小值可能是169cm，最大值可能是179cm。}\\
+   & \text{真实数据的最小值可能是145cm，最大值可能是195cm。真实数据相对分散。}\\
+   & \text{这100个均值是服从正态分布的。}\overline{X} \sim \mathcal{N}(\mu,(\frac{\sigma}{\sqrt{n}})^2)\\
+   & \text{中心极限定理的思想：**无论原始数据服从什么分布**，只要每次取的样本量足够大（n一般大于等于30），那么取的**样本的均值**近似的服从正态分布。}\\
+   \end{aligned}
+   $$
+   ![中心极限定理中抽样样本数量对均值分布的影响](../pictures/CentralLimitTheorem.png "中心极限定理中抽样样本数量对均值分布的影响")\
+   也就是说当$n\leqslant 30$时，均值的分布就已经非常接近正态分布。如图所示population distributions含义是总体的分布。uniform表示均匀分布，exponential表示指数分布，normal正态分布。当$n=2$的时候，均匀分布和指数分布的均值分布还与正态分布差别比较大。当n逐渐增大时，均值的分布越来越接近正态分布。当$n= 30$时均值的分布已经和正态分布非常接近了。这也说明了为什么正态分布是所有分布中最重要的一种分布形式。后面置信区间和假设检验都是基于正态分布和中心极限定理上的。
+   $$
+   \begin{aligned}
+   & \overline{X} \sim \mathcal{N}(\mu,(\frac{\sigma}{\sqrt{n}})^2)\\
+   & \text{set }\, Z=\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}\sim \mathcal{N}(0,1)\\
+   & P(z<x)\approx \Phi (x)\\
+   & \Rightarrow P(\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}<x)\approx \Phi (x)\\
+   & \because \frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}} <x\\
+   & \text{分子分母同时乘以}n.\\
+   & \Rightarrow \frac{n\overline{X}-n\mu}{\sqrt{n}\sigma}<x\\
+   & \because \overline{X} = \frac{\sum\limits_{i=1}^n x_i}{n} \\
+   & n \overline{X} = \sum\limits_{i=1}^n x_i\\
+   & \therefore \frac{\sum\limits_{i=1}^n x_i -n\mu}{\sqrt{n}\sigma} <x\\
+   & \Rightarrow P(\frac{\sum\limits_{i=1}^n x_i -n\mu}{\sqrt{n}\sigma} <x) \approx \Phi (x)\\
+   & \Rightarrow \lim_{n\rightarrow \infty}P(\frac{\sum\limits_{i=1}^n x_i -n\mu}{\sqrt{n}\sigma} <x)= \Phi (x), \text{注意约等于换成等于了。}\\
+   & \text{Completed.}\\
+   \end{aligned}
+   $$
 
 ## 5 数理统计的基本概念
 

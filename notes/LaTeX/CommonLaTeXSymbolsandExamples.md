@@ -163,7 +163,7 @@
 ||$\check{y}$|\check{y}||
 ||$\breve{y}$|\breve{y}||
 ||$\overline{a+b+c+d}$|\overline{a+b+c+d}|上面加线，表示补集或者表示平均值|
-||$\overline{A}$|\overline{A}|表示补集|
+||$\overline{A}$|\overline{A}|表示补集或均值|
 ||$\underline{a+b+c+d}$|\underline{a+b+c+d}|下面加线|
 ||$\overbrace{a+\underbrace{b+c}_{1.0}+d}^{2.0}$|\overbrace{a+\underbrace{b+c}_{1.0}+d}^{2.0}|上下加括号，并填写对应的值|
 ||$\vec{a}$|\vec{a}|向量，变量上加箭头|
