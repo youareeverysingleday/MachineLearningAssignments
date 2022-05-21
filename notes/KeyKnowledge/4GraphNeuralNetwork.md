@@ -108,7 +108,7 @@
     1. 可以看到node, edge, global的向量维度都是相对大一点好（在这篇distill中，node的向量维度是在12-50之间变换，edge的维度是在5-20之间变换，global的维度是在25-100之间变化。另外可以看到的维度的情况是$dim_{global}>dim_{node}>dim_{edge}$的情况）。但是整体而言也不是很明显，这些参数的方差太大了。
     2. GNN的层数调高一点比较好，同时也要把其他的参数调的够好才行。
     3. 聚合的操作类型对精度基本上是没有影响的。（这里面的操作类型包括：max、mean、sum操作。）
-    4. 传递信息非常重要。传递的信息类型和信息越多，可以越高的提高精度。![defferent message passing method](../../pictures/AttentionsIsAllYouNeed_Figure4.png)
+    4. 传递信息非常重要。传递的信息类型和信息越多，可以越高的提高精度。![defferent message passing method](../../pictures/AGentleIntrodutiontoGraphNeuralNetwork_Figure4.png)
 27. 相关技术：
     1. 顶点直接有多种边Multigraph。比如既包含有向边又包含无向边。
     2. 图是分层的。不同的图结构会导致在神经网络做信息汇聚的时候产生一定的影响。
