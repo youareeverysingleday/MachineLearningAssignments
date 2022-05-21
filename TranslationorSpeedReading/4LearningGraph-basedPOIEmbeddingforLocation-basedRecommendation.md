@@ -333,9 +333,11 @@ Geo-SAGE.Geo-SAGE[17]是一个用于基于位置的推荐的地理稀疏加性�
 2. 我们更具这些POI的排名分数对其进行排序，从而形成一个排名列表。让p表示v在这个列表中的位置。最好的结果对应于vv先于所有未访问的POI（即p=1）的情况。
 3. 我们通过从列表中选取排名最靠前的k个POI，形成一个top-k推荐列表。如果$p \leqslant k$（即groud truth POI v出现在top-k推荐列表中），我们就有一个命中，否则，我们就有一个miss。
 计算准确率的公式为
-$$Accuracy@k=\frac{#hit@k}{|D_{test}|} \tag{13}$$
-我们将单个测试案例的$#hit@k$定义为：如果groud truth POI v出现在top-k结果中，则数值为1，反之则为0。
-其中$#hit@k$表示整个测试集中的命中的数量，$|D_{test}|$表示整个测试集的数量。
+$$
+Accuracy@k=\frac{\#hit@k}{|D_{test}|} \tag{13}
+$$
+我们将单个测试案例的$\#hit@k$定义为：如果groud truth POI v出现在top-k结果中，则数值为1，反之则为0。
+其中$\#hit@k$表示整个测试集中的命中的数量，$|D_{test}|$表示整个测试集的数量。
 
 ## conclusion
 
