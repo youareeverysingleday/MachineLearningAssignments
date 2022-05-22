@@ -1,6 +1,18 @@
 # 读GNN博客
 
-[A Gentle Introdution to Graph Neural Network](https://distill.pub/2021/gnn-intro/)
+1. 参考
+   1. [A Gentle Introdution to Graph Neural Network](https://distill.pub/2021/gnn-intro/)
+   2. [简单粗暴说明GNN](https://www.bilibili.com/video/BV1Tf4y1i7Go?spm_id_from=333.337.search-card.all.click)
+   3. [A Gentle Introdution to Graph Neural Network解读](https://www.bilibili.com/video/BV1iT4y1d7zP?spm_id_from=333.337.search-card.all.click)
+
+2. GNN的本质：**GNN就是一种提取特征的方法**。
+3. GNN的流程：
+   1. 聚合：将某个节点的所有邻居的信息进行提取之后，对节点本身的特征进行补充。$ANodeNeigborInfo = \alpha \times BNode_{feature} + \beta \times CNode_{feature} + \gamma \times DNode_{feature}$
+   2. 更新：$A_{feature} = \sigma [W (A_{feature} + \mu \times ANodeNeigborInfo)], \sigma \text{是激活函数。}W\text{是需要训练的参数。}$
+   3. 循环。多层的意义在于一个节点可以包含更远节点的信息。
+4. 提取了节点特征之后可以做的应用：
+   1. 可以对节点进行分类。
+   2. 可以做关联预测。将两个节点的特征进行拼接之后再去做分类。有连接的节点就是正样本，没有连接的节点就是负样本。
 
 ## 1. 重要知识点
 
