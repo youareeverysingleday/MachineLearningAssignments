@@ -13,118 +13,10 @@
 
 ## 2. 常用符号速查表
 
+### 2.1 希腊字母和希伯来文字母 Greek and Hebrew letters
+
 |编号|符号|Latex代码|描述|
 |---|---|---|---|
-|1|$\sum\limits_{i=0}^n$|\sum \limits_{i=0}^n|求和|
-|2|$\sum_{i=0}^n$|\sum_{i=0}^n||
-|3|$\Uparrow$|\uparrow|各种箭头|
-|4|$\Uparrow$|\Uparrow||
-|5|$\downarrow$|\downarrow||
-|6|$\Downarrow$|\Downarrow||
-|7|$\leftarrow$|\leftarrow||
-|8|$\Leftarrow$|\Leftarrow||
-|9|$\rightarrow$|\rightarrow||
-|10|$\Rightarrow$|\Rightarrow||
-|11|$\updownarrow$|\updownarrow||
-|12|$\Updownarrow$|\Updownarrow||
-|13|$\leftrightarrow$|\leftrightarrow||
-||$\Leftrightarrow$|\Leftrightarrow||
-||$\Longleftarrow$|\Longleftarrow||
-||$\longleftarrow$|\longleftarrow||
-||$\longrightarrow$|\longrightarrow||
-||$\Longrightarrow$|\Longrightarrow||
-||$\frac{\partial x}{\partial y}$|\frac{\partial x}{\partial y}|偏导数|
-||$\times$|\times|一般乘号|
-||$\cdot$|\cdot|点乘|
-||$\ast$|\ast|乘号|
-||$\circ$|\circ||
-||$180^\circ$|180^\circ|表示摄氏度|
-||$\bigodot$|\bigodot||
-||$\bigotimes$|\bigotimes|克罗内克积|
-||$\pm$|\pm|正负号|
-||$\mp$|\mp|正负号|
-||$\div$|\div|一般除号|
-||$\mid$|\mid|竖线|
-||$\bigoplus$|\bigoplus|异或|
-||$\geqslant$|\geqslant|大于等于|
-||$\leqslant$|\leqslant|小于等于|
-||$\leq$|\leq|大于等于|
-||$\geq$|\geq|小于等于|
-||$\neq$|\neq|不等于|
-||$\equiv$|\equiv|恒等|
-||$\coloneqq$|\coloneqq|定义|
-||$\not ={}$|\not ={}|不等于|
-||$\approx$|\approx|约等于|
-||$\sim$|\sim|约等于|
-||$\propto$|\propto|正比于|
-||$\widehat{=}$|\widehat{=}|相关于|
-||$\lfloor$|\lfloor|下界|
-||$\rfloor$|\rfloor|下界|
-||$\lceil$|\lceil|上界|
-||$\rceil$|\rceil|上界|
-||$\prod$|\prod|连乘|
-||$\prod \limits_{i=1}^n$|\prod \limits_{i=1}^n|连乘示例|
-||$\coprod$|\coprod|N元余积|
-||$\cdots$|\cdots|3个点，表示省略|
-||$\log_{a}{x}$|\log{x}|以a为底的对数|
-||$\ln{x}$|\ln{x}|以e为底的对数|
-||$\lg{x}$|\lg{x}|以10为底的对数|
-||$\propto$|\propto|正比于|
-||$$|||
-||$\sin\theta$|\sin\theta|正弦|
-||$\cos\theta$|\cos\theta|余弦|
-||$\tan\theta$|\tan\theta|正切|
-||$\cot\theta$|\cot\theta|余切|
-||$\arctan\theta$|\tan\theta|反正切|
-||$\arcsin\frac{L}{r}$|\arcsin\frac{L}{r}|反正弦|
-||$\max H$|\max H|最大值|
-||$\log_\alpha x$|\log_\alpha x|以$\alpha$为底的对数|
-||$\gcd(T,U,V,W,X)$|\gcd(T,U,V,W,X)||
-||$\arg x$|\arg x||
-||$a \bmod b$|a \bmod b|求余|
-||$\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}$|\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}|极限|
-||$\lim_{t\to n}T$|\lim_{t\to n}T|极限|
-||$\dot{a}$|\dot{a}|一阶导数，变量上加一个点|
-||$\ddot{a}$|\ddot{a}|二阶导数，变量上加两个点|
-||$\int$|\int|积分|
-||$\int_0^1 {x^2} \,{\rm d}x$|\int_0^1 {x^2} \,{\rm d}x|积分|
-||$\iint$|\iint|双重积分|
-||$\oint$|\oint|曲线积分|
-||$\infty$|\infty|无穷大|
-||$\nabla$|\nabla|梯度|
-||$\because$|\because|因为|
-||$\therefore$|\therefore|所以|
-||$\forall$|\forall|任意|
-||$\exists$|\exists|存在|
-||$\not>$|\not>|不大于|
-||$\not<$|\not<|不小于|
-||$\in$|\in|属于|
-||$\ni$|\ni|属于|
-||$\notin$|\notin|不属于|
-||$\not\ni$|\not\ni|不属于|
-||$\emptyset$|\emptyset|空集|
-||$\subset$|\subset|子集|
-||$\not\subset$|\not\subset|非子集|
-||$\subseteq$|\subseteq|真子集|
-||$\supseteq$|\supseteq||
-||$\top$|\top||
-||$\bot$|\bot|两个几何概念互相垂直；或表示两个事件互相独立|
-||$\complement$|\complement||
-||$\gcup$|\bigcup|并集|
-||$\bigcap$|\bigcap|交集|
-||$\bigvee$|\bigvee|逻辑或|
-||$\bigwedge$|\bigwedge|逻辑与|
-||$\biguplus$|\biguplus|多重集|
-||$\bigsqcup$|\bigsqcup||
-||$\backsim$|\backsim||
-||$\cong$|\cong||
-||$\angle A$|\angle A|角A|
-||$\sin$|\sin||
-||$\cos$|\cos||
-||$\tan$|\tan||
-||$\csc$|\csc||
-||$\sec$|\sec||
-||$\cot$|\cot||
 ||$\alpha$|\alpha|各种希腊字母|
 ||$\beta$|\beta||
 ||$\gamma$|\gamma||
@@ -153,11 +45,88 @@
 ||$\Sigma$|\Sigma||
 ||$\nu$|\nu||
 ||$\xi$|\xi||
+||$\Xi$|\Xi||
 ||$\tau$|\tau||
 ||$\lambda$|\lambda||
 ||$\Lambda$|\Lambda||
 ||$\mu$|\mu||
+||$\Upsilon$|\Upsilon||
 ||$\partial$|\partial||
+||$\aleph$|\aleph||
+||$\beth$|\beth||
+||$\daleth$|daleth||
+||$\gimel$|\gimel||
+||$$|||
+
+|编号|符号|Latex代码|描述|
+|---|---|---|---|
+|1|$\sum\limits_{i=0}^n$|\sum \limits_{i=0}^n|求和|
+|2|$\sum_{i=0}^n$|\sum_{i=0}^n||
+|3|$\Uparrow$|\uparrow|各种箭头|
+|4|$\Uparrow$|\Uparrow||
+|5|$\downarrow$|\downarrow||
+|6|$\Downarrow$|\Downarrow||
+|7|$\leftarrow$|\leftarrow||
+|8|$\Leftarrow$|\Leftarrow||
+|9|$\rightarrow$|\rightarrow||
+|10|$\Rightarrow$|\Rightarrow||
+|11|$\updownarrow$|\updownarrow||
+|12|$\Updownarrow$|\Updownarrow||
+|13|$\leftrightarrow$|\leftrightarrow||
+||$\Leftrightarrow$|\Leftrightarrow||
+||$\Longleftarrow$|\Longleftarrow||
+||$\longleftarrow$|\longleftarrow||
+||$\longrightarrow$|\longrightarrow||
+||$\Longrightarrow$|\Longrightarrow||
+||$\frac{\partial x}{\partial y}$|\frac{\partial x}{\partial y}|偏导数|
+||$180^\circ$|180^\circ|表示摄氏度|
+||$\bigodot$|\bigodot||
+||$\pm$|\pm|正负号|
+||$\mp$|\mp|正负号|
+||$\lfloor$|\lfloor|下界|
+||$\rfloor$|\rfloor|下界|
+||$\lceil$|\lceil|上界|
+||$\rceil$|\rceil|上界|
+||$\prod$|\prod|连乘|
+||$\prod \limits_{i=1}^n$|\prod \limits_{i=1}^n|连乘示例|
+||$\coprod$|\coprod|N元余积|
+||$\cdots$|\cdots|3个点，表示省略|
+||$\log_{a}{x}$|\log{x}|以a为底的对数|
+||$\ln{x}$|\ln{x}|以e为底的对数|
+||$\lg{x}$|\lg{x}|以10为底的对数|
+||$\sin\theta$|\sin\theta|正弦|
+||$\cos\theta$|\cos\theta|余弦|
+||$\tan\theta$|\tan\theta|正切|
+||$\cot\theta$|\cot\theta|余切|
+||$\arctan\theta$|\tan\theta|反正切|
+||$\arcsin\frac{L}{r}$|\arcsin\frac{L}{r}|反正弦|
+||$\max H$|\max H|最大值|
+||$\log_\alpha x$|\log_\alpha x|以$\alpha$为底的对数|
+||$\gcd(T,U,V,W,X)$|\gcd(T,U,V,W,X)||
+||$\arg x$|\arg x||
+||$a \bmod b$|a \bmod b|求余|
+||$\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}$|\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}|极限|
+||$\lim_{t\to n}T$|\lim_{t\to n}T|极限|
+||$\dot{a}$|\dot{a}|一阶导数，变量上加一个点|
+||$\ddot{a}$|\ddot{a}|二阶导数，变量上加两个点|
+||$\int$|\int|积分|
+||$\int_0^1 {x^2} \,{\rm d}x$|\int_0^1 {x^2} \,{\rm d}x|积分|
+||$\iint$|\iint|双重积分|
+||$\oint$|\oint|曲线积分|
+||$\infty$|\infty|无穷大|
+||$\nabla$|\nabla|梯度|
+||$\because$|\because|因为|
+||$\therefore$|\therefore|所以|
+||$\forall$|\forall|任意|
+||$\exists$|\exists|存在|
+||$\complement$|\complement||
+||$\angle A$|\angle A|角A|
+||$\sin$|\sin||
+||$\cos$|\cos||
+||$\tan$|\tan||
+||$\csc$|\csc||
+||$\sec$|\sec||
+||$\cot$|\cot||
 ||$\lbrace \rbrace$|\lbrace \rbrace||
 ||$\hat{y}$|\hat{y}|加帽，一般表示期望|
 ||$\check{y}$|\check{y}||
@@ -204,6 +173,56 @@
 ||$A \overset{some sentence}{=} B$|\overset{some sentence}{=}|文字在等号上面|
 ||$A \underset{some sentence}{=} B$|\underset{some sentence}{=}|文字在等号下面|
 ||$$|||
+
+### 2.6 逻辑运算符或者关系运算法 binary operation/ relation symbols
+
+|编号|符号|Latex代码|描述|
+|---|---|---|---|
+||$\wedge$|\wedge|逻辑且|
+||$\vee$|\vee|逻辑或|
+||$\mid$|\mid|竖线|
+||$\bigoplus$|\bigoplus|异或|
+||$\geqslant$|\geqslant|大于等于|
+||$\leqslant$|\leqslant|小于等于|
+||$\leq$|\leq|大于等于|
+||$\geq$|\geq|小于等于|
+||$\neq$|\neq|不等于|
+||$\equiv$|\equiv|恒等|
+||$\coloneqq$|\coloneqq|定义|
+||$\not ={}$|\not ={}|不等于|
+||$\approx$|\approx|约等于|
+||$\sim$|\sim|约等于|
+||$\propto$|\propto|正比于|
+||$\widehat{=}$|\widehat{=}|相关于|
+||$\cup$|\cup|并集|
+||$\cap$|\cap|交集|
+||$\bigcap$|\bigcap|交集|
+||$\bigvee$|\bigvee|逻辑或|
+||$\bigwedge$|\bigwedge|逻辑与|
+||$\biguplus$|\biguplus|多重集|
+||$\bigsqcup$|\bigsqcup||
+||$\backsim$|\backsim||
+||$\cong$|\cong||
+||$\not>$|\not>|不大于|
+||$\not<$|\not<|不小于|
+||$\in$|\in|属于|
+||$\ni$|\ni|属于|
+||$\notin$|\notin|不属于|
+||$\not\ni$|\not\ni|不属于|
+||$\emptyset$|\emptyset|空集|
+||$\subset$|\subset|子集|
+||$\not\subset$|\not\subset|非子集|
+||$\subseteq$|\subseteq|真子集|
+||$\supseteq$|\supseteq||
+||$\top$|\top||
+||$\bot$|\bot|两个几何概念互相垂直；或表示两个事件互相独立|
+||$\times$|\times|一般乘号|
+||$\cdot$|\cdot|点乘|
+||$\ast$|\ast|乘号|
+||$\circ$|\circ||
+||$\bigotimes$|\bigotimes|克罗内克积|
+||$\div$|\div|一般除号|
+||$\propto$|\propto|正比于|
 
 ## 3. 重要例子和不方便在表格中显示的公式
 
