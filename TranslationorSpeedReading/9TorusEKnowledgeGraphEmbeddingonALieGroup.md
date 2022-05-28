@@ -1,4 +1,4 @@
-# TorusE: Knowledge Graph Embedding on a Lie Group    speed read
+# TorusE: Knowledge Graph Embedding on a Lie Group Translation
 
 ## 摘要
 
@@ -32,7 +32,7 @@
 
 对于link prediction任务而言，TransE是最早基于翻译的模型，由Bordes等人在2013年提出，因为它简单而且有效，因此它非常有名。如果已经通过训练数据将三元组$(h,r,t)$存储在了知识图谱中；那么TransE通过$\boldsymbol{h}+\boldsymbol{r}=\boldsymbol{t}$的原理来将三元组和关系嵌入在一个真实的向量空间上，其中$\boldsymbol{h}$、$\boldsymbol{r}$和$\boldsymbol{t}$分别是$h, r, t$的嵌入表征。虽然它非常的简答，但是这个这个原理能够非常有效的捕捉知识图谱中的结构。已经提出很多TransE的扩展版本。它们包括TransH(Wang et al. 2014)、TransG(Xiao, Huang, and Zhu 2016)和pTransE(Lin et al. 2015a)。另一方面，近期提出了多种双线性模型，比如DistMult(Yang et al. 2014)、HolE(Nickel, Rosasco, and Poggio 2016)和ComplEx(Trouillon et al. 2016)；它们都在link prediction task中的$HITS@\it{1}$上达到了高的准确度。TransE不能在$HITS@\it{1}$上产生比较好的结果，但是TransE能够在$HITS@\it{10}$上和双线性模型一争高下。我们发现产生TransE这种结果的原因是因为它的正则化。在嵌入向量空间中。TransE强制将实体嵌入到了一个球面上。它与TransE的原理相冲突（**这里理解为TransE将实体嵌入到球面上，但是TransE的原理是线性的**）并且扭曲了TransE获得的嵌入表征。这样使得TransE对link predictions的准确度产生不利影响，而TransE又非常需要它，因为嵌入在没有它的情况下会无限发散（diverge unlimitedly）。
 
-本文，我们提出了一种模型通过将实体和关系嵌入到另一个嵌入空间（一个圆环，a torus）中的同时不需要任何正则化，但是和TransE有一样的原理。嵌入空间在TransE的策略下运行需要几个特征。该策略下的模型实际上能在李群的数学对象上很好的定义。通过选在一个紧凑的礼券作为嵌入空间，嵌入不会无限制的发散（diverge unlimitedly）并且不再需要正则化（regularization is no longer required）。因此，对于嵌入空间我们选择一个环，一种紧凑的李群，并提出了一个新颖的模型，TorusE。这个方法允许使用TransE相同原理更准确的学习嵌入表征，并且胜过所有可供选择的link prediction task方法。而且，TorusE可以很好的扩展到大规模的知识图谱上，因为相比于其他的方法它的复杂性是最低的，并且我们展示了TorusE比TransE更快，因为TorusE不需要在计算正则化了。
+本文，我们提出了一种模型通过将实体和关系嵌入到另一个嵌入空间（一个圆环，a torus）中的同时不需要任何正则化，但是和TransE有一样的原理。嵌入空间在TransE的策略下运行需要几个特征。该策略下的模型实际上能在李群的数学对象上很好的定义。通过选在一个紧致李群作为嵌入空间，嵌入不会无限制的发散（diverge unlimitedly）并且不再需要正则化（regularization is no longer required）。因此，对于嵌入空间我们选择一个环，一种紧致的李群，并提出了一个新颖的模型，TorusE。这个方法允许使用TransE相同原理更准确的学习嵌入表征，并且胜过所有可供选择的link prediction task方法。而且，TorusE可以很好的扩展到大规模的知识图谱上，因为相比于其他的方法它的复杂性是最低的，并且我们展示了TorusE比TransE更快，因为TorusE不需要在计算正则化了。
 
 本文其余部分安排如下：在第二节，我们阐述了link prediction task的相关工作。在第三节，我们简要的介绍了最初的基于翻译的方法-TransE，并且涉及正则化的缺陷。然后，分析了从一个嵌入空间找另外一个嵌入空间所需要的条件（这句话感觉翻译得有点问题，附上原文：the conditions required for an embedding space are analyzed to find another embedding space）。在第四节，我们提出通过将一个空间改变为一个环从而获得嵌入表征的方法。这种方法客服了TransE中的正则化缺陷。在第五节，我们展示了我们做的实验，这个实验是将我们的方法和基准数据集的基准结果进行了比较。在第六节，我们总结了本论文。
 
@@ -77,6 +77,15 @@ TransE能够在其他方面得到扩展。在TransG（Xiao, Huang, and Zhu 2016�
 
 ## 3. TransE和它的缺陷
 
+|编号|英语|词性|本文中翻译的中文|理解|
+|---|---|---|---|---|
+||simplify|vt|简化;使简易|/|
+||trivial|adj|不重要的;琐碎的;微不足道的|/|
+||magnitude|n|巨大;重大;重要性;星等;星的亮度;震级|这里翻译为大小|
+||that is|/|也就是说，即|/|
+||conflict|v/n|冲突/矛盾|/|
+||satisfy|v|满足(要求、需要等);使满意;向…证实;使确信|/|
+
 在本节中，我们将阐述TransE的细节，并且展示它的正则化缺陷。在本文的后半部分，我们提出一个和TransE相似策略的新颖的模型来克服以上缺陷。
 
 TransE算法包含以下三个主要部分：
@@ -90,19 +99,51 @@ $$\mathcal{L}=\sum\limits_{(h,r,t)\in \Delta}\sum\limits_{(h',r,t')\in \Delta_{(
 其中$[x]_+$表示x的正向部分，并且$\gamma>0$是一个margin超参数。TransE通过随机梯度下降来训练。
 
 如果实体和关系都被键入到一个真实的向量空间中，三个部分都是必要的。尽管原理和正则化在训练期间是互相矛盾的，因此对于每个$e\in E \text{并且}r \in R, \, \boldsymbol{e}+\boldsymbol{R} \notin S^{n-1}$几乎一直保持不变。因此，在大多数环境下，很少实现原理$\boldsymbol{h}+\boldsymbol{r}=\boldsymbol{t}$，如图1所示。![当$n$等于2时TransE获取嵌入图。它假设$(A,r,A'),(B,r,B')$和$(C,r,C')$保持不变](../pictures/TorusE_Figure1.png "当$n$等于2时TransE获取嵌入图。它假设$(A,r,A'),(B,r,B')$和$(C,r,C')$保持不变")
+在图中，它假设$(A,r,A'),(B,r,B')$和$(C,r,C')$保持不变。点表示实体的嵌入，箭头表示$r$的嵌入。得到$(A,r,A')$的嵌入，使它们完全遵循这一原理。尽管，$\boldsymbol{B}+\boldsymbol{r}$和$\boldsymbol{C}+\boldsymbol{r}$在球的外面，$\boldsymbol{B}'$和$\boldsymbol{C}'$在球上正则化。
 
+正则化扭曲了嵌入表征，并且它们不满足原理。因此，它很难更准确的预测新的三元组。
+
+## 4. TorusE
+
+在本节中，我们的目标是：当和TransE使用相同的原理时，如何改变嵌入空间来解决正则化问题。我们首先认为对于一个向量空间需要加限制条件。然后，李群是一个候选的嵌入空间。最后，我们提出一个新模型TorusE，Toruse将不使用任何正则化来嵌入实体和关系到一个环上。这个环是一个紧致的李群。
+
+### 4.1 对于嵌入空间所需要的条件
+
+为了避免图1中所示的正则化的问题，我们需要从$\mathbb{R}^n$中修改嵌入空间，它是由一个开放的流形到一个[紧致空间](https://baike.baidu.com/item/%E7%B4%A7%E7%A9%BA%E9%97%B4/18916580)中，因为任何实值连续函数在紧致空间中都是有界的。它意味着嵌入绝不会无限制的分散，因为评分函数也是有界的。这允许我们去避免正则化和解决在训练期间原理和正则化之间的冲突。按照TransE的嵌入策略，需要一些嵌入空间的条件。我们将这些条件列表如下：
+
+1. 可微性：通过梯度下降来训练模型，使得目标函数需要能够被微分。因此，一个嵌入空间必须是一个可微的流形。
+2. 可计算性：需要在一个嵌入空间上定义原理。这样做，一个嵌入空间必须具备比如summation和subtraction类似的运算。因此，嵌入空间必须是阿贝尔群，并且群运算必须是可微的。
+3. 评分函数的可定义性：为了在训练模型时构造一个目标函数，评分函数必须要能在其上定义。
+
+如果空间满足上述是哪个条件，并且它是紧致的，我们可以将其作为嵌入空间，并且解决TransE的正则化缺陷。实际上，在TransE的策略中，阿贝尔李群满足所有嵌入空间所要求的条件。我们将在下一阶阐述李群。
+
+### 4.2 李群
+
+李群的理论基础是由Sophus Lie建立的。李群在物理和数学中扮演着多种角色，它定义如下：
+
+定义1：李群是一个群，它是一个有限维光滑的流形，其中乘法和求逆的群运算都是光滑的映射。
+
+当乘法运算满足交换律时，李群也被称为阿贝尔李群。对于一个阿贝尔李群，我们分别用$x+y,x-y\text{和}-x$粉笔表示$\mu(x,y),\,\mu(x,y^{-1})\text{和}x^{-1}$，其中$\mu$是群运算。
+
+由定义可知，阿贝尔李群满足可微性和可计算性。众所周知，在任何流形中都可以定义距离函数$d$。由定义可知，评分函数$\it{f}(h,r,t)=d(h,r,t)$，阿贝尔李群也满足可定义性。作为TransE嵌入空间的实向量空间是阿贝尔李群的一个实例，因为它是以以普通向量加法作为群运算的流形和阿贝尔群。TransE还将距离函数用作从向量空间的范数派生的评分函数。然而，TransE需要正则化，因为实向量空间不是紧致的。
+
+### 4.3 环
+
+我们表明对于基于翻译策略，任意一个阿贝尔李群能被作为嵌入空间。我们介绍环，一个紧致的阿贝尔李群，并且在环上定义距离函数。一个环的定义如下：
+
+定义2：一个n维环$T^n$是一个(商空间)[https://zhuanlan.zhihu.com/p/350169265]，$\mathbb{R}^n/~=\{[\boldsymbol{x}]|\boldsymbol{x}\in \mathbb{R}^n\}=\{\{\boldsymbol{y}\in\mathbb{R}^n|\boldsymbol{y}~\boldsymbol{x}\}|\boldsymbol{x} \in \mathbb{R}^n\}$，其中$~$是等价关系
 
 |编号|英语|词性|本文中翻译的中文|理解|
 |---|---|---|---|---|
-||simplify|vt|简化;使简易|/|
-||trivial|adj|不重要的;琐碎的;微不足道的|/|
-||magnitude|n|巨大;重大;重要性;星等;星的亮度;震级|这里翻译为大小|
-||that is|/|也就是说，即|/|
-||conflict|v/n|冲突/矛盾|/|
-|||||/|
-|||||/|
-|||||/|
-|||||/|
-|||||/|
+||bounded|adj|有界的，有限的|/|
+||differentiability|n|可微性;可微分性|/|
+||differentiable|adj|可微分的|/|
+||summation|n|总和|这个对应的性质没搞清楚。|
+||subtraction|n|减法|/|
+||operation|n|操作，运算|这里翻译为运算最合适。|
+||definability|n|可定义性|/|
+||multiplication|n|乘法|/|
+||inversion|n|求逆|/|
+||it is also known|/|众所周知|/|
 |||||/|
 |||||/|
