@@ -201,6 +201,7 @@
 ||$\bigwedge$|\bigwedge|逻辑与|
 ||$\biguplus$|\biguplus|多重集|
 ||$\bigsqcup$|\bigsqcup||
+||$\sim$|\sim||
 ||$\backsim$|\backsim||
 ||$\cong$|\cong||
 ||$\not>$|\not>|不大于|
