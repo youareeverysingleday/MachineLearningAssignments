@@ -62,22 +62,6 @@
 |---|---|---|---|
 |1|$\sum\limits_{i=0}^n$|\sum \limits_{i=0}^n|求和|
 |2|$\sum_{i=0}^n$|\sum_{i=0}^n||
-|3|$\Uparrow$|\uparrow|各种箭头|
-|4|$\Uparrow$|\Uparrow||
-|5|$\downarrow$|\downarrow||
-|6|$\Downarrow$|\Downarrow||
-|7|$\leftarrow$|\leftarrow||
-|8|$\Leftarrow$|\Leftarrow||
-|9|$\rightarrow$|\rightarrow||
-|10|$\Rightarrow$|\Rightarrow||
-|11|$\updownarrow$|\updownarrow||
-|12|$\Updownarrow$|\Updownarrow||
-|13|$\leftrightarrow$|\leftrightarrow||
-||$\Leftrightarrow$|\Leftrightarrow||
-||$\Longleftarrow$|\Longleftarrow||
-||$\longleftarrow$|\longleftarrow||
-||$\longrightarrow$|\longrightarrow||
-||$\Longrightarrow$|\Longrightarrow||
 ||$\frac{\partial x}{\partial y}$|\frac{\partial x}{\partial y}|偏导数|
 ||$180^\circ$|180^\circ|表示摄氏度|
 ||$\bigodot$|\bigodot||
@@ -224,6 +208,31 @@
 ||$\bigotimes$|\bigotimes|克罗内克积|
 ||$\div$|\div|一般除号|
 ||$\propto$|\propto|正比于|
+||$\triangleq$|\triangleq||
+
+### 2.7 箭头符号 arrorw symbols
+
+|编号|符号|Latex代码|描述|
+|---|---|---|---|
+||$\Uparrow$|\uparrow|各种箭头|
+||$\Uparrow$|\Uparrow||
+||$\downarrow$|\downarrow||
+||$\Downarrow$|\Downarrow||
+||$\leftarrow$|\leftarrow||
+||$\Leftarrow$|\Leftarrow||
+||$\rightarrow$|\rightarrow||
+||$\Rightarrow$|\Rightarrow||
+||$\updownarrow$|\updownarrow||
+||$\Updownarrow$|\Updownarrow||
+||$\leftrightarrow$|\leftrightarrow||
+||$\Leftrightarrow$|\Leftrightarrow||
+||$\Longleftrightarrow$|\Longleftrightarrow||
+||$\Longleftarrow$|\Longleftarrow||
+||$\longleftarrow$|\longleftarrow||
+||$\longrightarrow$|\longrightarrow||
+||$\Longrightarrow$|\Longrightarrow||
+||$\mapsto$|\mapsto||
+||$\longmapsto$|\longmapsto||
 
 ## 3. 重要例子和不方便在表格中显示的公式
 

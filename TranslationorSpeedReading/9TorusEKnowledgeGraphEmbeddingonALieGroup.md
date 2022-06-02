@@ -105,6 +105,19 @@ $$\mathcal{L}=\sum\limits_{(h,r,t)\in \Delta}\sum\limits_{(h',r,t')\in \Delta_{(
 
 ## 4. TorusE
 
+|编号|英语|词性|本文中翻译的中文|理解|
+|---|---|---|---|---|
+||bounded|adj|有界的，有限的|/|
+||differentiability|n|可微性;可微分性|/|
+||differentiable|adj|可微分的|/|
+||summation|n|总和|这个对应的性质没搞清楚。|
+||subtraction|n|减法|/|
+||operation|n|操作，运算|这里翻译为运算最合适。|
+||definability|n|可定义性|/|
+||multiplication|n|乘法|/|
+||inversion|n|求逆|/|
+||it is also known|/|众所周知|/|
+
 在本节中，我们的目标是：当和TransE使用相同的原理时，如何改变嵌入空间来解决正则化问题。我们首先认为对于一个向量空间需要加限制条件。然后，李群是一个候选的嵌入空间。最后，我们提出一个新模型TorusE，Toruse将不使用任何正则化来嵌入实体和关系到一个环上。这个环是一个紧致的李群。
 
 ### 4.1 对于嵌入空间所需要的条件
@@ -131,19 +144,95 @@ $$\mathcal{L}=\sum\limits_{(h,r,t)\in \Delta}\sum\limits_{(h',r,t')\in \Delta_{(
 
 我们表明对于基于翻译策略，任意一个阿贝尔李群能被作为嵌入空间。我们介绍环，一个紧致的阿贝尔李群，并且在环上定义距离函数。一个环的定义如下：
 
-定义2：一个n维环$T^n$是一个(商空间)[https://zhuanlan.zhihu.com/p/350169265]，$\mathbb{R}^n/~=\{[\boldsymbol{x}]|\boldsymbol{x}\in \mathbb{R}^n\}=\{\{\boldsymbol{y}\in\mathbb{R}^n|\boldsymbol{y}~\boldsymbol{x}\}|\boldsymbol{x} \in \mathbb{R}^n\}$，其中$~$是等价关系
+定义2：一个n维环$T^n$是一个[商空间](https://zhuanlan.zhihu.com/p/350169265)，$\mathbb{R}^n/\sim=\{[\boldsymbol{x}]|\boldsymbol{x}\in \mathbb{R}^n\}=\{\{\boldsymbol{y}\in\mathbb{R}^n|\boldsymbol{y}~\boldsymbol{x}\}|\boldsymbol{x} \in \mathbb{R}^n\}$，其中$\sim$是等价关系，并且如果$\boldsymbol{y}\sim \boldsymbol{x}$，当且仅当$\boldsymbol{y}-\boldsymbol{x} \in \mathbb{Z}^n$。
+
+通过自然投影（the natural projection）$\pi:\mathbb{R}^n \rightarrow \it{T}^n, \, x \mapsto [x]$从向量空间导出了圆环的拓扑和微分结构。记为$g:\it{T}^n \rightarrow \it{S}^n \subset \mathbb{C}^n,[x] \mapsto exp(2\pi i x)$是一个微分同胚，并且$\it{T}^n$是$\underbrace{S^1 \times S^1 \times \cdots \times S^1}_{n}$的微分同胚。群操作来源于原向量空间：$\mu([x],[y])=[x]+[y]\triangleq [x+y]$。环是具有以上结构和群操作的紧凑阿贝尔李群。我们以三种方式定义距离函数：
+
+1. $d_{L_1}$：在$\it{T}^n$上的距离函数$d_{L_1}$是通过定义$d_{L_1}([x],[y])=min_{(x',y')\in [x] \times [y]}||x' -y'||_1$，由原向量空间的$L_1$范数导出的。
+2. $d_{L_2}$：在$\it{T}^n$上的距离函数$d_{L_2}$是通过定义$d_{L_2}([x],[y])=min_{(x',y')\in [x] \times [y]}||x' -y'||_2$，由原向量空间的$L_2$范数导出的。
+3. $d_{eL_2}$：通过$g$，$\it{T}^n$能被嵌入在$\mathbb{C}^n$上。在$\it{T}^n$上的距离函数$d_{eL_2}$是通过定义$d_{eL_2}([x],[y])=||g([x])-g([y])||_2$，由$\mathbb{C}^n$上的$L_2$范数导出的。
+
+在下面章节中，我们模型的评分函数将用到上面三种距离函数。
+
+### 4.4 ToruseE
 
 |编号|英语|词性|本文中翻译的中文|理解|
 |---|---|---|---|---|
-||bounded|adj|有界的，有限的|/|
-||differentiability|n|可微性;可微分性|/|
-||differentiable|adj|可微分的|/|
-||summation|n|总和|这个对应的性质没搞清楚。|
-||subtraction|n|减法|/|
-||operation|n|操作，运算|这里翻译为运算最合适。|
-||definability|n|可定义性|/|
-||multiplication|n|乘法|/|
-||inversion|n|求逆|/|
-||it is also known|/|众所周知|/|
+||if and only if|/|当且仅当|/|
+||derive|v|得到;获得;取得;(使)起源;(使)产生|/|
+||derived from|/|来源于|/|
+||diffeomorphism|n|微分同型/**微分同胚**|[微分同形的理解](https://zhuanlan.zhihu.com/p/33760941)]。目前完全没有概念。是在几何拓扑学中微分流形的一个概念。在学术专有名词查询中称其为微分同胚。|
+||derivative|n|导数|本意是：派生词; 衍生字 ;派生物;衍生物|
+||vanishing point|n|灭点或者合点点或者消失点|还不确定其含义。|
+||corresponding diagonal matrix|/|对应的对角矩阵|/|
+||hence|adv|因此|/|
+||fractional|||/|
+||hold|/|保持|这里主要有两种含义：一种是保持不变，用作动词；还有一种是使得...成立，也应该是动词或者形容词 表示一种成立的状态。|
+||obtain|V|获得、得到|/|
+
+TransE假设实体和关系的嵌入在$\mathbb{R}^n$。如果对于TransE，$(h,r,t)$一直不变，嵌入必须满足原则$\boldsymbol{h}+\boldsymbol{r}=\boldsymbol{t}$；另外，$\boldsymbol{h}+\boldsymbol{r}$必须远离$\boldsymbol{t}$。我们提出的模型，TorusE也满足以下原则，但是嵌入空间从一个向量空间变为了一个环。为了阐明这个策略，我们利用上节中描述的三个距离函数来定义评分函数：
+
+1. $\it{f}_{L_1}$：我们定义评分函数$\it{f}_{L_1}(h,r,t)$为$2d_{L_1}([\boldsymbol{h},\boldsymbol{r},\boldsymbol{t}])$。
+2. $\it{f}_{L_2}$：我们定义评分函数$\it{f}_{L_2}(h,r,t)$为$4d_{L_2}^2([\boldsymbol{h},\boldsymbol{r},\boldsymbol{t}])$。
+3. $\it{f}_{eL_2}$：我们定义评分函数$\it{f}_{eL_2}(h,r,t)$为$\frac{2d_{eL_2}^2([\boldsymbol{h},\boldsymbol{r},\boldsymbol{t}])}{4}$。
+
+这些评分函数都做了归一化处理，使得它们的最大值为$n$。![这些评分函数和它们的导数如图2中所示](../pictures/TorusE_Figure2.png)。虽然$\it{f}_{L_1}$、$\it{f}_{L_2}$和$\it{f}_{eL_2}$的导数差别很大，但是它们看起来还是比较类似的。$\it{f}'_{L_1}$是一个常数，$\it{f}_{L_2}'$在$x=0$时有一个vanishing point，$\it{f}_{eL_2}$在$x=0\, and \, x=0.5$时有两个vanishing point。以上通过梯度下降学习影响了获得的嵌入（翻译得有点不通顺。附上原文These affect the obtained embeddings through gradient descent learning）。
+
+对于TorusE而言，每个在$e \in E$中的实体和在$r \in E$中的关系都通过$[e] \in \it{T}^n \, and \, [r]\in \it{T}^n$来分别表示。因此，原则重写为以下形式：
+
+$$[\boldsymbol{h}] + [\boldsymbol{r}] = [\boldsymbol{t}] \tag{2}$$
+
+并且通过将下面的目标函数最小化来获得嵌入：
+
+$$\mathcal{L}=\sum\limits_{(h,r,t)\in \Delta}\sum\limits_{(h',r,t')\in \Delta_{(h,r,t)}'}[\gamma + \it{f}_d(h,r,t)-\it{f}_d(h',r,t')]_+ \tag{3}$$
+
+其中，$[x]_+$表示x的正向部分，并且$\gamma>0$是一个margin超参数，并且$\it{f}_d \in \{\it{f}_{L_1},\it{f}_{L_2},\it{f}_{eL_2}\}$。TorusE不需要任何正则化，因此也不需要任何计算正则化的时间，因此，TorusE的可扩展性要优于TransE。![通过TorusE获得嵌入如图3所示](../pictures/TorusE_Figure3.png)。
+
+评分函数和相关模型的复杂度详见表1。
+
+表1：使用三元组$(h,r,t)$的相关工作中使用的评分函数、参数和复杂度。
+|模型|评分函数|参数|时间复杂度$O_{time}$|空间复杂度$O_{space}$|
+|---|---|---|---|---|
+|TransE|$\|\|\boldsymbol{h}+\boldsymbol{r}-\boldsymbol{t}\|\|_i$|$\boldsymbol{h},\boldsymbol{r},\boldsymbol{t} \in \mathbb{R}^n$|$O(n)$|$O(n)$|
+|TransH|$\|\|(\boldsymbol{h}-\boldsymbol{w}_r^T\boldsymbol{h}\boldsymbol{w}_r)+\boldsymbol{r}-(\boldsymbol{t}-\boldsymbol{w}_r^T\boldsymbol{t}\boldsymbol{w}_r)\|\|_i$|$\boldsymbol{h},\boldsymbol{r},\boldsymbol{t}, \boldsymbol{w}_r \in \mathbb{R}^n$|$O(n)$|$O(n)$|
+|TransR|$\|\|\boldsymbol{W}_r\boldsymbol{h}+\boldsymbol{r}-\boldsymbol{W}_r\boldsymbol{t}\|\|_i$|$\boldsymbol{h},\boldsymbol{t}\in \mathbb{R}^n ,\boldsymbol{r} \in \mathbb{R}^k, \boldsymbol{W}_r\in \mathbb{R}^{k \times n}$|$O(kn)$|$O(kn)$|
+|RESCAL|$\boldsymbol{h}^T\boldsymbol{W}_r\boldsymbol{t}$|$\boldsymbol{h},\boldsymbol{t}\in \mathbb{R}^n,\boldsymbol{W}_r \in \mathbb{R}^{n \times n}$|$O(n^2)$|$O(n^2)$|
+|DistMult|$\boldsymbol{h}^T diag(\boldsymbol{r})\boldsymbol{t}$|$\boldsymbol{h},\boldsymbol{r},\boldsymbol{t} \in \mathbb{R}^n$|$O(n)$|$O(n)$|
+|ComplEx|$Re(\boldsymbol{h}^T diag(\boldsymbol{r})\overline{\boldsymbol{t}})$|$\boldsymbol{h},\boldsymbol{r},\boldsymbol{t} \in \mathbb{C}^n$|$O(n)$|$O(n)$|
+|NTN|$\boldsymbol{u}_r^T \tanh(\boldsymbol{h}^T \boldsymbol{W}_r^{[1:k]} \boldsymbol{t} + \boldsymbol{V}_{r,h} \boldsymbol{h} + \boldsymbol{V}_{r,t} \boldsymbol{t} + \boldsymbol{b}_r)$|$\boldsymbol{h},\boldsymbol{t}\in \mathbb{R}^n,\boldsymbol{u}_r, \boldsymbol{b}_r \in \mathbb{R}^k, \boldsymbol{W}_r^{[1:k]} \in \mathbb{R}^{k \times n \times n}, \boldsymbol{V}_{r,h}, \boldsymbol{V}_{r,t} \in \mathbb{R}^{k \times n}$|$O(kn^2)$|$O(kn^2)$|
+|TorusE|$min_{(x,y)\in([\boldsymbol{h}] + [\boldsymbol{r}] )\times [\boldsymbol{t}]}\|\|\boldsymbol{x}-\boldsymbol{y}\|\|_i$|$\boldsymbol{[h]},\boldsymbol{[r]},\boldsymbol{[t]} \in \mathbb{T}^n$|$O(n)$|$O(n)$|
+
+尽管ComplEx是一个双线性模型，TorusE是一个基于翻译的模型，它们之间非常相似。通过$g$将$\boldsymbol{[h]},\boldsymbol{[r]}\, and \,\boldsymbol{[t]}$映射到$\mathbb{C}^n$上，并且将$g([r])$识别为对应的对角矩阵，使得$-2\it{f}_{eL_2}(h,r,t)+1=\it{f}_{ComplEx}(h,r,t)$成立。训练双线性模型以最大化三元组的分数，而训练基于翻译的模型以最小化三元组的分数为目标。因此，带有$\it{f}_{eL_2}$的ToruE可以认为是在$\it{T}^n \subset \mathbb{C}^n$上的受到更多限制和更少冗余的ComplEx。
+
+注意TransE的一些扩展，诸如TransG和pTransE，通过将嵌入空间从一个真实的向量空间变为一个环而直接应用于TorusE。
+
+**一个环的计算技术**
+每个嵌入都通过环上的一个点$[x]$来表示。注意，$x$它是一个n维的向量，并且在一个计算机上我们使用它来表示环的一个点。通过取一个向量的分数部分（a fractional part of a vector），我们可以使得环上的一个点与嵌入向量变成一对一的关系，因此我们可以计算评分函数。例如，我们展示了$d_{L_1}$的计算过程。设$\pi_{frac}:\mathbb{R} \rightarrow[0,1)$是取小数部分的函数。然后，举例使用下列公式计算：$d_{L_1}([\boldsymbol{x}],[\boldsymbol{y}])=\sum\limits_{i=1}^{n} min(|\pi_{frac}(x_i)-\pi_{frac}(y_i)|, 1-|\pi_{frac}(x_i)-\pi_{frac}(y_i)|)$。例如，设$\boldsymbol{x}=3.01 ,\, \boldsymbol{y}=0.99,\, \boldsymbol{x},\boldsymbol{y}\in \mathbb{R}^1$。然后$|\pi_{frac}(x_i)-\pi_{frac}(y_i)|=0.98,\, and \, 1-|\pi_{frac}(x_i)-\pi_{frac}(y_i)|=0.02$成立。因此，我们得到$d_{L_1}([x],[y])=0.02$。其他的距离函数通过类似的方法来计算。
+
+## 5. 实验
+
+我们通过2个角度来评估TorusE。其中一个是它的可伸缩性；另一个是对于link predicion任务中的精度。
+
+### 5.1 数据集
+
+实验包含两个基准数据集：WN18和FB15K（Bordes et al.2013）。这两个数据集分别来自真实的知识图谱中：WordNet（Miller 1995）和Freebase（Bollacker et al. 2008）。很多研究者使用这两个数据集来评估知识图谱完成的模型。数据集的详细信息见表2。
+
+表2：数据集统计信息
+|数据集|#Ent|#Rel|#Train|#Valid|#Test|
+|---|---|---|---|---|---|
+|WN18|40,943|18|141,442|5,000|5,000|
+|FB15K|14,951|1,345|483,142|50,000|59,071|
+
+
+|编号|英语|词性|本文中翻译的中文|理解|
+|---|---|---|---|---|
+||benchmark|n/vt|基准/检测（用基准问题测试）|/|
+|||||/|
+|||||/|
+|||||/|
+|||||/|
+|||||/|
+|||||/|
+|||||/|
 |||||/|
 |||||/|
