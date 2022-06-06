@@ -221,7 +221,7 @@
 ||$\leftarrow$|\leftarrow||
 ||$\Leftarrow$|\Leftarrow||
 ||$\rightarrow$|\rightarrow||
-||$\Rightarrow$|\Rightarrow||
+||$\Rightarrow$|\Rightarrow|推出|
 ||$\updownarrow$|\updownarrow||
 ||$\Updownarrow$|\Updownarrow||
 ||$\leftrightarrow$|\leftrightarrow||
@@ -233,6 +233,9 @@
 ||$\Longrightarrow$|\Longrightarrow||
 ||$\mapsto$|\mapsto||
 ||$\longmapsto$|\longmapsto||
+||$\nRightarrow$|\nRightarrow|不能推出|
+||$\nLeftarrow$|\nLeftarrow||
+||$\nLeftrightarrow$|\nLeftrightarrow||
 
 ## 3. 重要例子和不方便在表格中显示的公式
 
