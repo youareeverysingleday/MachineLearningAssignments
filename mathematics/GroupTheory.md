@@ -106,8 +106,8 @@
 
 1. 定义：在一个群G下的一个集合H也是群，那么称H为G的一个子群。$H \subset G$。
 2. 平凡子群：显然，单位元构成的子群是G的一个子群。群G也是自己的一个子群。这两种群称为群G的平凡子群。**一般不研究平凡子群，都是研究不平凡子群**。
-3. 研究的问题：$H \subseteq G,\,h_i \in H, \,g_i \notin H,\, g_i \in G. \; \text{求} g_iH \overset{?}{\Rightarrow} ?,\, \text{也就是求}g_i\text{与H计算之后和H、G之间的关系是什么样的}.$
-   1. 证明
+3. 研究的问题（对于非平凡子群而言）：$H \subseteq G,\,h_i \in H, \,g_i \notin H,\, g_i \in G. \; \text{求} g_iH \overset{?}{\Rightarrow} ?,\, \text{也就是求}g_i\text{与H计算之后和H、G之间的关系是什么样的}.$
+   1. 证明非平凡子群中的陪集一定和子群不相等。
       $$
       \begin{aligned}
          & \text{可以不失一般性的假设}g_i \notin H,\, g_i \in G,\, \text{设}g_iH=H \\
@@ -120,6 +120,43 @@
    1. 陪集中的元素是互异的。
    2. 陪集中元素的个数和子群中元素的个数相同。
    3. $g_i \in G ,\, g_j \in G,\, g_i \neq g_j \Rightarrow g_iH \text{和} g_jH\text{之间有可能相等，也有可能不相等。同时它们之间可能存在交集}$。
+   4. 如果子群的2个陪集之间存在公共元素（存在交集），实际上这2个陪集是同一个集合。
+
+      证明
+      $$
+         \begin{aligned}
+            & \text{不失一般性的假设：}H_1 = g_1H, H_2 =g_2H \text{是子群H的两个有交集的陪集。} \\
+            & \text{其中}g_1\neq g_2, H_1 \neq H, H_2 \neq H\\
+            & h_1 \neq h_2 ,h_1 \in H_1, h_2 \in H_2, \\
+            & h_3=h_4 \in H_1 \cap H_2 = H_3\\
+            & \Rightarrow g_1 h_1 \neq g_2 h_2 \\
+            & g_1 h_3 = g_2 h_4 \\
+            & \Rightarrow g_1 = g_2 h_4 h_3^{-1} \\
+            & \because h_3 = h_4 \in H_1 \cap H_2 \\
+            & \therefore g_1 = g_2 \text{与题设矛盾。因此一旦存在交集，两个陪集就是相同的陪集。}
+         \end{aligned}
+      $$
+
+      这个视频里面的证明先以为有问题，实际上是对的：
+      $$
+         \begin{aligned}
+            & \text{不失一般性的设某个子群的2个陪集分别是：}g_1H, g_2H \\
+            & \because g_1H, g_2H\text{之间存在交集，不失一般性的设两个陪集之间存在一个公共元素为}g_1h_1 = g_2h_2 \\
+            & \Rightarrow g_1 = g_2h_2h_1^{-1} \\
+            & \text{令：}h_3 = h_2h_1^{-1} \\
+            & g_1H = g_2h_3H \\
+            & \because \text{群的封闭性} \\
+            & \therefore h_3H \in H \\
+            & g_1H = g_2h_3H = g_2H \\
+            & \text{两个陪集完全相等。}
+         \end{aligned}
+      $$
+
+5. 拉格朗日定理：可以通过子群和陪集来划分群。设有限群$G$的阶为$|G|=n$，$G$的一个子群$H$的阶为$|H|=m$。存在一个正整数$x$使得$n=xm$。
+   1. 一个群的子群的个数一定是群的阶数的因子。
+   2. 通过群的阶数可以判断该群是否含有非平凡子群。举例：一个阶数为6的群，最多只可能有2阶和3阶非平凡子群。
+6. 综合共轭的分类方法和拉格朗日定理，可以得到共轭分类时能分类的种类的数量一定是$|G|$的因子数。
+   1. 如果一个共轭分法为：$A\subseteq G,|G|=n ,\text{定义共轭为：}gAg_{-1}=A, g\text{取遍}G\text{中所有元素。} \Rightarrow |\{g|gAg^{-1}=A\}|=m, x=\frac{n}{m}$
 
 ## 群的研究目标和作用
 
