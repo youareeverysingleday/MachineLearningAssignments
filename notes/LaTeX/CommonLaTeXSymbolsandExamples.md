@@ -97,14 +97,8 @@
 ||$\int_0^1 {x^2} \,{\rm d}x$|\int_0^1 {x^2} \,{\rm d}x|积分|
 ||$\iint$|\iint|双重积分|
 ||$\oint$|\oint|曲线积分|
-||$\infty$|\infty|无穷大|
-||$\nabla$|\nabla|梯度|
 ||$\because$|\because|因为|
 ||$\therefore$|\therefore|所以|
-||$\forall$|\forall|任意|
-||$\exists$|\exists|存在|
-||$\complement$|\complement||
-||$\angle A$|\angle A|角A|
 ||$\sin$|\sin||
 ||$\cos$|\cos||
 ||$\tan$|\tan||
@@ -131,9 +125,6 @@
 ||$\mathbb{R}^{m\times n}$|\mathbb{R}^{m\times n}|实数集|
 ||$\mathbb{A}$|\mathbb{A}|无理集|
 ||$\mathbb{C}$|\mathbb{C}|复数集|
-||$\ddots$|\ddots|斜着三点，注意没有反斜线的三点|
-||$\cdots$|\cdots|横着三点|
-||$\vdots$|\vdots|竖着三点|
 ||$\sqrt{2}$|\sqrt{2}|开方|
 ||$1\quad 2$|\quad|空格|
 ||$1\qquad 2$|\qquad|空2个格|
@@ -201,7 +192,7 @@
 ||$\supseteq$|\supseteq||
 ||$\top$|\top||
 ||$\bot$|\bot|两个几何概念互相垂直；或表示两个事件互相独立|
-||$\times$|\times|一般乘号|
+||$\times$|\times|一般乘号、乘法、叉|
 ||$\cdot$|\cdot|点乘|
 ||$\ast$|\ast|乘号|
 ||$\circ$|\circ||
@@ -209,6 +200,8 @@
 ||$\div$|\div|一般除号|
 ||$\propto$|\propto|正比于|
 ||$\triangleq$|\triangleq||
+||$\bigcirc$|\bigcirc|圆圈|
+||$$|||
 
 ### 2.7 箭头符号 arrorw symbols
 
@@ -236,6 +229,29 @@
 ||$\nRightarrow$|\nRightarrow|不能推出|
 ||$\nLeftarrow$|\nLeftarrow||
 ||$\nLeftrightarrow$|\nLeftrightarrow||
+||$$|||
+
+### 2.8 杂项符号 miscellaneous symbols
+
+|编号|符号|Latex代码|描述|
+|---|---|---|---|
+||$\forall$|\forall|任意|
+||$\exists$|\exists|存在|
+||$\nexists$|\nexists|不存在|
+||$\complement$|\complement||
+||$\angle A$|\angle A|角A|
+||$\measuredangle A$|\measuredangle A|测量角|
+||$\surd$|\surd|勾、正确的|
+||$\square$|\square|方块|
+||$\varnothing$|\varnothing|空变量|
+||$\emptyset$|\emptyset|空集|
+||$\ddots$|\ddots|斜着三点，注意没有反斜线的三点|
+||$\cdots$|\cdots|横着三点|
+||$\vdots$|\vdots|竖着三点|
+||$\ldots$|\ldots|横着三点|
+||$\infty$|\infty|无穷大|
+||$\nabla$|\nabla|梯度|
+||$$|||
 
 ## 3. 重要例子和不方便在表格中显示的公式
 
@@ -271,7 +287,34 @@ $$
 $$x+y = z \tag{1.1}$$
     代码：x+y = z \tag{1.1}
 
-4. 数据表，没有具体含义：
+4. 最常用的多行公式或者证明过程可以使用：
+$$
+    \begin{aligned}
+    & \text{不失一般性的设某个子群的2个陪集分别是：}g_1H, g_2H \\
+    & \because g_1H, g_2H\text{之间存在交集，不失一般性的设两个陪集之间存在一个公共元素为}g_1h_1 = g_2h_2 \\
+    & \Rightarrow g_1 = g_2h_2h_1^{-1} \\
+    & \text{令：}h_3 = h_2h_1^{-1} \\
+    & g_1H = g_2h_3H \\
+    & \because \text{群的封闭性} \\
+    & \therefore h_3H \in H \\
+    & g_1H = g_2h_3H = g_2H \\
+    & \text{两个陪集完全相等。}
+    \end{aligned}
+$$
+    代码：
+    \begin{aligned}
+    & \text{不失一般性的设某个子群的2个陪集分别是：}g_1H, g_2H \\
+    & \because g_1H, g_2H\text{之间存在交集，不失一般性的设两个陪集之间存在一个公共元素为}g_1h_1 = g_2h_2 \\
+    & \Rightarrow g_1 = g_2h_2h_1^{-1} \\
+    & \text{令：}h_3 = h_2h_1^{-1} \\
+    & g_1H = g_2h_3H \\
+    & \because \text{群的封闭性} \\
+    & \therefore h_3H \in H \\
+    & g_1H = g_2h_3H = g_2H \\
+    & \text{两个陪集完全相等。}
+    \end{aligned}
+
+5. 数据表，没有具体含义：
 $$
 \begin{matrix}
 a_{11} & a_{12} & \cdots & a_{1n} \\
@@ -288,7 +331,7 @@ $$
     \vdots & \vdots & \ddots & \vdots \\
     a_{n1} & a_{n2} & \cdots & a_{nn}
     \end{matrix}
-5. 注意在{array}后面有个{l}是必须的。
+6. 注意在{array}后面有个{l}是必须的。
 $$
 \begin{array}{l}
 a & b \\
@@ -299,7 +342,7 @@ c & d
         a & b \\
         c & d
         \end{array}
-6. 行列式：
+7. 行列式：
     $$
     \boldsymbol{D}=\begin{vmatrix}
         a_{11} & \cdots & a_{1k} &   &   &   \\
@@ -337,7 +380,7 @@ c & d
         a_{n1} & a_{n2} & \cdots & a_{nn}
         \end{vmatrix}
 
-7. 矩阵：
+8. 矩阵：
 $$\boldsymbol{D}=
 \begin{bmatrix}
 a & b \\
@@ -350,7 +393,7 @@ c & d
         c & d
         \end{bmatrix}
 
-8. 分段公式：
+9. 分段公式：
 $$L(Y,f(x))=
 \begin{cases}
 1, Y!=f(x) \\
@@ -363,7 +406,7 @@ $$L(Y,f(x))=
         0, Y = f(x)
         \end{cases}
 
-9. 多行公式，[参考](https://blog.csdn.net/hu3350261/article/details/104902011)：
+10. 多行公式，[参考](https://blog.csdn.net/hu3350261/article/details/104902011)。**注意这个equation是带编号的，如果不需要带编号的直接使用aligned就可以了**。：
 
 $$
 \begin{equation}
