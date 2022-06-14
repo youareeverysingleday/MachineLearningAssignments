@@ -75,22 +75,6 @@
 ||$\prod \limits_{i=1}^n$|\prod \limits_{i=1}^n|连乘示例|
 ||$\coprod$|\coprod|N元余积|
 ||$\cdots$|\cdots|3个点，表示省略|
-||$\log_{a}{x}$|\log{x}|以a为底的对数|
-||$\ln{x}$|\ln{x}|以e为底的对数|
-||$\lg{x}$|\lg{x}|以10为底的对数|
-||$\sin\theta$|\sin\theta|正弦|
-||$\cos\theta$|\cos\theta|余弦|
-||$\tan\theta$|\tan\theta|正切|
-||$\cot\theta$|\cot\theta|余切|
-||$\arctan\theta$|\tan\theta|反正切|
-||$\arcsin\frac{L}{r}$|\arcsin\frac{L}{r}|反正弦|
-||$\max H$|\max H|最大值|
-||$\log_\alpha x$|\log_\alpha x|以$\alpha$为底的对数|
-||$\gcd(T,U,V,W,X)$|\gcd(T,U,V,W,X)||
-||$\arg x$|\arg x||
-||$a \bmod b$|a \bmod b|求余|
-||$\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}$|\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}|极限|
-||$\lim_{t\to n}T$|\lim_{t\to n}T|极限|
 ||$\dot{a}$|\dot{a}|一阶导数，变量上加一个点|
 ||$\ddot{a}$|\ddot{a}|二阶导数，变量上加两个点|
 ||$\int$|\int|积分|
@@ -99,12 +83,6 @@
 ||$\oint$|\oint|曲线积分|
 ||$\because$|\because|因为|
 ||$\therefore$|\therefore|所以|
-||$\sin$|\sin||
-||$\cos$|\cos||
-||$\tan$|\tan||
-||$\csc$|\csc||
-||$\sec$|\sec||
-||$\cot$|\cot||
 ||$\lbrace \rbrace$|\lbrace \rbrace||
 ||$\hat{y}$|\hat{y}|加帽，一般表示期望|
 ||$\check{y}$|\check{y}||
@@ -147,6 +125,45 @@
 ||$\color{red}{Latex}$|\color{red}{Latex}|给文字添加颜色，相关颜色详见下面的例子|
 ||$A \overset{some sentence}{=} B$|\overset{some sentence}{=}|文字在等号上面|
 ||$A \underset{some sentence}{=} B$|\underset{some sentence}{=}|文字在等号下面|
+||$$|||
+
+### 2.5 标准函数名 standard function names
+
+|编号|符号|Latex代码|描述|
+|---|---|---|---|
+||$\arccos$|\arccos|反余弦|
+||$\arcctg$|\arcctg|反余切|
+||$\arcsin$|\arcsin|反正弦|
+||$\arctan$|\arctan|反正切|
+||$\cos$|\cos|余弦|
+||$\csc$|\csc|余割|
+||$\ctg$|\ctg|余切|
+||$\exp$|\exp|以e为底的指数|
+||$\lg$|\lg|以10为底的对数|
+||$\lim$|\lim|求极限|
+||$\ln$|\ln|以e为底的对数|
+||$\log$|\log|对数|
+||$\min$|\min|求最小值|
+||$\max$|\max|求最大值|
+||$\Pr$|\Pr|求概率|
+||$\sin$|\sin|正弦|
+||$\tan$|\tan|正切|
+||$\log_{a}{x}$|\log{x}|以a为底的对数|
+||$\ln{x}$|\ln{x}|以e为底的对数|
+||$\lg{x}$|\lg{x}|以10为底的对数|
+||$\sin\theta$|\sin\theta|正弦|
+||$\cos\theta$|\cos\theta|余弦|
+||$\tan\theta$|\tan\theta|正切|
+||$\cot\theta$|\cot\theta|余切|
+||$\arctan\theta$|\tan\theta|反正切|
+||$\arcsin\frac{L}{r}$|\arcsin\frac{L}{r}|反正弦|
+||$\max H$|\max H|最大值|
+||$\log_\alpha x$|\log_\alpha x|以$\alpha$为底的对数|
+||$\gcd(T,U,V,W,X)$|\gcd(T,U,V,W,X)||
+||$\arg x$|\arg x||
+||$a \bmod b$|a \bmod b|求余|
+||$\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}$|\lim \limits_{\rho \rightarrow 0} \frac{\Delta x}{\Delta y}|极限|
+||$\lim_{t\to n}T$|\lim_{t\to n}T|极限|
 ||$$|||
 
 ### 2.6 逻辑运算符或者关系运算法 binary operation/ relation symbols

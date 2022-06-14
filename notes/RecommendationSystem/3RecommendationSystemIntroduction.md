@@ -127,14 +127,46 @@
 |点击日志|click log|如果用户点击了某个结果，这个点击信息会被服务器截获并存储在点击日志。||
 |显性反馈行为|explicit feedback|这里的主要方式就是评分和喜欢/不喜欢。|需要按照不同的目标来设计评分系统。|
 |隐性反馈行为|implicit feedback|||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
+|无上下文信息的隐性反馈数据集||每一条行为记录仅仅包含用户ID和物品ID。Book-Crossing就是这种类型的数据集。||
+|无上下文信息的显性反馈数据集||每一条记录包含用户ID、物品ID和用户对物品的评分。||
+|有上下文信息的隐性反馈数据集||每一条记录包含用户ID、物品ID和用户对物品产生行为的时间戳。Lastfm数据集就是这种类型的数据集。||
+|有上下文信息的显性反馈数据集||每一条记录包含用户ID、物品ID、用户对物品的评分和评分行为发生的时间戳。Netflix Prize提供的就是这种类型的数据集。||
 
-P54
+**上下文感觉就是是否包含时序信息**。
+
+长尾分布是满足$f(x)=\alpha x^k$。。令$f_u(k)$为对$k$个物品产生过行为的用户数，令$f_i(k)$为被$k$个用户产生过行为的物品数。那么，$f_u(k)$和$f_i(k)$都满足长尾分布。$f_u(k)=\alpha_u k^{\beta_u}, \, f_i(k)= \alpha_i (k)^{\beta_i}$。
+
+### 常用协同过滤算法
+
+1. 基于邻域的方法（neighborhood-based）
+2. 隐语义模型（latent factor model）
+3. 基于图的随机游走算法（random walk on graph）
+
+### Jaccard相似系数
+
+1. 参考<https://blog.csdn.net/qq_34333481/article/details/84024513>
+2. 定义：给定两个集合A,B，Jaccard系数定义为A与B交集的大小与A与B并集的大小的比值，定义为$J(A, B) = \frac{|A \cap B|}{|A \cup B|}=\frac{|A \cap B|}{|A| + |B| - |A \cap B|}$。
+3. 对应的Jaccard距离用于描述两个集合之间相似的程度。Jaccard距离越大，样本相似度越低。$d_j(A, B) = 1 - J(A, B) = \frac{|A \cup B| - |A \cap B|}{|A \cup B|}$。
+4. 性质$J(A, B) \in [0,1]$。
+5. 具体而言：
+   1. 对于集合而言，可以用样本的个数来描述$J(A,B)$，也就是交集的样本个数和并集样本个数的比值。
+   2. 对于向量而言，
+
+### 余弦相似度
+
+1. 参考<https://blog.csdn.net/zz_dd_yy/article/details/51926305>
+2. 余弦值越接近1，就表明夹角越接近0度，也就是两个向量越相似，这就叫"余弦相似性"。
+3. 对于两个向量$\vec{X}=\{x_1,x_2,\cdots, x_n\}, \vec{Y}= \{y_1,y_2,\cdots, y_n\}$而言，它们的余弦相似度为$\cos \theta = \frac{\sum \limits_{i=1}^{n}(x_i \times y_i)}{\sqrt{\sum \limits_{i=1}^{n}(x_i)^2} \times \sqrt{\sum \limits_{i=1}^{n}(y_i)^2}}$。
+4. 举例
+   $$
+   \begin{aligned}
+      & \vec{X}=\{1,1,2,1,1,1,0,0,0\}, \vec{Y}= \{1,1,1,0,1,1,1,1,1\} \\
+      & \cos \theta = \frac{1 \times 1 + 1 \times 1 + 2 \times 1 + 1 \times 0 + 1 \times 1 + 1 \times 1 + 0 \times 1 + 0 \times 1+ 0 \times 1}{\sqrt{ 1^2 + 1^2 + 2^2 + 1^2 + 1^2 + 1^2 + 0^2 + 0^2 + 0^2} \times \sqrt{ 1^2 + 1^2 + 1^2 + 0^2 + 1^2 + 1^2 + 1^2 + 1^2 + 1^2}} \\
+      & = \frac{6}{\sqrt{7} \times \sqrt{8}} \\
+      & \approx 0.81 \\
+   \end{aligned}
+   $$
+
 
 ## 问题
 
