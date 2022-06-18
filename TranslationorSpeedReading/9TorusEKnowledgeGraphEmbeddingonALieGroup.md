@@ -99,7 +99,7 @@ $$\mathcal{L}=\sum\limits_{(h,r,t)\in \Delta}\sum\limits_{(h',r,t')\in \Delta_{(
 其中$[x]_+$表示x的正向部分，并且$\gamma>0$是一个margin超参数。TransE通过随机梯度下降来训练。
 
 如果实体和关系都被键入到一个真实的向量空间中，三个部分都是必要的。尽管原理和正则化在训练期间是互相矛盾的，因此对于每个$e\in E \text{并且}r \in R, \, \boldsymbol{e}+\boldsymbol{R} \notin S^{n-1}$几乎一直保持不变。因此，在大多数环境下，很少实现原理$\boldsymbol{h}+\boldsymbol{r}=\boldsymbol{t}$，如图1所示。![当$n$等于2时TransE获取嵌入图。它假设$(A,r,A'),(B,r,B')$和$(C,r,C')$保持不变](../pictures/TorusE_Figure1.png "当$n$等于2时TransE获取嵌入图。它假设$(A,r,A'),(B,r,B')$和$(C,r,C')$保持不变")
-在图中，它假设$(A,r,A'),(B,r,B')$和$(C,r,C')$保持不变。点表示实体的嵌入，箭头表示$r$的嵌入。得到$(A,r,A')$的嵌入，使它们完全遵循这一原理。尽管，$\boldsymbol{B}+\boldsymbol{r}$和$\boldsymbol{C}+\boldsymbol{r}$在球的外面，$\boldsymbol{B}'$和$\boldsymbol{C}'$在球上正则化。
+在图中，它假设$(A,r,A'),(B,r,B')$和$(C,r,C')$保持不变。点表示实体的嵌入，箭头表示$r$的嵌入。得到$(A,r,A')$的嵌入，使它们完全遵循这一原理。尽管，$\boldsymbol{B}+\boldsymbol{r}$和$\boldsymbol{C}+\boldsymbol{r}$在球的外面，$\boldsymbol{B}'$和$\boldsymbol{C}'$在球上正则化。（在图1中，这个环就是TransE的嵌入空间。可以明确的看到：通过A到A’的映射关系f，使得B和C使用同样映射时得到的关系并不在圆环之上。而为了使得B和C使用映射f是的结果也在环上，需要做出不符合h+t=r的调整。作者认为这就是TransE存在的问题。作者将映射空间修改为了图3所示的空间。新的映射关系可以在将通过A到A’的映射关系f’时，同时保持B和C的映射依然在李群上。）
 
 正则化扭曲了嵌入表征，并且它们不满足原理。因此，它很难更准确的预测新的三元组。
 
