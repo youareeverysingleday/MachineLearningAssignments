@@ -219,8 +219,8 @@ $$
     𝑃(m_{i}|X, E_{ij}) & = \frac{𝑃(X, E_{ij}|m_{i})P(m_i)}{P(X, E_{ij})} \\
     & = \frac{𝑃(X|m_{i})𝑃(E_{ij}|m_{i})P(m_i)}{P(X)P(E_{ij})} \\
     & = \frac{𝑃(m_{i}|X)P(X)}{P(m_i)} \cdot \frac{𝑃(m_{i}|E_{ij})P(E_{ij})}{P(m_i)} \cdot \frac{𝑃(m_{i})}{P(X)P(E_{ij})} \\
-    & = \frac{𝑃(m_{i}|X)P(m_i|(E_{ij})}{P(m_i)} \tag{8}
-\end{align}
+    & = \frac{𝑃(m_{i}|X)P(m_i|(E_{ij})}{P(m_i)} 
+\end{align} \tag{8}
 $$
 
 图10显示了如何在转换后计算等式（8）的每个元素![先验概率增强方法](../pictures/UnderstandingMobilityBasedonGPSDataFigure10.png "先验概率增强方法")。正如我们所见，$𝑃(m_{i}|E_{ij})$和$𝑃(m_{i})$可以从多个用户的数据集汇总，而$𝑃(m_{i}|X)$很难直接计算，因为X的元素可能并不相互独立。因此，在这项工作中，我们使用由初步推理模型生成的后验概率作为近似替代。从理论上讲，我们在计算方面会面临一些风险$𝑃(m_{i}|X,E_{ij})$假设X和$E_{ij}$面临挑战，以及$𝑃(m_{i}|X)$由近似值替换。因此，我们需要仔细使用它，以确保这种近似计算的有效性。这是我们需要阈值$T_1$和$T_2$的另一个原因。
