@@ -212,6 +212,7 @@
 ||$\times$|\times|一般乘号、乘法、叉|
 ||$\cdot$|\cdot|点乘|
 ||$\ast$|\ast|乘号|
+||$\odot$|\odot|圈乘|
 ||$\circ$|\circ||
 ||$\bigotimes$|\bigotimes|克罗内克积|
 ||$\div$|\div|一般除号|
