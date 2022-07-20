@@ -2,6 +2,41 @@
 
 通过[视频课程](https://www.bilibili.com/video/BV1R4411N78S?p=2)学习推荐系统基础知识笔记。课程网址：<https://www.bilibili.com/video/BV1R4411N78S?p=2>。
 
+## 参考论文
+
+跨域推荐
+01.RecGURU: Adversarial Learning of Generalized User Representations for Cross-Domain Recommendation
+02.Personalized Transfer of User Preferences for Cross-domain Recommendation
+序列推荐
+--get  03.Contrastive Learning for Representation Degeneration Problem in Sequential Recommendation
+--get  04.Heterogeneous Global Graph Neural Networks for Personalized Session-based Recommendation
+去偏推荐
+05.It Is Different When Items Are Older: Debiasing Recommendations When Selection Bias and User Preferences are Dynamic
+06.Fighting Mainstream Bias in Recommender Systems via Local Fine Tuning
+联邦推荐
+07.PipAttack: Poisoning Federated Recommender Systems for Manipulating Item Promotion
+基于图结构的推荐
+--get 08.Profiling the Design Space for Graph Neural Networks based Collaborative Filtering
+--get 09.Modeling Scale-free Graphs with Hyperbolic Geometry for Knowledge-aware Recommendation
+公平性推荐
+10.Enumerating Fair Packages for Group Recommendations
+基于元学习的推荐
+11.Long Short-Term Temporal Meta-learning in Online Recommendation
+基于强化学习的推荐
+12.A Cooperative-Competitive Multi-Agent Framework for Auto-bidding in Online Advertising
+13.Choosing the Best of All Worlds: Accurate, Diverse, and Novel Recommendations through Multi-Objective Reinforcement Learning
+
+1、Wide & Deep Learning for Recommender Systems
+2、DeepFM: A Factorization-Machine based Neural Network for CTR Prediction
+3、Neural Factorization Machines for Sparse Predictive Analytics
+4、FiBiNET: Combining Feature Importance and Bilinear Feature Interaction for Click-Through Rate
+5、Attentional Factorization Machines
+6、AutoInt: Automatic Feature Interaction Learning via Self-Attentive Neural Networks
+7、Deep & Cross Network for Ad Click Predictions
+8、xDeepFM: Combining Explicit and Implicit Feature Interactions for Recommender Systems
+9、Neural Collaborative Filtering
+10、Deep Interest Network for Click-Through Rate Prediction
+
 ## 1. 课程介绍
 
 1. 推荐系统概述
